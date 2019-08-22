@@ -28,6 +28,11 @@ int main() {
 	float * l; //define a pointer to a float variable
 	p = reinterpret_cast<int*>(l); //converts the type of data to which the pointer in pointing
 	//in this example it converts the type of pointer in l from a float pointer to an integer pointer, and stores it in p;
+
+	p = new int[10000000]; // dynamically allocate an array of 10000000 elements (int) to p to points to
+	delete [] p; // delete that array
+
+
 	return 0;
 
 
