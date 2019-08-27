@@ -29,5 +29,12 @@ struct node // each linkedlist element is called a node
 int main() // pointers review & passing by value v reference
 {
 	node * head = new node; // dynamically allocate the head of the linked list which is made of nodes
+
+	//we want now to define the data in the linked list element to "shahaf dan"
+	head -> data = "shahaf dan"; // by using the operator -> we can refer to the member of the struct
+	// the data member of type string in the first member of the linked list (called head) will contain "shahaf dan"
+
+	//now we want to end the linked list. We do this by defining the pointer to the end and assigning the value of it to null
+	head -> next = nullptr; // when assigning a null to a pointer we assign a nullptr
 }
 
