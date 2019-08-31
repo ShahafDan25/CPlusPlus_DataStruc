@@ -54,7 +54,7 @@ using namespace std;
 		return;
 	}
 
-	void binaryToDecimal(string bin) //works
+	void binaryToDecimal(string bin) //works!
 	{
 		//convert the string first to an array
 		int length = bin.size();
@@ -67,7 +67,6 @@ using namespace std;
 		for(int i = sizeof(binCarr) - 2; i >= 0; i--)
 		{
 			dec += (binCarr[i] - '0') * (pow(2, count));
-			cout << binCarr[i] - '0' << " " << (pow(2, count)) << endl;
 			count ++;
 		}
 
@@ -107,7 +106,7 @@ using namespace std;
 		return;
 	}
 
-	void hexToDecimal(string hex)
+	void hexToDecimal(string hex) //works
 	{
 		int dec = 0;
 		int count = 0;
@@ -117,12 +116,24 @@ using namespace std;
 		hex.copy (hexCarr, length + 1);
 		hexCarr[length] = '\0';
 
-		for(int i = sizeof(hexCarr) - 1; i > 0; i--)
+		int index = 0;
+
+		for(int i = sizeof(hexCarr) - 2; i >= 0; i--)
 		{
-			dec += hexCarr[i] * (16 ^ count);
+			//check for index value in hex values array
+			for( int h = 0; h < sizeof(hexValues); h++)
+			{
+				if(hexValues[h] == hexCarr[i])
+				{
+					index = h;
+					break; //break the loop
+				}
+			}
+
+			dec += (index) * (pow(16, count));
 			count ++;
 		}
-		cout << "hex: " << hex << "To Decimal Is: " << dec << endl;
+		cout << "hex: " << hex << " to decimal is: " << dec << endl;
 		return;
 	}
 
@@ -132,11 +143,11 @@ int main()
 {
 	cout << "Choose From Menu" << endl;
 	cout << "1) Decimal To Binary \n 2) Binary To Decimal \n 3) Decimal to Hex \n 4) Hex to Decimal \n 9) Exit Program" << endl;
-	int answer = 0;
+	string answer = "";
 	cin >> answer;
-	while(answer != 9)
+	while(answer != "9")
 	{
-		if(answer == 1)
+		if(answer == "1")
 		{
 			cout << "let's convert decimal to binary" << endl;
 			cout << "Enter a decimal number please" << endl;
@@ -151,7 +162,7 @@ int main()
 				decimalToBinary(value);
 			}
 		}// end if scenario 1
-		else if(answer == 2)
+		else if(answer == "2")
 		{
 			bool invalid = false; //coming from the assumption that the value is valid
 			cout << "Let's convert binary to decimal" << endl;
@@ -188,7 +199,7 @@ int main()
 				}
 			}
 		}
-		else if(answer == 3)
+		else if(answer == "3")
 		{
 			cout << "let's convert decimal to hexa" << endl;
 			cout << "enter your decimal number" << endl;
@@ -204,9 +215,9 @@ int main()
 				decimalToHex(value);
 			}// end else
 		}
-		else if(answer == 4)
+		else if(answer == "4")
 		{
-			bool notHex = false;
+			bool invalid = true; //coming from the assumption the the value is  invalid
 			cout << "let's convert hexa to decimal" << endl;
 			cout << "enter you hexaDecimal value" << endl;
 			string value;
@@ -230,21 +241,17 @@ int main()
 					{
 						if(valueCarr[i] == hexValues[j]) // MAY NOT BE RIGHT - IF STATEMENT LOCATION MAY NOT BE RIGHT
 						{
-							notHex = false;
-						}
-						else
-						{
-							notHex = true;
-							break;
-						} //end of boolean else
+							invalid = false;
+						}// end of check for validity inner if statement
+
 					}// end of inner for
-					if(notHex)
+					if(invalid ) // if still invalid, break the loop
 					{
 						break;
 					} //end of if
 				}// end of outer for
 
-				if(notHex)
+				if(invalid)
 				{
 					cout << "Your hexaDecimal Value is invalid, going back to menu" << endl;
 
