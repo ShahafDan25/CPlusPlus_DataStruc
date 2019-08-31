@@ -9,6 +9,7 @@
 #include <iostream>
 #include <string>
 #include<iomanip>
+#include <cmath>
 using namespace std;
 
 // hex array
@@ -16,9 +17,11 @@ using namespace std;
 
 
 // have different functions for different actions;
-	void decimalToBinary(int dec)
+	void decimalToBinary(int dec) //works!
 	{
+		cout << endl << "value entered in valid" << endl;
 		string bin = "";
+		string revBin = "";
 		string oldDec = to_string(dec);
 		int r;
 		while(dec != 0)
@@ -35,31 +38,44 @@ using namespace std;
 			}
 		}// end of while
 
-		cout << "Decimal " << oldDec << "convert into binary: " <<  bin << endl; //FLIPPED
+		int length = bin.size();
+		char binCarr[length + 1];
+		bin.copy (binCarr, length + 1);
+		binCarr[length] = '\0';
+
+		for(int y = sizeof(binCarr)-1; y >= 0; y--)
+		{
+			revBin += binCarr[y];
+		}
+
+
+		cout << "Decimal " << oldDec << " convert into binary: " <<  revBin << endl;
+		cout << endl;//FLIPPED
 		return;
 	}
 
-	void binaryToDecimal(string bin) //REVIEW
+	void binaryToDecimal(string bin) //works
 	{
 		//convert the string first to an array
 		int length = bin.size();
 		char binCarr[length + 1];
 		bin.copy (binCarr, length + 1);
 		binCarr[length] = '\0';
-
-		int dec;
+		cout << binCarr << endl;
+		int dec = 0;
 		int count = 0;
-		for(int i = sizeof(binCarr) - 1; i > 0; i--)
+		for(int i = sizeof(binCarr) - 2; i >= 0; i--)
 		{
-			dec = binCarr[i] ^ count;
+			dec += (binCarr[i] - '0') * (pow(2, count));
+			cout << binCarr[i] - '0' << " " << (pow(2, count)) << endl;
 			count ++;
 		}
 
-		cout << "Binary " << bin << "converted to decimal is: " <<  to_string(dec) << endl;
+		cout << "Binary " << bin << " converted to decimal is: " <<  to_string(dec) << endl;
 				return;
 	}
 
-	void decimalToHex(int dec)
+	void decimalToHex(int dec) //works!
 	{
 		string hex = "";
 		string revHex = "";
@@ -137,7 +153,7 @@ int main()
 		}// end if scenario 1
 		else if(answer == 2)
 		{
-			bool notBin = false;
+			bool invalid = false; //coming from the assumption that the value is valid
 			cout << "Let's convert binary to decimal" << endl;
 			cout << "enter your binary number" << endl;
 			string value;
@@ -146,20 +162,29 @@ int main()
 			{
 				cout << "you entered a binary number longer than 8 bits, going back to menu" << endl;
 			} // end if length
-			else
+			else // if size of string is ok
 			{
-				for(int i = 1; i < value.size(); i++) //checking for validity
+				//first convert to array of characters
+				int length = value.size();
+				char valueCarr[length + 1];
+				value.copy (valueCarr, length + 1);
+				valueCarr[length] = '\0';
+
+				//// then check for vlaidity
+				for(int i = 0; i < sizeof(valueCarr); i++) //checking for validity
 				{
-					if(!(value.substr(i-1,1) == "1" || value.substr(i-1,i) == "0"))
+					if(valueCarr[i] > '1' )
 					{
-						cout << "Binary number not valid" << endl;
-						notBin = true;
-						break;
-					} // end if in for
+						invalid = true;
+					}
 				}//end for
-				if(!notBin) //call function, bin is valid
+				if(!invalid) //call function, bin is valid
 				{
 					binaryToDecimal(value);
+				}
+				else
+				{
+					cout << "value is invalid, going back to menu" << endl;
 				}
 			}
 		}
