@@ -38,6 +38,10 @@ using namespace std;
 
 		return dec;
 	}
+
+
+// hex array
+	char hexValues[16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 // main function
 int main()
 {
@@ -108,6 +112,7 @@ int main()
 		}
 		else if(answer == 4)
 		{
+			bool notHex = false;
 			cout << "let's convert hexa to decimal" << endl;
 			cout << "enter you hexaDecimal value" << endl;
 			string value;
@@ -116,15 +121,49 @@ int main()
 			{
 				cout << "value too long, going back to menu" << endl;
 			}
-			else // meaning value is in the right length
+			else // meaning value is in the right size
 			{
+				//first convert the string to an array of characters
+				int length = value.size();
+				char valueCarr[length + 1];
+				value.copy (valueCarr, length + 1);
+				valueCarr[length] = '\0';
 
-			}
-			//1. check for validity through travesring two arrays
-			//2. check for 4 digits
+				// check for character validity now
+				for(int i = 0; i < sizeof(valueCarr); i++) //traverse trough characters of the string value
+				{
+					for(int j = 0; j < sizeof(hexValues); j++) //traverse through arrays of hex values
+					{
+						if(valueCarr[i] == hexValues[j])
+						{
+							notHex = false;
+						}
+						else
+						{
+							notHex = true;
+							break;
+						} //end of boolean else
+					}// end of inner for
+					if(notHex)
+					{
+						break;
+					} //end of if
+				}// end of outer for
+
+				if(notHex)
+				{
+					cout << "Your hexaDecimal Value is invalid, going back to menu" << endl;
+
+				}
+				else //calling function
+				{
+					hexToDecimal(value);
+				}
+			} // end of else = end of assuming array in the right size
+
 
 		}
-		else
+		else //else, if the number enteres is not 1,2,3,4 or 9
 		{
 			cout << "your answer is not valid, enter again" << endl;
 		}
