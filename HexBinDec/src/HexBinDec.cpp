@@ -271,6 +271,7 @@ int main()
 
 
 		// represent the menu again
+		cout << endl << "------------------------" << endl;
 		cout << "1) Decimal To Binary \n 2) Binary To Decimal \n 3) Decimal to Hex \n 4) Hex to Decimal \n 9) Exit Program" << endl;
 		cin >> answer;
 	} // end of while / program
