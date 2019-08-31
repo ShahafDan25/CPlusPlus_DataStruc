@@ -8,14 +8,34 @@
 
 #include <iostream>
 #include <string>
+#include<iomanip>
 using namespace std;
 
-// have different functions for different actions;
-	string decimalToBinary(string dec)
-	{
-		string bin;
+// hex array
+	char hexValues[16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
-		return bin;
+
+// have different functions for different actions;
+	void decimalToBinary(int dec)
+	{
+		string bin = "";
+		int r;
+		while(dec != 0)
+		{
+			r = dec % 2;
+			dec = dec / 2;
+			if(r == 1)
+			{
+				bin += "1";
+			}
+			else
+			{
+				bin += "0";
+			}
+		}// end of while
+
+		cout << "Decimal " << dec << "convert into binary: " <<  bin << endl; //FLIPPED
+		return;
 	}
 
 	string binaryToDecimal(string bin)
@@ -25,11 +45,17 @@ using namespace std;
 		return dec;
 	}
 
-	string decimalToHex(string dec)
+	void decimalToHex(int dec)
 	{
-		string hex;
-
-		return hex;
+		string hex = "";
+		int r;
+		while(dec != 0)
+		{
+			r = dec % 16;
+			dec = dec / 16;
+			hex += hexValues[r];
+		}
+		return;
 	}
 
 	string hexToDecimal(string hex)
@@ -40,8 +66,6 @@ using namespace std;
 	}
 
 
-// hex array
-	char hexValues[16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 // main function
 int main()
 {
@@ -63,7 +87,7 @@ int main()
 			}
 			else
 			{
-				decimalToBinary(to_string(value));
+				decimalToBinary(value);
 			}
 		}// end if scenario 1
 		else if(answer == 2)
@@ -107,7 +131,7 @@ int main()
 			else
 			{
 				//call function
-				decimalToHex(to_string(value));
+				decimalToHex(value);
 			}// end else
 		}
 		else if(answer == 4)
@@ -134,7 +158,7 @@ int main()
 				{
 					for(int j = 0; j < sizeof(hexValues); j++) //traverse through arrays of hex values
 					{
-						if(valueCarr[i] == hexValues[j])
+						if(valueCarr[i] == hexValues[j]) // MAY NOT BE RIGHT - IF STATEMENT LOCATION MAY NOT BE RIGHT
 						{
 							notHex = false;
 						}
