@@ -10,84 +10,132 @@
 #include <string>
 using namespace std;
 
+// have different functions for different actions;
+	string decimalToBinary(string dec)
+	{
+		string bin;
+
+		return bin;
+	}
+
+	string binaryToDecimal(string bin)
+	{
+		string dec;
+
+		return dec;
+	}
+
+	string decimalToHex(string dec)
+	{
+		string hex;
+
+		return hex;
+	}
+
+	string hexToDecimal(string hex)
+	{
+		string dec;
+
+		return dec;
+	}
+// main function
 int main()
 {
-	cout << "Convert from one base to another" << endl;
-	string fromBase = "";
-	char HexBase [16] = {'0', '1', '2', '3' ,'4','5','6','7','8','9','A','B','C','D','E','F'};
-	bool badValue = false;
-	bool rightBase = false;
-	while(!rightBase)
+	cout << "Choose From Menu" << endl;
+	cout << "1) Decimal To Binary \n 2) Binary To Decimal \n 3) Decimal to Hex \n 4) Hex to Decimal \n 9) Exit Program" << endl;
+	int answer = 0;
+	cin >> answer;
+	while(answer != 9)
 	{
-		cout << "Select the base you would like to convert from (Hex or Bin) to Decimal" << endl;
-		cin >> fromBase;
-		if(fromBase == "Hex" || fromBase == "Bin")
+		if(answer == 1)
 		{
-			rightBase = true;
-		}
-	}
-
-	string value = "";
-	cout << "enter your value " << endl;
-	cin >>  value;
-	int length = 0;
-	bool exists;
-	//char baseValue[length];
-	while (badValue) //check if the input value is valid
-	{
-		//first convert to character array from string
-		length = value.size();
-		char baseValue[length +1 ];
-		value.copy(baseValue, length +1 );
-		baseValue[length] = '\0';
-
-		//check for bin or hex
-		if(fromBase == "Hex")
-		{
-			for( int i = 0; i < sizeof(baseValue) ; i++) //traverse through the characters of the entered value
+			cout << "let's convert decimal to binary" << endl;
+			cout << "Enter a decimal number please" << endl;
+			int value;
+			cin >> value;
+			if(value < 0)
 			{
-				for(int j = 0; j < sizeof(HexBase); j++)
+				cout << "you entered a negative number, going back to menu" << endl;
+			}
+			else
+			{
+				decimalToBinary(to_string(value));
+			}
+		}// end if scenario 1
+		else if(answer == 2)
+		{
+			bool notBin = false;
+			cout << "Let's convert binary to decimal" << endl;
+			cout << "enter your binary number" << endl;
+			string value;
+			cin >> value;
+			if(value.size() > 8)
+			{
+				cout << "you entered a binary number longer than 8 bits, going back to menu" << endl;
+			} // end if length
+			else
+			{
+				for(int i = 1; i < value.size(); i++) //checking for validity
 				{
-					exists = find(begin(HexBase), end(HexBase), baseValue[i]);
-					if(!exists)
+					if(!(value.substr(i-1,1) == "1" || value.substr(i-1,i) == "0"))
 					{
+						cout << "Binary number not valid" << endl;
+						notBin = true;
 						break;
-					}
-
-				}
-				if(exists)
+					} // end if in for
+				}//end for
+				if(!notBin) //call function, bin is valid
 				{
-					badValue = false;
-					break;
+					binaryToDecimal(value);
 				}
 			}
 		}
-		else if(fromBase == "Bin")
+		else if(answer == 3)
 		{
-			for(int i = 0; i < sizeof(baseValue); i++)
+			cout << "let's convert decimal to hexa" << endl;
+			cout << "enter your decimal number" << endl;
+			int value;
+			cin >> value;
+			if(value < 0)
 			{
-				if(baseValue[i] != '1' || baseValue[i] != '0')
-				{
-					badValue = true;
-					exists = true;
-				}
-			}
-			if(exists)
+				cout << "value is negative and therefore invalid; Going back to menu" << endl;
+			}//end conditioning if
+			else
 			{
-				badValue = false;
-				break;
-			}
+				//call function
+				decimalToHex(to_string(value));
+			}// end else
 		}
-	}
+		else if(answer == 4)
+		{
+			cout << "let's convert hexa to decimal" << endl;
+			cout << "enter you hexaDecimal value" << endl;
+			string value;
+			cin >> value;
+			if(value.size() > 4)
+			{
+				cout << "value too long, going back to menu" << endl;
+			}
+			else // meaning value is in the right length
+			{
+
+			}
+			//1. check for validity through travesring two arrays
+			//2. check for 4 digits
+
+		}
+		else
+		{
+			cout << "your answer is not valid, enter again" << endl;
+		}
 
 
-	for(int i = 0 ; i < sizeof(baseValue); i++)
-	{
-		cout << baseValue[i] << endl;
-	}
+		// represent the menu again
+		cout << "1) Decimal To Binary \n 2) Binary To Decimal \n 3) Decimal to Hex \n 4) Hex to Decimal \n 9) Exit Program" << endl;
+		cin >> answer;
+	} // end of while / program
 
-
-
+	cout << "You exited the program, goodbye!" << endl;
 
 	return 0;
-}
+}// end of main
