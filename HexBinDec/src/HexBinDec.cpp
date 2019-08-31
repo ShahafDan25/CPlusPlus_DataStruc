@@ -46,6 +46,7 @@ using namespace std;
 		char binCarr[length + 1];
 		bin.copy (binCarr, length + 1);
 		binCarr[length] = '\0';
+
 		int dec;
 		int count = 0;
 		for(int i = sizeof(binCarr) - 1; i > 0; i--)
@@ -61,6 +62,7 @@ using namespace std;
 	void decimalToHex(int dec)
 	{
 		string hex = "";
+		string revHex = "";
 		string oldDec = to_string(dec);
 		int r;
 		while(dec != 0)
@@ -70,8 +72,22 @@ using namespace std;
 			hex += hexValues[r];
 		}
 
-		//REVERSES HEX
-		cout << "decimal " << oldDec <<  " to hex is " << hex << endl;
+		//REVERSES HEX STRING
+			//1. convert to char array
+			//2. for loops to traverse backwards
+			//3. build revHex string;
+		int length = hex.size();
+		char hexCarr[length + 1];
+		hex.copy (hexCarr, length + 1);
+		hexCarr[length] = '\0';
+
+		for(int y = sizeof(hexCarr)-1; y >= 0; y--)
+		{
+			revHex += hexCarr[y];
+		}
+
+		//PRINT
+		cout << "decimal " << oldDec <<  " to hex is " << revHex << endl;
 		return;
 	}
 
