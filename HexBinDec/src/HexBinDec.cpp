@@ -19,6 +19,7 @@ using namespace std;
 	void decimalToBinary(int dec)
 	{
 		string bin = "";
+		string oldDec = to_string(dec);
 		int r;
 		while(dec != 0)
 		{
@@ -34,20 +35,33 @@ using namespace std;
 			}
 		}// end of while
 
-		cout << "Decimal " << dec << "convert into binary: " <<  bin << endl; //FLIPPED
+		cout << "Decimal " << oldDec << "convert into binary: " <<  bin << endl; //FLIPPED
 		return;
 	}
 
-	string binaryToDecimal(string bin)
+	void binaryToDecimal(string bin) //REVIEW
 	{
-		string dec;
+		//convert the string first to an array
+		int length = bin.size();
+		char binCarr[length + 1];
+		bin.copy (binCarr, length + 1);
+		binCarr[length] = '\0';
+		int dec;
+		int count = 0;
+		for(int i = sizeof(binCarr) - 1; i > 0; i--)
+		{
+			dec = binCarr[i] ^ count;
+			count ++;
+		}
 
-		return dec;
+		cout << "Binary " << bin << "converted to decimal is: " <<  to_string(dec) << endl;
+				return;
 	}
 
 	void decimalToHex(int dec)
 	{
 		string hex = "";
+		string oldDec = to_string(dec);
 		int r;
 		while(dec != 0)
 		{
@@ -55,14 +69,29 @@ using namespace std;
 			dec = dec / 16;
 			hex += hexValues[r];
 		}
+
+		//REVERSES HEX
+		cout << "decimal " << oldDec <<  " to hex is " << hex << endl;
 		return;
 	}
 
-	string hexToDecimal(string hex)
+	void hexToDecimal(string hex)
 	{
-		string dec;
+		int dec = 0;
+		int count = 0;
+		//convert the hex string to a char array
+		int length = hex.size();
+		char hexCarr[length +1];
+		hex.copy (hexCarr, length + 1);
+		hexCarr[length] = '\0';
 
-		return dec;
+		for(int i = sizeof(hexCarr) - 1; i > 0; i--)
+		{
+			dec += hexCarr[i] * (16 ^ count);
+			count ++;
+		}
+		cout << "hex: " << hex << "To Decimal Is: " << dec << endl;
+		return;
 	}
 
 
