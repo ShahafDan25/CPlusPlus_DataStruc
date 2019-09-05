@@ -92,6 +92,8 @@ int list_length(LLnode * &llh) //v
 
 string retrieve_front (LLnode * &llh)
 {
+	if(!llh)
+		throw string ("Exception at retrieve back");
 	return (llh -> theData);
 }
 
@@ -99,6 +101,8 @@ string retrieve_back (LLnode * &llh)
 {
 	LLnode * trav = new LLnode;
 	trav = llh; // that way we do not hurt llh
+	if(!llh)
+		throw string ("Exception at retrieve back");
 	while(trav -> fwdPtr)
 	{
 		trav = trav -> fwdPtr;
