@@ -32,6 +32,11 @@ public:
 	string retrieve_back ();
 	void display_list();
 	LL();
+
+	//PART 3 FUNCTIOn
+	void destroy_list();
+	bool search_list(string data);
+	bool delete_node(string value);
 };
 
 
