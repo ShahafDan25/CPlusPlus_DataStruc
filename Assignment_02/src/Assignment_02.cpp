@@ -13,7 +13,7 @@ using namespace std;
 
 
 //MAIN #_1
-int main() {
+/*int main() {
 
 	LL ll1;
 	cout << "length of empty list - " << ll1.list_length() << endl;
@@ -36,10 +36,10 @@ int main() {
 	ll2.display_list();
 
 	return 0;
-}
+}*/
 
 //MAIN #_2
-/*
+
 int main() {
 
 	LL <string> ll1;
@@ -68,7 +68,7 @@ int main() {
 	ll2.display_list();
 
 	return 0;
-}*/
+}
 
 //MAIN #_3
 /*int main() {

@@ -12,21 +12,21 @@
 #include <string>
 #include <iomanip>
 using namespace std;
-
+template <class dataType>
 class LL
 {
 private:
 	struct LLnode
 	{
 
-		string theData;
+		dataType theData;
 		LLnode * fwdPtr;
 	};
 
 	LLnode * llh;
 public:
-	void push_front( string newData);
-	void push_back( string newData);
+	void push_front( const dataType & newData);
+	void push_back( const dataType & newData);
 	int list_length();
 	string retrieve_front ();
 	string retrieve_back ();
@@ -35,8 +35,8 @@ public:
 
 	//PART 3 FUNCTIOn
 	void destroy_list();
-	bool search_list(string data);
-	bool delete_node(string value);
+	bool search_list(const dataType & data);
+	bool delete_node(const dataType & value);
 };
 
 

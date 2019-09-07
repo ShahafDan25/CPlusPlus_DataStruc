@@ -11,7 +11,8 @@
 #include <iostream>
 using namespace std;
 
-void LL::push_front( string newData)
+template <class dataType>
+void LL<dataType>::push_front( const dataType & newData)
 {
 	if(!llh)
 	{
@@ -31,7 +32,8 @@ void LL::push_front( string newData)
 	}
 }
 
-void LL::push_back( string newData)
+template <class dataType>
+void LL<dataType>::push_back( const dataType & newData)
 {
 
 	LLnode * trav = new LLnode;
@@ -58,7 +60,8 @@ void LL::push_back( string newData)
 
 }
 
-int LL::list_length() //v
+template <class dataType>
+int LL<dataType>::list_length() //v
 {
 	int count = 0;
 	LLnode * trav = new LLnode;
@@ -79,14 +82,16 @@ int LL::list_length() //v
 
 }
 
-string LL::retrieve_front ()
+template <class dataType>
+string LL<dataType>::retrieve_front ()
 {
 	if(!llh)
 		throw string ("Exception at retrieve back");
 	return (llh -> theData);
 }
 
-string LL::retrieve_back ()
+template <class dataType>
+string LL<dataType>::retrieve_back ()
 {
 	LLnode * trav = new LLnode;
 	trav = llh; // that way we do not hurt llh
@@ -100,7 +105,8 @@ string LL::retrieve_back ()
 
 }
 
-void LL::display_list() //v
+template <class dataType>
+void LL<dataType>::display_list() //v
 {
 	LLnode * trav = new LLnode;
 	trav = llh;
@@ -122,14 +128,16 @@ void LL::display_list() //v
 }
 
 // default constructor
-LL::LL()
+template <class dataType>
+LL<dataType>::LL()
 {
 	llh = nullptr;
 
 }
 
 //PART 3 FUNCTION
-void LL::destroy_list()
+template <class dataType>
+void LL<dataType>::destroy_list()
 {
 	if(!llh)
 	{
@@ -146,7 +154,8 @@ void LL::destroy_list()
 	llh = nullptr;
 }
 
-bool LL::search_list(string data)
+template <class dataType>
+bool LL<dataType>::search_list(const dataType & data)
 {
 
 	bool found = false;
@@ -172,7 +181,8 @@ bool LL::search_list(string data)
 
 }
 
-bool LL::delete_node(string value)
+template <class dataType>
+bool LL<dataType>::delete_node(const dataType & value)
 {
 
 
