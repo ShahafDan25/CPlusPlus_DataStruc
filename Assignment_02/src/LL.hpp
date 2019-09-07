@@ -11,6 +11,7 @@
 
 #include <string>
 #include <iomanip>
+#include <set>
 using namespace std;
 template <class dataType>
 class LL
@@ -25,8 +26,8 @@ private:
 
 	LLnode * llh;
 public:
-	void push_front( const dataType & newData);
-	void push_back( const dataType & newData);
+	void push_front( dataType newData);
+	void push_back( dataType newData);
 	int list_length();
 	string retrieve_front ();
 	string retrieve_back ();
@@ -35,8 +36,8 @@ public:
 
 	//PART 3 FUNCTIOn
 	void destroy_list();
-	bool search_list(const dataType & data);
-	bool delete_node(const dataType & value);
+	bool search_list(dataType data);
+	bool delete_node(dataType value);
 };
 
 

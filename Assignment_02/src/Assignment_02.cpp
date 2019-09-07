@@ -8,6 +8,8 @@
 
 #include <iostream>
 #include "LL.hpp"
+#include "LL.cpp"
+#include <set>
 using namespace std;
 //nothing but the main function here, test out three different mains!
 
@@ -39,7 +41,7 @@ using namespace std;
 }*/
 
 //MAIN #_2
-
+/*
 int main() {
 
 	LL <string> ll1;
@@ -68,10 +70,10 @@ int main() {
 	ll2.display_list();
 
 	return 0;
-}
+}*/
 
 //MAIN #_3
-/*int main() {
+int main() {
 
 	LL <string> ll1;
 	cout << "main: length of empty list - " << ll1.list_length() << endl;
@@ -151,4 +153,4 @@ int main() {
 	ll2.destroy_list();
 
 	return 0;
-}*/
+}

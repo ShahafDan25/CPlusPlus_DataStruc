@@ -9,10 +9,11 @@
 #include <iomanip>
 #include <string>
 #include <iostream>
+#include <set>
 using namespace std;
 
 template <class dataType>
-void LL<dataType>::push_front( const dataType & newData)
+void LL<dataType>::push_front( dataType newData)
 {
 	if(!llh)
 	{
@@ -33,7 +34,7 @@ void LL<dataType>::push_front( const dataType & newData)
 }
 
 template <class dataType>
-void LL<dataType>::push_back( const dataType & newData)
+void LL<dataType>::push_back( dataType newData)
 {
 
 	LLnode * trav = new LLnode;
@@ -124,7 +125,6 @@ void LL<dataType>::display_list() //v
 		}
 	}
 	cout << endl;
-
 }
 
 // default constructor
@@ -132,7 +132,6 @@ template <class dataType>
 LL<dataType>::LL()
 {
 	llh = nullptr;
-
 }
 
 //PART 3 FUNCTION
@@ -155,7 +154,7 @@ void LL<dataType>::destroy_list()
 }
 
 template <class dataType>
-bool LL<dataType>::search_list(const dataType & data)
+bool LL<dataType>::search_list(dataType data)
 {
 
 	bool found = false;
@@ -178,11 +177,10 @@ bool LL<dataType>::search_list(const dataType & data)
 		trav = trav -> fwdPtr;
 	}
 	return found;
-
 }
 
 template <class dataType>
-bool LL<dataType>::delete_node(const dataType & value)
+bool LL<dataType>::delete_node(dataType value)
 {
 
 
@@ -215,8 +213,5 @@ bool LL<dataType>::delete_node(const dataType & value)
 		}
 		trav = trav -> fwdPtr;
 	}
-
-
 	return false;
-
 }
