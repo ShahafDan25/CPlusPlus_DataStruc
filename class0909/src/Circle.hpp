@@ -21,6 +21,8 @@ public:
 	void calcArea();
 	void setRadius(float);
 	float getArea();
+	Circle(); //constructor declaration
+	~Circle(); //destructor declaration
 };
 
 
