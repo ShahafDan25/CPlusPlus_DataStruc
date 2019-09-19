@@ -10,11 +10,12 @@
 using namespace std;
 #include <iomanip>
 #include <string>
+#include <cmath>
 
 //function declarations
 int fact(int value);
 int fib (int value);
-int primeHelper(int value);
+bool primeChecker(int value);
 void prime(int value);
 //function definitions
 int fact(int value) //FACTORIAL FUNCTION
@@ -43,20 +44,49 @@ int fib(int value)
 	{
 		return fib(value - 1) + fib(value - 2);
 	}
+}
 
+
+void primeChecker(int number,int value) //determines if number variable is prime
+{
+	bool primist = false;
+	if(value >= 1)
+	{
+		//to check if a number is prime, traverse from 2 to the number's suqre root and if it is divisible, then it is not prime
+		for(int i = 2; i <= ((int)(ceil(sqrt(number)))); i++)
+		{
+			if(number % i == 0)
+			{
+				primist = true;
+				//break; //get out of the loop
+			}
+		}
+
+		if(primist)//check if number is prime
+		{
+			// if this is true, the number is not prime
+			primeChecker(number + 1, value); //call the function recursively
+		}
+		else
+		{
+			cout << number << "\t";
+			primeChecker(number + 1, value - 1); //call the function recursively
+		}
+	}
+	else
+	{
+		return;
+	}
 
 }
 
 void prime (int value)
 {
-	int primeNum = 2;
-	while(value > 0)
-	{
-		cout << primeHelper(primeNum) << "\t";
-		value --;
-	}
+	int primer = 2; //first prime value
+	cout << primer << "\t";
 
-
+	primeChecker (primer + 1, value - 1); // this the call to the helper function
+	return;
 }
 
 
@@ -72,7 +102,7 @@ int mult(int x, int y) //works! to change to the power method, change + to * in 
 	}
 }
 
-string reverseString(string value)
+string reverseString(string value) //works
 {
 	string plus = "";
 	if(value.length() > 0)
@@ -83,7 +113,7 @@ string reverseString(string value)
 	else return "";
 }
 
-int countOccurrences(string all, string value)
+int countOccurrences(string all, string value) //works
 {
 	//relying on the fact that value is only a character and not a longer string
 	if(all.length() > 0)
@@ -92,8 +122,6 @@ int countOccurrences(string all, string value)
 		else return countOccurrences(all.substr(1, all.length()), value);
 	}
 	else return 0;
-
-
 }
 
 int main() {
@@ -103,18 +131,18 @@ int main() {
 	cout << "factorial of " << f << " is " << fact(f) << endl << endl;
 
 	//fibonacci
-//	for(count = 0; count < 3; count++)
-//	{
-//		cout << "Fibonacci Sequence number " << count + 1 << " is " << fib(count) << endl;
-//	}
-	cout << "fib(10) =    " << fib(10) << endl;
+	for(count = 0; count < 10; count++)
+	{
+		cout << "Fibonacci Sequence number " << count + 1 << " is " << fib(count + 1) << endl;
+	}
 
 	//primes
 	prime(10);
-
-	int a = 6;
-	int b = 5;
+	//cout << (int)(ceil(sqrt(3))) << endl;
+	//multiplication
+	int a = 6; int b = 5;
 	cout << endl << "product of " << a << " and " << b << " is " << mult(a,b) << endl << endl;
+
 	//string reversal
 	string s = "abcde";
 	cout << "original string " << s << " reversed string " << reverseString(s) << endl << endl;
@@ -123,7 +151,6 @@ int main() {
 	string t = "e";
 	cout << "number of occurrences of " << t[0] << " in " << s << " is " << countOccurrences(s,t) <<  endl;
 
-	//cout << _gcd(45,9) << endl;
 	return 0;
 }
 
