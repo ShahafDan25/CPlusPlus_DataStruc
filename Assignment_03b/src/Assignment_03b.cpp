@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Assignment_03a.cpp
+// Name        : Assignment_03b.cpp
 // Author      : ShahafDan
 // Version     :
 // Copyright   : Your copyright notice
@@ -121,4 +121,3 @@ int main() {
 
 	return 0;
 }
-
