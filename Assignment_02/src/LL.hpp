@@ -29,8 +29,8 @@ public:
 	void push_front( dataType newData);
 	void push_back( dataType newData);
 	int list_length();
-	string retrieve_front ();
-	string retrieve_back ();
+	dataType retrieve_front ();
+	dataType retrieve_back ();
 	void display_list();
 	LL();
 

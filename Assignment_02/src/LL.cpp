@@ -84,7 +84,7 @@ int LL<dataType>::list_length() //v
 }
 
 template <class dataType>
-string LL<dataType>::retrieve_front ()
+dataType LL<dataType>::retrieve_front ()
 {
 	if(!llh)
 		throw string ("Exception at retrieve back");
@@ -92,7 +92,7 @@ string LL<dataType>::retrieve_front ()
 }
 
 template <class dataType>
-string LL<dataType>::retrieve_back ()
+dataType LL<dataType>::retrieve_back ()
 {
 	LLnode * trav = new LLnode;
 	trav = llh; // that way we do not hurt llh
