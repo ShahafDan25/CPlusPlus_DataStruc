@@ -77,6 +77,20 @@ int mult(int x, int y) //works! to change to the power method, change + to * in 
 	}
 }
 
+string reverseString(string value)
+{
+	string plus = "";
+	if(value.length() > 0)
+	{
+		plus = value.substr(value.length() - 1, value.length());
+		return plus + reverseString(value.substr(0, value.length() - 1));
+	}
+	else
+	{
+		return "";
+	}
+}
+
 int main() {
 	int count;
 	int f = 5;
