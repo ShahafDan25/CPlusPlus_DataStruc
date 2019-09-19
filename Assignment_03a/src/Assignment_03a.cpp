@@ -15,35 +15,22 @@ using namespace std;
 //function declarations
 int fact(int value);
 int fib (int value);
-bool primeChecker(int value);
+void primeChecker(int number, int value);
 void prime(int value);
+string reverseString(string s);
+int countOccurrences(string s, string t);
 //function definitions
 int fact(int value) //FACTORIAL FUNCTION
 {
-	if(value >= 1)
-	{
-		return value * fact(value - 1);
-	}
-	else
-	{
-		return 1;
-	}
+	if(value >= 1) return value * fact(value - 1);
+	else return 1;
 }
 
 int fib(int value)
 {
-	if(value == 1)
-	{
-		return 0;
-	}
-	else if(value == 2)
-	{
-		return 1;
-	}
-	else
-	{
-		return fib(value - 1) + fib(value - 2);
-	}
+	if(value == 1) return 0;
+	else if(value == 2) return 1;
+	else return fib(value - 1) + fib(value - 2);
 }
 
 
@@ -55,29 +42,16 @@ void primeChecker(int number,int value) //determines if number variable is prime
 		//to check if a number is prime, traverse from 2 to the number's suqre root and if it is divisible, then it is not prime
 		for(int i = 2; i <= ((int)(ceil(sqrt(number)))); i++)
 		{
-			if(number % i == 0)
-			{
-				primist = true;
-				//break; //get out of the loop
-			}
+			if(number % i == 0) primist = true;
 		}
-
-		if(primist)//check if number is prime
-		{
-			// if this is true, the number is not prime
-			primeChecker(number + 1, value); //call the function recursively
-		}
+		if(primist) primeChecker(number + 1, value); //call the function recursively, iterator value shall not change
 		else
 		{
 			cout << number << "\t";
 			primeChecker(number + 1, value - 1); //call the function recursively
 		}
 	}
-	else
-	{
-		return;
-	}
-
+	else return;
 }
 
 void prime (int value)
@@ -92,14 +66,8 @@ void prime (int value)
 
 int mult(int x, int y) //works! to change to the power method, change + to * in line 72 and 0 to 1 in line 76
 {
-	if(y >= 1)
-	{
-		return (x + mult(x,y-1));
-	}
-	else
-	{
-		return 0;
-	}
+	if(y >= 1) return (x + mult(x, y - 1));
+	else return 0;
 }
 
 string reverseString(string value) //works
