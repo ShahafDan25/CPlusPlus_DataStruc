@@ -5,7 +5,7 @@
 // Copyright   : Your copyright notice
 // Description : Hello World in C++, Ansi-style
 //============================================================================
-
+#include<algorithm>
 #include <iostream>
 using namespace std;
 #include <iomanip>
@@ -59,11 +59,6 @@ void prime (int value)
 
 }
 
-int primeHelper(int value)
-{
-
-	return 0; //for now
-}
 
 int mult(int x, int y) //works! to change to the power method, change + to * in line 72 and 0 to 1 in line 76
 {
@@ -85,10 +80,20 @@ string reverseString(string value)
 		plus = value.substr(value.length() - 1, value.length());
 		return plus + reverseString(value.substr(0, value.length() - 1));
 	}
-	else
+	else return "";
+}
+
+int countOccurrences(string all, string value)
+{
+	//relying on the fact that value is only a character and not a longer string
+	if(all.length() > 0)
 	{
-		return "";
+		if(all.substr(0,1) == value) return 1 + countOccurrences(all.substr(1, all.length()), value);
+		else return countOccurrences(all.substr(1, all.length()), value);
 	}
+	else return 0;
+
+
 }
 
 int main() {
@@ -114,7 +119,11 @@ int main() {
 	string s = "abcde";
 	cout << "original string " << s << " reversed string " << reverseString(s) << endl << endl;
 
+	//character counting
+	string t = "e";
+	cout << "number of occurrences of " << t[0] << " in " << s << " is " << countOccurrences(s,t) <<  endl;
 
+	//cout << _gcd(45,9) << endl;
 	return 0;
 }
 
