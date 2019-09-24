@@ -27,11 +27,16 @@ private:
 public:
 	void push_front( dataType newData);
 	void push_back( dataType newData);
+
 	int list_length_helper(LLnode *& cur);
 	int list_length();
 
 	dataType retrieve_front ();
+
+	dataType retrieve_back_helper(LLnode *& cur);
 	dataType retrieve_back ();
+
+	void display_list_helper(LLnode *& cur);
 	void display_list();
 	LL();
 

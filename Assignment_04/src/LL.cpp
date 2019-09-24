@@ -18,8 +18,8 @@ using namespace std;
  *
  * Turn the following functions toe recursive functions
  * 	push_back
- * 	retreive_back
- * 	display_list
+ * 	retreive_back ----works
+ * 	display_list ----works
  * 	destroy_list
  * 	list_length ----works
  * 	search_list
@@ -71,25 +71,22 @@ void LL<dataType>::push_back( dataType newData)
 		trav -> fwdPtr = newNode;
 	}
 }
+
+
+
 template<class dataType>
 int LL<dataType>::list_length_helper(LLnode * & cur)
 {
 	if(cur) //if the current node is not null
-	{
 		return 1 + list_length_helper(cur -> fwdPtr); // return 1 (for the node count) plus recursinally going to the next node and keep counting
-	}
 	else
-	{
 		return 0; //or else, return 0 because it is the end of the linked list
-	}
 }
-
 template <class dataType>
 int LL<dataType>::list_length() //v
 {
 	//call a helper function
 	return list_length_helper(llh);
-
 }
 
 
@@ -102,41 +99,53 @@ dataType LL<dataType>::retrieve_front ()
 	return (llh -> theData);
 }
 
+
+
+
+
+template <class dataType>
+dataType LL<dataType>::retrieve_back_helper(LLnode *& cur)
+{
+	if(cur -> fwdPtr)//if the current node does not have a fwdNode (that is not null)
+		return retrieve_back_helper(cur -> fwdPtr);
+	else
+		return cur -> theData;
+}
 template <class dataType>
 dataType LL<dataType>::retrieve_back ()
 {
-	LLnode * trav = new LLnode;
-	trav = llh; // that way we do not hurt llh
-	if(!llh)
-		throw string ("Exception at retrieve back");
-	while(trav -> fwdPtr)
-	{
-		trav = trav -> fwdPtr;
-	}
-	return trav -> theData;
-
+	return retrieve_back_helper(llh);
 }
 
+
+
+
+template <class dataType>
+void LL<dataType>::display_list_helper(LLnode *& cur)
+{
+	if(cur)
+	{
+		cout << cur -> theData << ",  ";
+		display_list_helper(cur -> fwdPtr);
+	}
+	else
+		return;
+}
 template <class dataType>
 void LL<dataType>::display_list() //v
 {
-	LLnode * trav = new LLnode;
-	trav = llh;
 	if(!llh)
-	{
 		cout << "No nodes to display " << endl;
-	}
-	else
+	else //call helper function
 	{
 		cout << "Displaying nodes: " << endl;
-		while(trav)
-		{
-			cout << trav -> theData << ", ";
-			trav = trav -> fwdPtr;
-		}
+		display_list_helper(llh);
 	}
 	cout << endl;
 }
+
+
+
 
 // default constructor
 template <class dataType>
@@ -164,6 +173,12 @@ void LL<dataType>::destroy_list()
 	llh = nullptr;
 }
 
+
+template <class dataType>
+bool LL<dataType>::search_list_helper(dataType data, LLnode *& cur)
+{
+
+}
 template <class dataType>
 bool LL<dataType>::search_list(dataType data)
 {
