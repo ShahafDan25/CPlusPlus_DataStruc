@@ -157,6 +157,11 @@ LL<dataType>::LL()
 
 //------------------ destroy function --------------------
 template <class dataType>
+void LL<dataType>::destroy_list_helper(LLnode *& cur)
+{
+
+}
+template <class dataType>
 void LL<dataType>::destroy_list()
 {
 	if(!llh)

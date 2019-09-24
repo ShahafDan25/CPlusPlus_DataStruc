@@ -41,6 +41,7 @@ public:
 	LL();
 
 	//PART 3 FUNCTIOn
+	void destroy_list_helper(LLnode *& cur);
 	void destroy_list();
 
 	bool search_list_helper(dataType data, LLnode *& cur);
