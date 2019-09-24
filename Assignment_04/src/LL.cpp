@@ -20,7 +20,7 @@ using namespace std;
  * 	push_back
  * 	retreive_back ----works
  * 	display_list ----works
- * 	destroy_list
+ * 	destroy_list ----works
  * 	list_length ----works
  * 	search_list ----works
  * 	delete_node ----works
@@ -159,24 +159,27 @@ LL<dataType>::LL()
 template <class dataType>
 void LL<dataType>::destroy_list_helper(LLnode *& cur)
 {
-
+	if(cur)
+	{
+		LLnode * temp = new LLnode;
+		temp = cur;
+		cur = cur -> fwdPtr;
+		delete temp;
+		destroy_list_helper(cur);
+	}
+	else return;
 }
 template <class dataType>
 void LL<dataType>::destroy_list()
 {
 	if(!llh)
 	{
-		cout << "nothing to destroy :)" << endl;
+		cout << "nothing to destroy" << endl;
 		return;
 	}
-	while(llh) //as long as llh is not a nullptr
-	{
-		LLnode * temp = new LLnode;
-		temp = llh;
-		llh = llh -> fwdPtr;
-		delete temp;
-	}
-	llh = nullptr;
+	else destroy_list_helper(llh);
+	llh = nullptr; //set llh back to null
+	return;
 }
 
 
