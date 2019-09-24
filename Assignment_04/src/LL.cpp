@@ -178,31 +178,18 @@ template <class dataType>
 bool LL<dataType>::search_list_helper(dataType data, LLnode *& cur)
 {
 
+	return false; //return false if havent retuened true yet
 }
 template <class dataType>
 bool LL<dataType>::search_list(dataType data)
 {
-
 	bool found = false;
-
 	if(!llh)
 	{
 		cout << "nothing to search from :)" << endl;
-		return found;
+		return false;
 	}
-
-	LLnode * trav = new LLnode;
-	trav = llh;
-	while(trav) //as long as trav (temp for llh) is not nullptr, execute this code
-	{
-		if(trav -> theData == data)
-		{
-			found = true;
-			break;
-		}
-		trav = trav -> fwdPtr;
-	}
-	return found;
+	return search_list_helper(data, llh);
 }
 
 template <class dataType>
