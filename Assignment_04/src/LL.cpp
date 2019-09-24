@@ -22,7 +22,7 @@ using namespace std;
  * 	display_list ----works
  * 	destroy_list
  * 	list_length ----works
- * 	search_list
+ * 	search_list ----works
  * 	delete_node
  */
 template <class dataType>
@@ -73,7 +73,7 @@ void LL<dataType>::push_back( dataType newData)
 }
 
 
-
+//----------------- get length function ---------------------
 template<class dataType>
 int LL<dataType>::list_length_helper(LLnode * & cur)
 {
@@ -90,7 +90,7 @@ int LL<dataType>::list_length() //v
 }
 
 
-
+//--------------- retrieve front function ----------------
 template <class dataType>
 dataType LL<dataType>::retrieve_front ()
 {
@@ -100,9 +100,7 @@ dataType LL<dataType>::retrieve_front ()
 }
 
 
-
-
-
+//--------------- retrieve back function -------------------
 template <class dataType>
 dataType LL<dataType>::retrieve_back_helper(LLnode *& cur)
 {
@@ -118,8 +116,7 @@ dataType LL<dataType>::retrieve_back ()
 }
 
 
-
-
+//------------------ display function --------------------
 template <class dataType>
 void LL<dataType>::display_list_helper(LLnode *& cur)
 {
@@ -145,16 +142,15 @@ void LL<dataType>::display_list() //v
 }
 
 
-
-
-// default constructor
+//------------------ constructor -----------------
 template <class dataType>
 LL<dataType>::LL()
 {
 	llh = nullptr;
 }
 
-//PART 3 FUNCTION
+
+//------------------ destroy function --------------------
 template <class dataType>
 void LL<dataType>::destroy_list()
 {
@@ -174,24 +170,29 @@ void LL<dataType>::destroy_list()
 }
 
 
+// --------------- search function --------------
 template <class dataType>
 bool LL<dataType>::search_list_helper(dataType data, LLnode *& cur)
 {
-
+	if(cur)
+	{
+		if(cur -> theData == data)
+			return true;
+		else
+			return search_list_helper(data, cur -> fwdPtr);
+	}
 	return false; //return false if havent retuened true yet
 }
 template <class dataType>
 bool LL<dataType>::search_list(dataType data)
 {
-	bool found = false;
 	if(!llh)
-	{
-		cout << "nothing to search from :)" << endl;
-		return false;
-	}
+		cout << "nothing to search from" << endl; return false;
 	return search_list_helper(data, llh);
 }
 
+
+//--------------- delete function ------------------
 template <class dataType>
 bool LL<dataType>::delete_node(dataType value)
 {
