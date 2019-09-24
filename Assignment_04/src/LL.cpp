@@ -21,7 +21,7 @@ using namespace std;
  * 	retreive_back
  * 	display_list
  * 	destroy_list
- * 	list_length
+ * 	list_length ----works
  * 	search_list
  * 	delete_node
  */
@@ -70,16 +70,29 @@ void LL<dataType>::push_back( dataType newData)
 		}
 		trav -> fwdPtr = newNode;
 	}
-
-
+}
+template<class dataType>
+int LL<dataType>::list_length_helper(LLnode * & cur)
+{
+	if(cur) //if the current node is not null
+	{
+		return 1 + list_length_helper(cur -> fwdPtr); // return 1 (for the node count) plus recursinally going to the next node and keep counting
+	}
+	else
+	{
+		return 0; //or else, return 0 because it is the end of the linked list
+	}
 }
 
 template <class dataType>
 int LL<dataType>::list_length() //v
 {
 	//call a helper function
+	return list_length_helper(llh);
 
 }
+
+
 
 template <class dataType>
 dataType LL<dataType>::retrieve_front ()
