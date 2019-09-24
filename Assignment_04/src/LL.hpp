@@ -45,6 +45,8 @@ public:
 
 	bool search_list_helper(dataType data, LLnode *& cur);
 	bool search_list(dataType data);
+
+	bool delete_node_helper(dataType value, LLnode *& cur);
 	bool delete_node(dataType value);
 };
 

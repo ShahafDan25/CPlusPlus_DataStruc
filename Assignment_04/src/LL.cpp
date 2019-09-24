@@ -23,8 +23,11 @@ using namespace std;
  * 	destroy_list
  * 	list_length ----works
  * 	search_list ----works
- * 	delete_node
+ * 	delete_node ----works
  */
+
+
+//---------------push front function --------------------
 template <class dataType>
 void LL<dataType>::push_front( dataType newData)
 {
@@ -46,6 +49,8 @@ void LL<dataType>::push_front( dataType newData)
 	}
 }
 
+
+//---------------- push back function --------------------
 template <class dataType>
 void LL<dataType>::push_back( dataType newData)
 {
@@ -194,10 +199,27 @@ bool LL<dataType>::search_list(dataType data)
 
 //--------------- delete function ------------------
 template <class dataType>
+bool LL<dataType>::delete_node_helper(dataType value, LLnode *& cur)
+{
+	if(cur)
+	{
+		if(cur -> theData == value)
+		{
+			LLnode * temp = new LLnode;
+			temp = cur -> fwdPtr;
+			cur -> fwdPtr = cur -> fwdPtr -> fwdPtr;
+			delete temp;
+			return true;
+		}
+		else
+			return delete_node_helper(value, cur -> fwdPtr);
+	}
+	else
+		return false;
+}
+template <class dataType>
 bool LL<dataType>::delete_node(dataType value)
 {
-
-
 	if(!llh) //case #0: no linked list has been created yet
 	{
 		cout << "nothing to delete from :)" << endl;
@@ -212,22 +234,8 @@ bool LL<dataType>::delete_node(dataType value)
 		delete temp;
 		return true;
 	}
-	//case #2: body contains the value
-	LLnode * trav = new LLnode;
-	trav = llh;
-	while(trav -> fwdPtr)
-	{
-		if(trav -> fwdPtr -> theData == value)
-		{
-			LLnode * temp = new LLnode;
-			temp = trav -> fwdPtr;
-			trav -> fwdPtr = trav -> fwdPtr -> fwdPtr;
-			delete temp;
-			return true;
-		}
-		trav = trav -> fwdPtr;
-	}
-	return false;
+	//case #2: body contains the value -- RECURSIVE SOLUTION
+	return delete_node_helper(value ,llh);
 }
 
 
