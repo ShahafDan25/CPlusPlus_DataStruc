@@ -17,7 +17,7 @@ using namespace std;
 /*
  *
  * Turn the following functions toe recursive functions
- * 	push_back
+ * 	push_back ----works
  * 	retreive_back ----works
  * 	display_list ----works
  * 	destroy_list ----works
@@ -52,29 +52,31 @@ void LL<dataType>::push_front( dataType newData)
 
 //---------------- push back function --------------------
 template <class dataType>
+void LL<dataType>::push_back_helper(dataType data, LLnode *& cur)
+{
+	if(cur -> fwdPtr)
+		push_back_helper(data, cur -> fwdPtr);
+	else
+	{
+		LLnode * newNode = new LLnode;
+		newNode -> theData = data;
+		newNode -> fwdPtr = nullptr;
+		cur -> fwdPtr = newNode;
+		return;
+	}
+}
+template <class dataType>
 void LL<dataType>::push_back( dataType newData)
 {
-
-	LLnode * trav = new LLnode;
 	if(!llh)
 	{
 		llh = new LLnode;
 		llh -> theData = newData;
 		llh -> fwdPtr = nullptr;
+		return;
 	}
-	else
-	{
-		LLnode * newNode = new LLnode;
-		newNode -> theData = newData;
-		newNode -> fwdPtr = nullptr;
-
-		trav = llh;
-		while(trav -> fwdPtr)
-		{
-			trav = trav -> fwdPtr;
-		}
-		trav -> fwdPtr = newNode;
-	}
+	push_back_helper(newData, llh);
+	return;
 }
 
 

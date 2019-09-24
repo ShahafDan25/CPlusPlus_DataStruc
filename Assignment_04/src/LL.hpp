@@ -26,6 +26,8 @@ private:
 	LLnode * llh;
 public:
 	void push_front( dataType newData);
+
+	void push_back_helper(dataType data, LLnode *& cur);
 	void push_back( dataType newData);
 
 	int list_length_helper(LLnode *& cur);
