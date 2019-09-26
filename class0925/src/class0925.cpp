@@ -11,6 +11,14 @@
 #include <list>
 using namespace std;
 
+bool functionName(int i)
+{
+	if (i ==7 || i == 2 || i == 3)
+		return true;
+	else
+		return false;
+}
+
 int main()
 {
 	//CONCEPT : an uncounded array is called a vector, but if we include an array, we can define an array item
@@ -36,6 +44,42 @@ int main()
 	cout << "size of LL:  " << LL.size() << endl;
 	LL.pop_back(); //removes the last item in the list
 
+	LL.sort(); //sorts the list !!!
+	LL.unique(); //removes consecutive duuplicates
+	// 1 4 9 5 5 7 2 5 1 9 9 3
+	// 1 4 9 5 7 2 5 1 9 3
+
+	LL.remove_if(functionName); // removes from the list all elements from the list that return true for functionName
+	cout << "size of LL:  " << LL.size() << endl;
+
+	LL.push_back(3);
+	LL.push_back(4);
+	LL.push_back(9);
+	LL.push_back(0);
+	LL.push_back(1);
+	LL.push_back(3);
+	LL.push_back(3);
+	LL.push_back(6);
+	LL.push_front(2);
+
+	cout << "size of LL:  " << LL.size() << endl;
+
+	list<int>::iterator LLi; //creata an iterator for a list named LLi, for list of type int
+	LLi = LL.begin(); //assigned the iterator to the first value, the beginning of the LL list
+	//to get the currently iterated value from LL, we dereference LLi with the * operator
+	cout << "currently iterated value \t" << *LLi << endl;
+	LLi++; //increment the LLi iterator by one
+
+	for (LLi = LL.begin(); LLi != LL.end(); LLi++) //iterate the iterator from the beginning to the end of LL
+	{
+		cout << *LLi << "\t";
+		if((*LLi) == 3) //if the current value of the iterated LL is equal to 3, it will remove it
+		{
+			LL.erase(LLi);
+		}
+	}
+	cout << endl;
+	cout <<"size of LL:  " << LL.size() << endl;
 
 	return 0;
 }
