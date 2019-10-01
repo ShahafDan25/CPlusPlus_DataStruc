@@ -30,17 +30,44 @@ void Stack::incCount()
 	count++;
 }
 
-bool pop (string & data)
+bool Stack::pop (string & data)
 {
 	return false;
 }
 
-void push(string topush)
+void Stack::push(string topush)
 {
+	if(count == 0)
+	{
+		if(!head)
+		{
+			head = new node;
+			head-> next = nullptr;
+			head -> data = new string[length];
+		}
+		else
+		{
+			node newNode = new node;
+			newNode -> next = nullptr;
+			newNode ->
+
+		}
+		data = new string[10]; //change later
+	}
+	else if(count == 10)
+	{
+		count = 0;
+		push(topush);
+	}
+	else
+	{
+		data[count] = topush;
+		count++;
+	}
 	return;
 }
 
-bool top (string & data)
+bool Stack::top (string & data)
 {
 	return false;
 }

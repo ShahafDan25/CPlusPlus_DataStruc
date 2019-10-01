@@ -22,11 +22,12 @@ private:
 	struct node
 	{
 
-		string data;
+		string * data;
 		node * next;
 	};
 
 	node * head;
+	int length;
 	int count;
 public:
 	//declare functions here
