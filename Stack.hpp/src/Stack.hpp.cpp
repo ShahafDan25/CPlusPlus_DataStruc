@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Assignment_05.cpp
+// Name        : hpp.cpp
 // Author      : ShahafDan
 // Version     :
 // Copyright   : Your copyright notice
@@ -9,12 +9,7 @@
 #include <iostream>
 using namespace std;
 
-int main()
-{
-	cout << "Hello" << endl << "Please enter the size of your array" << endl;
-	int size = 0;
-	cin >> size;
-
-
+int main() {
+	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 	return 0;
 }
