@@ -12,6 +12,7 @@
 #include <string>
 #include <iomanip>
 #include <set>
+#include <iostream>
 using namespace std;
 
 
@@ -21,17 +22,21 @@ private:
 	struct node
 	{
 
-		int data [];
+		string data;
 		node * next;
 	};
 
-	node * llh;
+	node * head;
 	int count;
 public:
 	//declare functions here
+	Stack data(int length);
 	int getCount();
 	void incCount();
-
+	void push(string topush);
+	bool pop(string & data);
+	bool top(string & data);
+	void destroy();
 };
 
 
