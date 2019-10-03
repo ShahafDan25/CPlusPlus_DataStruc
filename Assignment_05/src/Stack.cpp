@@ -103,8 +103,6 @@ void Stack::push(string topush) //push (pretty sure) is working
 	count ++; //increase followed index
 	return;
 }
-/// this is the world of shahaf
-// shahaf of world the is this
 
 
 bool Stack::top (/*string & data*/)
@@ -131,16 +129,16 @@ bool Stack::top (/*string & data*/)
 
 void Stack::destroy() //destroys only the last node and its array
 {
- //do I need to delete all memory allocated to the arrays inside the nodes as well??
 	node * temp = new node;
-	while(head) //deleting every node will delete all memory allocated in that node
+	temp = head;
+	//traverse to the last node
+	while(temp -> next) //deleting every node will delete all memory allocated in that node
 	{
-		temp = head;
-		head = head -> next;
-		delete [] temp-> array;
-		delete temp;
-		count = length;
+		temp = temp -> next;
 	}
+	delete [] temp-> array;
+	delete temp; //deleting the last node
+	count = length; //set the count (current number of elements) to be equal to the length of each array
 	return;
 }
 

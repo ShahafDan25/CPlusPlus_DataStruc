@@ -21,7 +21,7 @@ int main()
 	int answer = 0;
 	do
 	{
-		cout << "select: push (1) | top (2) | pop (3) | destroy (4) | display (5) | exit (9) \t ";
+		cout << "select: push (1) | top (2) | pop (3) | destroy last (4) | destroy all (5) | display (6) | exit (9) \t ";
 		cin >> answer;
 		if(answer == 1) //push
 		{
