@@ -33,12 +33,13 @@ int main()
 		}
 		else if(answer == 2) //top
 		{
-			if(s.top()) cout << "stack is not empty " << endl;
-			else cout << "stack is not empty" << endl;
+			if(s.top(value)) cout << "Top value in the last stack " << value << endl;
+			else cout << "stack is empty" << endl;
 		}
 		else if(answer == 3) //pop
 		{
-			s.pop();
+			if(s.pop(value)) cout << "top value after popping: " << value << endl;
+			else cout << "stack is empty" <<endl;
 		}
 		else if(answer == 4)
 		{

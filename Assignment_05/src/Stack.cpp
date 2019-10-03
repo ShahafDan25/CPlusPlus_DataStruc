@@ -44,7 +44,7 @@ void Stack::printAll() //works too
 
 }
 
-bool Stack::pop (/*string & data*/)
+bool Stack::pop (string & data)
 {
 	node * temp = new node;
 	temp = head;
@@ -105,7 +105,7 @@ void Stack::push(string topush) //push (pretty sure) is working
 }
 
 
-bool Stack::top (/*string & data*/)
+bool Stack::top (string & data)
 {
 	node * temp = new node;
 	temp = head;

@@ -35,8 +35,8 @@ public:
 	//declare functions here
 	void printAll();
 	void push(string topush);
-	bool pop(/*string & data*/);
-	bool top(/*string & data*/); //check if we wil need to pass by reference a string with the professor
+	bool pop(string & data);
+	bool top(string & data); //check if we wil need to pass by reference a string with the professor
 	void destroy();
 	void destroyAll();
 };
