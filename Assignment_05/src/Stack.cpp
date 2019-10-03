@@ -119,8 +119,16 @@ bool Stack::top (/*string & data*/)
 
 }
 
-void destroy()
+void Stack::destroy()
 {
+ //do I need to delete all memory allocated to the arrays inside the nodes as well??
+	node * temp = new node;
+	while(head) //deleting every node will delete all memory allocated in that node
+	{
+		temp = head;
+		head = head -> next;
+		delete temp;
+	}
 	return;
 }
 

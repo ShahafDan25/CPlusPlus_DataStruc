@@ -31,16 +31,21 @@ int main()
 			s.push(value);
 
 		}
-		else if(answer == 2) //
+		else if(answer == 2) //getting the top element
 		{
 			s.top();
 		}
-		if (answer == 5) //print all, not mandatory in the assignment
+		else if(answer == 3)
+		{
+			cout << endl << "--- DELETING ALL ---" << endl;
+			s.destroy();
+		}
+		else if (answer == 5) //print all, not mandatory in the assignment
 		{
 			cout << endl << "--- PRINTING ALL ---" << endl;
 			s.printAll();
 		}
-		if(answer == 9)
+		else if(answer == 9)
 		{
 			cout << "Goodbye, ending program" << endl;
 			break;
