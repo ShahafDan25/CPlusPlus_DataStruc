@@ -1,19 +1,14 @@
 /*
  * Stack.hpp
  *
- *  Created on: Sep 30, 2019
+ *  Created on: Oct 2, 2019
  *      Author: shahafdan
  */
 
 #ifndef STACK_HPP_
 #define STACK_HPP_
-
 #include <string>
-#include <iomanip>
-#include <set>
-#include <iostream>
 using namespace std;
-
 
 class Stack
 {
@@ -29,17 +24,14 @@ private:
 	node * head;
 	int length;
 public:
-	Stack(int size); //constructor
+	Stack(); //constructor
 	//declare functions here
-	//Stack data(int length);
+	Stack data(int length);
 	void push(string topush);
 	bool pop(string & data);
 	bool top(string & data);
 	void destroy();
 };
-
-
-
 
 
 

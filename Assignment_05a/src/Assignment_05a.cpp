@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Assignment_05.cpp
+// Name        : Assignment_05a.cpp
 // Author      : ShahafDan
 // Version     :
 // Copyright   : Your copyright notice
@@ -7,17 +7,16 @@
 //============================================================================
 
 #include <iostream>
-using namespace std;
+#include "Stack.cpp"
 #include "Stack.hpp"
+using namespace std;
 
-int main()
-{
-
+int main() {
+	Stack s;
 	cout << "Hello" << endl << "Please enter the size of your array" << endl;
 	int size = 0;
 	cin >> size;
 	string value;
-	Stack s(size);
 	int answer = 0;
 	do
 	{
@@ -25,15 +24,11 @@ int main()
 		cin >> answer;
 		if(answer == 1)
 		{
-
-			cout << "enter value" << endl;
+				cout << "enter value" << endl;
 			cin >> value;
 			s.push(value);
-
-		}
-
-	}while(answer != 9);
-
+			}
+		}while(answer != 9);
 
 	return 0;
 }

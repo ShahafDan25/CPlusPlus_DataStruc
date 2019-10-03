@@ -1,9 +1,10 @@
 /*
  * Stack.cpp
  *
- *  Created on: Sep 30, 2019
+ *  Created on: Oct 2, 2019
  *      Author: shahafdan
  */
+
 
 #include "Stack.hpp"
 #include <iomanip>
@@ -13,20 +14,20 @@
 using namespace std;
 
 //constructor
-Stack::Stack(int size)
+Stack::Stack()
 {
 	head = new node;
-	length = size;
+	length = 0;
 	head -> array = new string[length];
 	count = 0;
 }
 
-//Stack Stack::data(int length)
-//{
-//	Stack * s = new Stack;
-//	return * s;
-//
-//}
+Stack Stack::data(int length)
+{
+	Stack * s = new Stack;
+	return * s;
+
+}
 
 
 bool Stack::pop (string & data)
@@ -72,7 +73,4 @@ void destroy()
 {
 	return;
 }
-
-
-
 
