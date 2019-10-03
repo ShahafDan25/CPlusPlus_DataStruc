@@ -46,25 +46,37 @@ void Stack::printAll() //works too
 
 bool Stack::pop (string & data)
 {
+	count--;
 	node * temp = new node;
+	node * prev = new node;
 	temp = head;
-	while(temp)
+	while(temp -> next)
 	{
+		prev = temp;
 		temp = temp -> next;
 	} //make sure we are at the recent node;
 	//if there are zero elements in the array, return false, else print the top element item and return true
 	if(count == 0)
 	{
+		delete [] temp -> array;
+		delete temp;
+		count = length;
+		prev -> next = nullptr;
+		data = prev -> array[0];
 		return false;
+
 	}
 	else
 	{
-		for(int i = 0; i < length - 1; i++)
+		for(int i = 0; i < count; i++)
 		{
 			temp -> array[i] = temp -> array[i+1]; //move up all the elements in the array
 		}
-		return true;
+		data = temp -> array [0];
+
 	}
+
+	return true;
 }
 
 void Stack::push(string topush) //push (pretty sure) is working
@@ -105,25 +117,19 @@ void Stack::push(string topush) //push (pretty sure) is working
 }
 
 
-bool Stack::top (string & data)
+bool Stack::top (string & data) // I hope this works
 {
 	node * temp = new node;
 	temp = head;
-	while(temp)
+	while(temp -> next)
 	{
 		temp = temp -> next;
 	} //make sure we are at the recent node;
-
 	//if there are zero elements in the array, return false, else print the top element item and return true
-	if(count == 0)
-	{
-		return false;
-	}
-	else
-	{
-		cout << "the top element is: \t " <<  temp -> array [0] << endl;
-		return true;
-	}
+	if(count == 0) return false;
+	else data = temp -> array [0];
+
+	return true;
 
 }
 

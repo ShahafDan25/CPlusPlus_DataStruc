@@ -34,7 +34,7 @@ int main()
 		else if(answer == 2) //top
 		{
 			if(s.top(value)) cout << "Top value in the last stack " << value << endl;
-			else cout << "stack is empty" << endl;
+			else cout << "stack is empty after poping" << endl;
 		}
 		else if(answer == 3) //pop
 		{
@@ -50,13 +50,15 @@ int main()
 		{
 			cout << "--- DESTROYING ALL ---" << endl;
 			s.destroyAll();
+
+			//s(size); //after we destroyed everything, we need to reinitialize it, so we call the constructor again
 		}
 		else if (answer == 6) //print all, not mandatory in the assignment
 		{
 			cout << endl << "--- PRINTING ALL ---" << endl;
 			s.printAll();
 		}
-		else if(answer == 9) cout << "Goodbye, ending program" << endl;
+		else if(answer == 9) cout << "Goodbye, terminating program" << endl;
 		else cout << "not a convenient answer" << endl;
 
 	}while(answer != 9);
