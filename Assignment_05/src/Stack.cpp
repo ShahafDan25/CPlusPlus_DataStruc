@@ -32,7 +32,7 @@ void Stack::printAll()
 	while(temp)
 	{
 
-		for(int i = 0; i < count; i++)
+		for(int i = 0; i < length; i++)
 		{
 			cout << temp -> array [i] << "\t";
 		}
@@ -77,7 +77,6 @@ void Stack::push(string topush)
 	{
 		temp = temp -> next;
 	}
-	cout << "here" << endl;
 	if(count == 0) temp -> array[0] = topush;
 	//if the stack is full
 	else if (count == length)
@@ -91,7 +90,6 @@ void Stack::push(string topush)
 		//connect the newNode as the next node in the list
 		temp -> next = newNode;
 		temp = temp -> next;
-		cout << "New Array-Stack established" << endl;
 		temp -> array[0] = topush;
 	}
 	else //stack is not full:

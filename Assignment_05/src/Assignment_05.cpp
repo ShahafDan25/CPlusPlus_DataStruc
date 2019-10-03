@@ -33,7 +33,8 @@ int main()
 		}
 		else if(answer == 2) //top
 		{
-			s.top();
+			if(s.top()) cout << "stack is not empty " << endl;
+			else cout << "stack is not empty" << endl;
 		}
 		else if(answer == 3) //pop
 		{
