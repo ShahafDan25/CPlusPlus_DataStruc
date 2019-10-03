@@ -42,10 +42,15 @@ int main()
 		}
 		else if(answer == 4)
 		{
-			cout << endl << "--- DELETING ALL ---" << endl;
+			cout << endl << "--- DELETING LAST ARRAY ---" << endl;
 			s.destroy();
 		}
-		else if (answer == 5) //print all, not mandatory in the assignment
+		else if (answer == 5)
+		{
+			cout << "--- DESTROYING ALL ---" << endl;
+			s.destroyAll();
+		}
+		else if (answer == 6) //print all, not mandatory in the assignment
 		{
 			cout << endl << "--- PRINTING ALL ---" << endl;
 			s.printAll();

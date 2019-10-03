@@ -21,7 +21,7 @@ Stack::Stack(int size)
 	count = 0;
 }
 
-void Stack::printAll()
+void Stack::printAll() //works too
 {
 
 
@@ -67,10 +67,9 @@ bool Stack::pop (/*string & data*/)
 	}
 }
 
-void Stack::push(string topush)
+void Stack::push(string topush) //push (pretty sure) is working
 {
 	//make sure we are at the right node
-
 	node * temp = new node;
 	temp = head;
 	while(temp -> next != nullptr)
@@ -130,7 +129,7 @@ bool Stack::top (/*string & data*/)
 
 }
 
-void Stack::destroy()
+void Stack::destroy() //destroys only the last node and its array
 {
  //do I need to delete all memory allocated to the arrays inside the nodes as well??
 	node * temp = new node;
@@ -138,7 +137,23 @@ void Stack::destroy()
 	{
 		temp = head;
 		head = head -> next;
+		delete [] temp-> array;
 		delete temp;
+		count = length;
+	}
+	return;
+}
+
+void Stack::destroyAll()
+{
+	node * temp = new node;
+	while(head) //deleting every node will delete all memory allocated in that node
+	{
+		temp = head;
+		head = head -> next;
+		delete [] temp-> array;
+		delete temp;
+		count = length;
 	}
 	return;
 }
