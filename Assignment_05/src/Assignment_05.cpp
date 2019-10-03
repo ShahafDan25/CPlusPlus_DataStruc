@@ -31,6 +31,16 @@ int main()
 			s.push(value);
 
 		}
+		if (answer == 5)
+		{
+			cout << endl << "--- PRINTING ALL ---" << endl;
+			s.printAll();
+		}
+		if(answer == 9)
+		{
+			cout << "Goodbye, ending program" << endl;
+			break;
+		}
 
 	}while(answer != 9);
 

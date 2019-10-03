@@ -27,7 +27,23 @@ Stack::Stack(int size)
 //	return * s;
 //
 //}
+void Stack::printAll()
+{
+	node * temp = new node;
+	temp = head;
+	int ind = 0;
+	while(temp)
+	{
+		ind = 0;
+		for(int i = 0; i < count; i++)
+		{
+			cout << temp -> array [ind] << "\t";
+		}
+		temp = temp -> next;
+	}
+	return;
 
+}
 
 bool Stack::pop (string & data)
 {
@@ -65,6 +81,20 @@ void Stack::push(string topush)
 
 bool Stack::top (string & data)
 {
+	node * temp = new node;
+	temp = head;
+	while(temp)
+	{
+		temp = temp -> next;
+	} //make sure we are at the recent node;
+	if(count == 0)
+	{
+		return false;
+	}
+	else
+	{
+		cout << "the top element is: \t " <<  temp -> array [0] << endl;
+	}
 	return false;
 }
 

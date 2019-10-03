@@ -32,6 +32,7 @@ public:
 	Stack(int size); //constructor
 	//declare functions here
 	//Stack data(int length);
+	void printAll();
 	void push(string topush);
 	bool pop(string & data);
 	bool top(string & data);
