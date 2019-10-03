@@ -23,7 +23,7 @@ int main()
 	{
 		cout << "enter action" << endl;
 		cin >> answer;
-		if(answer == 1)
+		if(answer == 1) //push
 		{
 
 			cout << "enter value" << endl;
@@ -31,7 +31,11 @@ int main()
 			s.push(value);
 
 		}
-		if (answer == 5)
+		else if(answer == 2) //
+		{
+			s.top();
+		}
+		if (answer == 5) //print all, not mandatory in the assignment
 		{
 			cout << endl << "--- PRINTING ALL ---" << endl;
 			s.printAll();

@@ -35,7 +35,7 @@ public:
 	void printAll();
 	void push(string topush);
 	bool pop(string & data);
-	bool top(string & data);
+	bool top(/*string & data*/); //check if we wil need to pass by reference a string with the professor
 	void destroy();
 };
 

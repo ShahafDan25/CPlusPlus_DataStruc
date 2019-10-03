@@ -47,7 +47,25 @@ void Stack::printAll()
 
 bool Stack::pop (string & data)
 {
-	return false;
+	node * temp = new node;
+	temp = head;
+	while(temp)
+	{
+		temp = temp -> next;
+	} //make sure we are at the recent node;
+	//if there are zero elements in the array, return false, else print the top element item and return true
+	if(count == 0)
+	{
+		return false;
+	}
+	else
+	{
+		for(int i = 0; i < length - 1; i++)
+		{
+			temp -> array[i] = temp -> array[i+1]; //move up all the elements in the array
+		}
+		return true;
+	}
 }
 
 void Stack::push(string topush)
@@ -79,7 +97,7 @@ void Stack::push(string topush)
 	return;
 }
 
-bool Stack::top (string & data)
+bool Stack::top (/*string & data*/)
 {
 	node * temp = new node;
 	temp = head;
@@ -87,6 +105,8 @@ bool Stack::top (string & data)
 	{
 		temp = temp -> next;
 	} //make sure we are at the recent node;
+
+	//if there are zero elements in the array, return false, else print the top element item and return true
 	if(count == 0)
 	{
 		return false;
@@ -94,8 +114,9 @@ bool Stack::top (string & data)
 	else
 	{
 		cout << "the top element is: \t " <<  temp -> array [0] << endl;
+		return true;
 	}
-	return false;
+
 }
 
 void destroy()
