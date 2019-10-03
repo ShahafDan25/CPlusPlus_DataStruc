@@ -21,7 +21,7 @@ Stack::Stack(int size)
 	count = 0;
 }
 
-//Stack Stack::data(int length)
+//Stack Stack::data(int length) //NEEDED
 //{
 //	Stack * s = new Stack;
 //	return * s;
@@ -31,13 +31,13 @@ void Stack::printAll()
 {
 	node * temp = new node;
 	temp = head;
-	int ind = 0;
+	int x = 0; //x for index
 	while(temp)
 	{
-		ind = 0;
+		x = 0;
 		for(int i = 0; i < count; i++)
 		{
-			cout << temp -> array [ind] << "\t";
+			cout << temp -> array [x] << "\t";
 		}
 		temp = temp -> next;
 	}
@@ -80,17 +80,28 @@ void Stack::push(string topush)
 	//we may have to do this in every function
 	if (count == length)
 	{
+		// 1. we need to create a new node, and make sure temp is at the right location
 		node * newNode = new node;
 		newNode -> next = nullptr;
 		count = 0;
 		newNode -> array = new string[length];
 		temp -> next = newNode;
 		temp = temp -> next;
-		temp -> array[count] = topush;
+		//2. check if it got here
+		cout <<"got all the way here" << endl;
+		for(int i = count; i > 1 ; i--)
+		{
+			temp -> array[i] = temp -> array [i-1];
+		}
+		temp -> array[0] = topush;
 	}
 	else
 	{
-		temp -> array[count] = topush;
+		for(int i = count; i > 1 ; i--)
+		{
+			temp -> array[i] = temp -> array [i-1];
+		}
+		temp -> array[0] = topush;
 	}
 	count ++; //increase followed index
 

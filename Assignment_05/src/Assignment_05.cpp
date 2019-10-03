@@ -13,7 +13,7 @@ using namespace std;
 int main()
 {
 
-	cout << "Hello" << endl << "Please enter the size of your array" << endl;
+	cout << "Hello" << endl << "Please enter the size of your array";
 	int size = 0;
 	cin >> size;
 	string value;
@@ -21,12 +21,12 @@ int main()
 	int answer = 0;
 	do
 	{
-		cout << "enter action" << endl;
+		cout << "enter action";
 		cin >> answer;
 		if(answer == 1) //push
 		{
 
-			cout << "enter value" << endl;
+			cout << "enter value";
 			cin >> value;
 			s.push(value);
 
@@ -49,6 +49,10 @@ int main()
 		{
 			cout << "Goodbye, ending program" << endl;
 			break;
+		}
+		else
+		{
+			cout << "not a convenient answer" << endl;
 		}
 
 	}while(answer != 9);
