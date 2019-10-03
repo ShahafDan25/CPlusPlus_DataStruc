@@ -72,6 +72,7 @@ bool Stack::pop (string & data)
 		{
 			temp -> array[i] = temp -> array[i+1]; //move up all the elements in the array
 		}
+		temp -> array [count] = nullptr;
 		data = temp -> array [0];
 
 	}
@@ -136,14 +137,17 @@ bool Stack::top (string & data) // I hope this works
 void Stack::destroy() //destroys only the last node and its array
 {
 	node * temp = new node;
+	node * prev = new node;
 	temp = head;
 	//traverse to the last node
 	while(temp -> next) //deleting every node will delete all memory allocated in that node
 	{
+		prev = temp;
 		temp = temp -> next;
 	}
 	delete [] temp-> array;
 	delete temp; //deleting the last node
+	prev -> next = nullptr;
 	count = length; //set the count (current number of elements) to be equal to the length of each array
 	return;
 }
@@ -159,6 +163,9 @@ void Stack::destroyAll()
 		delete temp;
 		count = length;
 	}
+	head = new node;
+	head -> array = new string[length];
+	count = 0;
 	return;
 }
 
