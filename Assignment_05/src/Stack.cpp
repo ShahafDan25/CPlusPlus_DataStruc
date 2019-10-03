@@ -21,31 +21,30 @@ Stack::Stack(int size)
 	count = 0;
 }
 
-//Stack Stack::data(int length) //NEEDED
-//{
-//	Stack * s = new Stack;
-//	return * s;
-//
-//}
 void Stack::printAll()
 {
+
+
+	//we have the right number of nodes in the linkedlist
 	node * temp = new node;
 	temp = head;
-	int x = 0; //x for index
+
 	while(temp)
 	{
-		x = 0;
+
 		for(int i = 0; i < count; i++)
 		{
-			cout << temp -> array [x] << "\t";
+			cout << temp -> array [i] << "\t";
 		}
+		cout << endl;
 		temp = temp -> next;
 	}
+	cout << endl;
 	return;
 
 }
 
-bool Stack::pop (string & data)
+bool Stack::pop (/*string & data*/)
 {
 	node * temp = new node;
 	temp = head;
@@ -70,43 +69,46 @@ bool Stack::pop (string & data)
 
 void Stack::push(string topush)
 {
+	//make sure we are at the right node
+
 	node * temp = new node;
 	temp = head;
 	while(temp -> next != nullptr)
 	{
 		temp = temp -> next;
 	}
-	//so far we have set the temp node to the most current node;
-	//we may have to do this in every function
-	if (count == length)
+	cout << "here" << endl;
+	if(count == 0) temp -> array[0] = topush;
+	//if the stack is full
+	else if (count == length)
 	{
-		// 1. we need to create a new node, and make sure temp is at the right location
+		// create a new node
 		node * newNode = new node;
 		newNode -> next = nullptr;
-		count = 0;
 		newNode -> array = new string[length];
+		count = 0;
+
+		//connect the newNode as the next node in the list
 		temp -> next = newNode;
 		temp = temp -> next;
-		//2. check if it got here
-		cout <<"got all the way here" << endl;
-		for(int i = count; i > 1 ; i--)
-		{
-			temp -> array[i] = temp -> array [i-1];
-		}
+		cout << "New Array-Stack established" << endl;
 		temp -> array[0] = topush;
 	}
-	else
+	else //stack is not full:
 	{
-		for(int i = count; i > 1 ; i--)
+		for(int i = count - 1; i >= 0; i--)
 		{
-			temp -> array[i] = temp -> array [i-1];
+			temp -> array[i+1] = temp -> array [i];
 		}
 		temp -> array[0] = topush;
 	}
-	count ++; //increase followed index
 
+	count ++; //increase followed index
 	return;
 }
+/// this is the world of shahaf
+// shahaf of world the is this
+
 
 bool Stack::top (/*string & data*/)
 {

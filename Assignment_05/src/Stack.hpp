@@ -18,6 +18,7 @@ using namespace std;
 class Stack
 {
 private:
+	//equivalent to linked list definition
 	struct node
 	{
 
@@ -25,16 +26,16 @@ private:
 		node * next;
 
 	};
-	int count;
 	node * head;
-	int length;
+
+	int count; //equivalent to topElement
+	int length; //equivalent to array size
 public:
 	Stack(int size); //constructor
 	//declare functions here
-	//Stack data(int length);
 	void printAll();
 	void push(string topush);
-	bool pop(string & data);
+	bool pop(/*string & data*/);
 	bool top(/*string & data*/); //check if we wil need to pass by reference a string with the professor
 	void destroy();
 };
