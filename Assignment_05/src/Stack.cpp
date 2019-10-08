@@ -16,8 +16,9 @@ using namespace std;
 Stack::Stack(int size)
 {
 	head = new node;
+	head -> next = nullptr;
 	length = size;
-	head -> array = new string[length];
+	head -> array = new string[size];
 	count = 0;
 }
 
@@ -48,7 +49,7 @@ bool Stack::pop (string & data)
 	else
 	{
 		data = temp -> array [0];
-		for(int i = 0; i < count; i++)
+		for(int i = 0; i < length; i++)
 		{
 			temp -> array[i] = temp -> array[i+1]; //move up all the elements in the array
 		}
@@ -108,7 +109,6 @@ bool Stack::top (string & data) // I hope this works
 	//if there are zero elements in the array, return false, else print the top element item and return true
 	if(count == 0) return false;
 	else data = temp -> array [0];
-
 	return true;
 
 }
