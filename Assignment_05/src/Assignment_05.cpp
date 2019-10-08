@@ -26,11 +26,11 @@ int main()
 	cout << "main: Start of part 1" << endl;
 	b = s.top(st);
 	cout << "main: top of stack " << st << endl;
-	//b = s.pop(st);
+	b = s.pop(st);
 	cout << "main: new top of stack after pop " << st << endl;
 	b = s.pop(st);
 	cout << "main: just popped this ->" << st << endl;
-	b = s.top(st);
+	b = s.pop(st);
 	cout << "main: just popped this ->" << st << endl;
 	b = s.pop(st);
 	cout << "main: just popped this ->" << st <<endl;

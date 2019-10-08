@@ -49,11 +49,11 @@ bool Stack::pop (string & data)
 	else
 	{
 		data = temp -> array [0];
-		for(int i = 0; i < length; i++)
+		for(int i = 0; i < count; i++)
 		{
 			temp -> array[i] = temp -> array[i+1]; //move up all the elements in the array
 		}
-		temp -> array [count] = nullptr;
+
 		count--;
 	}
 
