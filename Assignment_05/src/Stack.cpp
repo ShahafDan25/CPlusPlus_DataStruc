@@ -46,7 +46,6 @@ void Stack::printAll() //works too
 
 bool Stack::pop (string & data)
 {
-	count--;
 	node * temp = new node;
 	node * prev = new node;
 	temp = head;
@@ -56,15 +55,14 @@ bool Stack::pop (string & data)
 		temp = temp -> next;
 	} //make sure we are at the recent node;
 	//if there are zero elements in the array, return false, else print the top element item and return true
+
 	if(count == 0)
 	{
 		delete [] temp -> array;
 		delete temp;
 		count = length;
 		prev -> next = nullptr;
-		data = prev -> array[0];
 		return false;
-
 	}
 	else
 	{
@@ -74,7 +72,6 @@ bool Stack::pop (string & data)
 		}
 		temp -> array [count] = nullptr;
 		data = temp -> array [0];
-
 	}
 
 	return true;
