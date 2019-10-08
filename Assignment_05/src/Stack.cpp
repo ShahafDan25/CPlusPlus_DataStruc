@@ -21,29 +21,6 @@ Stack::Stack(int size)
 	count = 0;
 }
 
-void Stack::printAll() //works too
-{
-
-
-	//we have the right number of nodes in the linkedlist
-	node * temp = new node;
-	temp = head;
-
-	while(temp)
-	{
-
-		for(int i = 0; i < length; i++)
-		{
-			cout << temp -> array [i] << "\t";
-		}
-		cout << endl;
-		temp = temp -> next;
-	}
-	cout << endl;
-	return;
-
-}
-
 bool Stack::pop (string & data)
 {
 	node * temp = new node;
@@ -58,20 +35,25 @@ bool Stack::pop (string & data)
 
 	if(count == 0)
 	{
-		delete [] temp -> array;
-		delete temp;
-		count = length;
-		prev -> next = nullptr;
-		return false;
+		if(temp == head) return false;
+		else
+		{
+			delete [] temp -> array;
+			delete temp;
+			count = length - 1;
+			prev -> next = nullptr;
+			data = prev -> array [0];
+		}
 	}
 	else
 	{
+		data = temp -> array [0];
 		for(int i = 0; i < count; i++)
 		{
 			temp -> array[i] = temp -> array[i+1]; //move up all the elements in the array
 		}
 		temp -> array [count] = nullptr;
-		data = temp -> array [0];
+		count--;
 	}
 
 	return true;
@@ -149,22 +131,6 @@ void Stack::destroy() //destroys only the last node and its array
 	return;
 }
 
-void Stack::destroyAll()
-{
-	node * temp = new node;
-	while(head) //deleting every node will delete all memory allocated in that node
-	{
-		temp = head;
-		head = head -> next;
-		delete [] temp-> array;
-		delete temp;
-		count = length;
-	}
-	head = new node;
-	head -> array = new string[length];
-	count = 0;
-	return;
-}
 
 
 

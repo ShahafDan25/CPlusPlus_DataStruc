@@ -64,6 +64,7 @@ int main()
 	}while(answer != 9);
 
 */
+	cout << "hello" <<endl;;
 	Stack s(5);
 	string st;
 	bool b;
@@ -73,7 +74,7 @@ int main()
 	s.push("ddddd");
 	s.push("eeeee");
 
-	cout << "Main: Start of part 1" << endl;
+	cout << "main: Start of part 1" << endl;
 	b = s.top(st);
 	cout << "main: top of stack " << st << endl;
 	b = s.pop(st);
