@@ -33,6 +33,7 @@ private:
 public:
 	Stack(int size); //constructor
 	//declare functions here
+	int getCount();
 	void printAll();
 	void push(string topush);
 	bool pop(string & data);

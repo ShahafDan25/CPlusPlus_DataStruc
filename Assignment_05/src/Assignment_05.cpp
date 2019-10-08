@@ -34,7 +34,7 @@ int main()
 	cout << "main: just popped this ->" << st << endl;
 	b = s.pop(st);
 	cout << "main: just popped this ->" << st <<endl;
-	b = s.top(st);
+	b = s.pop(st);
 	cout << "main: just popped this ->" << st << endl;
 	b = s.top(st);
 	if(b)
@@ -75,6 +75,5 @@ int main()
 	b=s.top(st);
 	cout << "main: new top of stack " << st << endl;
 	s.destroy();
-
 	return 0;
 }

@@ -22,8 +22,14 @@ Stack::Stack(int size)
 	count = 0;
 }
 
+int Stack::getCount()
+{
+	return count;
+}
+
 bool Stack::pop (string & data)
 {
+	//count--;
 	node * temp = new node;
 	node * prev = new node;
 	temp = head;
@@ -36,15 +42,19 @@ bool Stack::pop (string & data)
 
 	if(count == 0)
 	{
-		if(temp == head) return false;
+		if(temp == head)
+		{
+			return false;
+		}
 		else
 		{
 			delete [] temp -> array;
 			delete temp;
 			count = length - 1;
-			prev -> next = nullptr;
 			data = prev -> array [0];
+			return false;
 		}
+		return false;
 	}
 	else
 	{
@@ -53,10 +63,8 @@ bool Stack::pop (string & data)
 		{
 			temp -> array[i] = temp -> array[i+1]; //move up all the elements in the array
 		}
-
 		count--;
 	}
-
 	return true;
 }
 
@@ -92,8 +100,9 @@ void Stack::push(string topush) //push (pretty sure) is working
 		}
 		temp -> array[0] = topush;
 	}
-
+	//cout << count;
 	count ++; //increase followed index
+	//cout << " " << count<< endl;
 	return;
 }
 
