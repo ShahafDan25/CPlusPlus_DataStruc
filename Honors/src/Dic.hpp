@@ -18,17 +18,20 @@ using namespace std;
 class Dic //templatize in stage two
 {
 private:
-	struct Node
+	struct node
 	{
 		char letter;
-		Node * next;
+		node * nexts = new node [26];
 	};
 	int wordCounter;
-	Node * header;
+	node * head;
+	string letters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 public:
+	Dic();
+	void insertHelper(string word, node * curNode);
 	void insert(string word); //wordCounter++;
 	int getWordCounter();
-	void setWordCounter();
+	void incWordCounter();
 	void remove(string word);
 
 
