@@ -57,6 +57,27 @@ void bubbleSort(int array[], int high, int &numIter)
 	}
 }
 
+//binary search algorithm
+int binarySearch(int array[], int high, int target, int &numIter)
+{
+	int first = 0;
+	int mid = 0;
+	bool found = false;
+	while (first <= high  && !found)
+	{
+		mid = (first + high) /2;
+		numIter++;
+		if(array[mid] == target) found = true;
+		else if (array[mid] > target) high = mid - 1;
+		else first = mid + 1;
+	}
+
+	if(found) return mid;
+	else  return -1;
+	return 0;
+}
+
+
 int main()
 {
 	cout << "code from class October 21st" << endl << "---------------------------------" << endl << endl;
@@ -71,5 +92,11 @@ int main()
 	cout << "numIter = " << numIter << endl;
 	cout << endl << endl;
 	//now running binary search
+	numIter = 0;
+	int b = binarySearch(array, 11, 6, numIter);
+	if(b < 0) cout << "not found" << endl;
+	else cout << "found" << endl;
+	cout << "numIter = " << numIter << endl;
+	cout << endl << endl;
 	return 0;
 }
