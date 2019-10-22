@@ -14,7 +14,9 @@ using namespace std;
 //new terms
 //*** instrumentation: counting and keeping track of traversing and looping
 //*** binary serach requires that the array is sorted
-//average time for sorting is O(n^2)
+// --- bubble sort: O(n^2)
+// --- binary search: O(log2n)
+// --- linear search: O (n)
 
 
 //linear search algorithm
