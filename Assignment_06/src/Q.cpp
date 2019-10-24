@@ -10,25 +10,29 @@ using namespace std;
 #include <set>
 #include <iostream>
 #include <iomanip>
-//#include <cstdlib>
+#include <cstdlib>
 
 Q::Q(int size)
 {
-	items = new t[size];
 	length = size;
-	front = 0;
 	tail = 0;
+	front = 0;
+	items = new t[size];
 }
-void Q::insertQ(t * tr)
+void Q::insertQ(string i, int u)
 {
+	//first create a new trasaction to add
+	t * tr = new t;
+	tr -> id = i;
+	tr -> units = u;
 	//the queue is full, we cannot add any more items
-			//therefore we will throw an exception
+	//therefore we will throw an exception
 	if((tail == front - 1) || (front == 0 && tail == length - 1))
 	{
 		throw "Queue is full";
 		return;
 	}
-	items[tail] = tr;
+	items[tail] = *tr; //ADDING THE FRICKING * IN FRONT OF IT?? SERIOUSLY??
 	if(tail == length - 1) tail = 0;
 	else tail++;
 
@@ -40,7 +44,7 @@ void Q::deleteQ()
 		throw "Queue is empty";
 		return;
 	}
-	items[front] = NULL; //set the first item to null, move to the next item
+	//items[front] = nullptr; //set the first item to null, move to the next item
 	if(front == length - 1) front = 0;
 	else front++;
 }
@@ -53,6 +57,7 @@ bool Q::checkProb (int prob) //make a QUEUE function
 {
 	//generate a random number
 	//check for validity
+	srand(time(0));
 	int r = rand() % 100 + 1;
 	if(r <= prob) return true;
 	else return false;

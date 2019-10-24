@@ -17,6 +17,7 @@ using namespace std;
 
 int main()
 {
+
 	int size, clock, ticks, newTransProb, endTransProb, tg, ts, tp;
 	bool transStarted = false;
 	cout << "Please enter Queue size" << endl;
@@ -42,18 +43,19 @@ int main()
 		cin >> endTransProb;
 	}
 	clock = 0;
+	string id;
+	int u;
 	while(clock < ticks)
 	{
 		// ------ ARRIVAL -------
 		if(q.checkProb(newTransProb))
 		{
 			cout << "Transaction will be created!" << endl;
-			t * tr = new t;
 			cout << "Enter Transaction's id" << endl;
-			cin >> tr->id;
+			cin >> id;
 			cout << "Enter the transaction's amount of units" << endl;
-			cin >> tr->units;
-			q.insertQ(tr); //insert the transaction in the queue function
+			cin >> u;
+			q.insertQ(id, u); //insert the transaction in the queue function
 			tg++; //counter of how many transactions have been generateds
 		}
 		else cout << "A transaction should not be generated" << endl;
@@ -88,6 +90,6 @@ int main()
 	cout<< " Transactions Generated: " << tg << endl;
 	cout << " Transaction Processed: " << tp << endl;
 	cout << "Transactions Started: " << ts << endl;
-	cout << "Transaction Left In Queue: " << size - tg - ts << endl;
+	cout << "Transaction Left In Queue: " << size - tg - tp << endl;
 	return 0;
 }

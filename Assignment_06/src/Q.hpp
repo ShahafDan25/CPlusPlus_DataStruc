@@ -16,37 +16,27 @@ using namespace std;
 
 
 //define global structures
-/*struct tran
-{
-	string id;
-	int units;
-};*/
 
-struct t
-{
-	string id;
-	int units;
-};
-/*struct server
-{
-	bool busy;
-	int speed;
-	int time;
-};*/
 
 
 class Q
 {
 private:
-	t * items;
+	struct t
+	{
+		string id;
+		int units;
+	};
+
 	int length;
 	int front;
 	int tail;
+	t * items;
 
 public:
 	Q();
 	Q(int size);
-	void insertQ(t * t);
+	void insertQ(string id, int u);
 	void deleteQ();
 	bool checkForTrans();
 	bool checkProb(int prob);
