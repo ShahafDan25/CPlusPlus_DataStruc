@@ -17,6 +17,7 @@ struct trans
 	string id;
 	int units;
 };
+
 struct server
 {
 	bool busy;
@@ -28,11 +29,16 @@ struct server
 class Q
 {
 private:
-	trans * elems;
+	trans * items;
 	int length;
+	int front;
+	int tail;
+
 public:
 	Q();
 	Q(int size);
+	void insertQ(trans * t);
+	void deleteQ();
 
 };
 
