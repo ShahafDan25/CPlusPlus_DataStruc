@@ -9,6 +9,9 @@
 #include "Q.hpp"
 #include <iostream>
 #include <iomanip>
+#include <string>
+#include <set>
+#include <cstdlib>
 using namespace std;
 
 
@@ -45,12 +48,12 @@ int main()
 		if(q.checkProb(newTransProb))
 		{
 			cout << "Transaction will be created!" << endl;
-			trans * t = new trans;
+			t * tr = new t;
 			cout << "Enter Transaction's id" << endl;
-			cin >> t->id;
+			cin >> tr->id;
 			cout << "Enter the transaction's amount of units" << endl;
-			cin >> t->units;
-			q.insertQ(t); //insert the transaction in the queue function
+			cin >> tr->units;
+			q.insertQ(tr); //insert the transaction in the queue function
 			tg++; //counter of how many transactions have been generateds
 		}
 		else cout << "A transaction should not be generated" << endl;

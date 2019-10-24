@@ -12,25 +12,33 @@
 #include <iostream>
 using namespace std;
 #include <string>
+
+
+
 //define global structures
-struct trans
+/*struct tran
+{
+	string id;
+	int units;
+};*/
+
+struct t
 {
 	string id;
 	int units;
 };
-
-struct server
+/*struct server
 {
 	bool busy;
 	int speed;
 	int time;
-};
+};*/
 
 
 class Q
 {
 private:
-	trans * items;
+	t * items;
 	int length;
 	int front;
 	int tail;
@@ -38,7 +46,7 @@ private:
 public:
 	Q();
 	Q(int size);
-	void insertQ(trans * t);
+	void insertQ(t * t);
 	void deleteQ();
 	bool checkForTrans();
 	bool checkProb(int prob);

@@ -14,12 +14,12 @@ using namespace std;
 
 Q::Q(int size)
 {
-	items = new trans[size];
+	items = new t[size];
 	length = size;
 	front = 0;
 	tail = 0;
 }
-void Q::insertQ(trans * tr)
+void Q::insertQ(t * tr)
 {
 	//the queue is full, we cannot add any more items
 			//therefore we will throw an exception
