@@ -21,6 +21,7 @@ Q::Q(int size)
 }
 void Q::insertQ(string i, int u)
 {
+	cout << "Adding Transaction" << endl;
 	//first create a new trasaction to add
 	t * tr = new t;
 	tr -> id = i;
@@ -39,6 +40,7 @@ void Q::insertQ(string i, int u)
 }
 void Q::deleteQ()
 {
+	cout << "Deleting transaction" << endl;
 	if(tail == front)
 	{
 		throw "Queue is empty";
@@ -59,6 +61,7 @@ bool Q::checkProb (int prob) //make a QUEUE function
 	//check for validity
 	srand(time(0));
 	int r = rand() % 100 + 1;
+	cout << r << " \t " << prob << endl;
 	if(r <= prob) return true;
 	else return false;
 }

@@ -50,7 +50,7 @@ int main()
 		// ------ ARRIVAL -------
 		if(q.checkProb(newTransProb))
 		{
-			cout << "Transaction will be created!" << endl;
+			cout << "Create Transaction!" << endl;
 			cout << "Enter Transaction's id" << endl;
 			cin >> id;
 			cout << "Enter the transaction's amount of units" << endl;
@@ -75,7 +75,7 @@ int main()
 		// ------ LEAVING ------
 		if(transStarted)
 		{
-			if(q.checkProb(endTransProb))
+			if(!q.checkProb(endTransProb))
 			{
 				transStarted = false;
 				tp++;
@@ -87,9 +87,9 @@ int main()
 
 	cout << endl << "-----  FINAL REPORT -----"<< endl << endl;
 	cout << "Clock Ticks: " << ticks << endl;
-	cout<< " Transactions Generated: " << tg << endl;
-	cout << " Transaction Processed: " << tp << endl;
+	cout<< "Transactions Generated: " << tg << endl;
+	cout << "Transactions Processed: " << tp << endl;
 	cout << "Transactions Started: " << ts << endl;
-	cout << "Transaction Left In Queue: " << size - tg - tp << endl;
+	cout << "Transactions Left In Queue: " << size - tp << endl;
 	return 0;
 }
