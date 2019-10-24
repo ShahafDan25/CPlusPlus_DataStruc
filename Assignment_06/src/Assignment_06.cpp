@@ -9,20 +9,13 @@
 #include "Q.hpp"
 #include <iostream>
 #include <iomanip>
-#include <time>
 using namespace std;
-bool checkProb (int prob) //make a QUEUE function
-{
-	//generate a random number
-	//check for validity
-	int rand = rand() % 100 + 1;
-	if(rand() <= prob) return true;
-	else return false;
-}
+
 
 int main()
 {
-	int size, clock, ticks, newTransProb, endTransProb, tg, tf;
+	int size, clock, ticks, newTransProb, endTransProb, tg, ts, tp;
+	bool transStarted = false;
 	cout << "Please enter Queue size" << endl;
 	cin >>  size;
 	Q q(size);
@@ -49,7 +42,7 @@ int main()
 	while(clock < ticks)
 	{
 		// ------ ARRIVAL -------
-		if(checkProb(newTransProb))
+		if(q.checkProb(newTransProb))
 		{
 			cout << "Transaction will be created!" << endl;
 			trans * t = new trans;
@@ -57,25 +50,41 @@ int main()
 			cin >> t->id;
 			cout << "Enter the transaction's amount of units" << endl;
 			cin >> t->units;
-			q.insertQ(t);
+			q.insertQ(t); //insert the transaction in the queue function
 			tg++; //counter of how many transactions have been generateds
 		}
 		else cout << "A transaction should not be generated" << endl;
 
 
 		// ------ PROCESSING -----
-		// ------ LEAVING ------
-		if(checkProb(endTransProb))
+		if(!transStarted)
 		{
-			tf++;
+			if(q.checkForTrans()) //if there is a transaction in the queue
+			{
+				//what does he mean by start transaction?
+				q.deleteQ();
+				transStarted = true;
+				ts++; //transactions started incerement
+			}
+		}
+		// ------ LEAVING ------
+		if(transStarted)
+		{
+			if(q.checkProb(endTransProb))
+			{
+				transStarted = false;
+				tp++;
+			}
 		}
 		clock++;
 	}
 
 
-	cout << "AFTER MATH:" << endl;
+	cout << endl << "-----  FINAL REPORT -----"<< endl << endl;
 	cout << "Clock Ticks: " << ticks << endl;
-	cout<< " Transactions Generated" << tg << endl;
-	cout << " Transaction Processed:" << tf << endl;
+	cout<< " Transactions Generated: " << tg << endl;
+	cout << " Transaction Processed: " << tp << endl;
+	cout << "Transactions Started: " << ts << endl;
+	cout << "Transaction Left In Queue: " << size - tg - ts << endl;
 	return 0;
 }

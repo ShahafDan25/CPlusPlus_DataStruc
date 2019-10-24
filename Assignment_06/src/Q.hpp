@@ -8,7 +8,8 @@
 #ifndef Q_HPP_
 #define Q_HPP_
 
-
+#include <iomanip>
+#include <iostream>
 using namespace std;
 #include <string>
 //define global structures
@@ -39,6 +40,8 @@ public:
 	Q(int size);
 	void insertQ(trans * t);
 	void deleteQ();
+	bool checkForTrans();
+	bool checkProb(int prob);
 
 };
 
