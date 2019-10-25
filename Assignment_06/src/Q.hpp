@@ -39,7 +39,7 @@ public:
 	void insertQ(string id, int u);
 	void deleteQ();
 	bool checkForTrans();
-	bool checkProb(int prob);
+	bool checkProb(int prob, string &stats);
 	void displayQ();
 
 };

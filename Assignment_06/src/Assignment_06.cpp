@@ -44,22 +44,23 @@ int main()
 	}
 	clock = 0;
 	string id;
+	int iid;
 	int u;
+	string stats;
 	while(clock < ticks)
 	{
 		// ------ ARRIVAL -------
-		if(q.checkProb(newTransProb))
+		if(q.checkProb(newTransProb, stats))
 		{
-			cout << "Create Transaction!" << endl;
-			cout << "Enter Transaction's id" << endl;
-			cin >> id;
-			cout << "Enter the transaction's amount of units" << endl;
-			cin >> u;
-			q.insertQ(id, u); //insert the transaction in the queue function
+			cout << "Generating Transaction! Because: " << stats;
+			u = rand() % 10 +1; // units will be  a random number between 1 and 0
+			iid = clock; //the id will be the clock number, it is unique and will be unrepeatitive
+			q.insertQ(to_string(iid), u); //insert the transaction in the queue function
 			tg++; //counter of how many transactions have been generateds
 		}
-		else cout << "A transaction should not be generated" << endl;
+		else cout << "Not Generating, Because: " << stats;
 
+		//display
 
 		// ------ PROCESSING -----
 		if(!transStarted)
@@ -68,20 +69,25 @@ int main()
 			{
 				//what does he mean by start transaction?
 				q.deleteQ();
+				cout << stats;
 				transStarted = true;
 				ts++; //transactions started incerement
 			}
 		}
+
 		// ------ LEAVING ------
 		if(transStarted)
 		{
-			if(!q.checkProb(endTransProb))
+			if(q.checkProb(endTransProb, stats))
 			{
 				transStarted = false;
 				tp++;
 			}
 		}
 		clock++;
+
+		//----- DISPLAYING ---
+		cout << "Q \t : ";
 		q.displayQ();
 	}
 

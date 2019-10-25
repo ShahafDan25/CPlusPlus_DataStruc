@@ -21,15 +21,22 @@ Q::Q(int size)
 }
 void Q::insertQ(string i, int u)
 {
-	cout << "Adding Transaction" << endl;
+	cout << "Transaction Added!" << endl;
 	//first create a new trasaction to add
 	t * tr = new t;
 	tr -> id = i;
 	tr -> units = u;
 	//the queue is full, we cannot add any more items
 	//therefore we will throw an exception
-	if((tail == front - 1) || (front == 0 && tail == length - 1))
+	if(tail == front - 1)
 	{
+		cout << "Q IS FULL, cannot add any more transactions" << endl;
+		throw "Queue is full";
+		return;
+	}
+	else if(front ==0 && tail == length - 1)
+	{
+		cout << "Q IS FULL, cannot add any more transactions" << endl;
 		throw "Queue is full";
 		return;
 	}
@@ -40,11 +47,21 @@ void Q::insertQ(string i, int u)
 }
 void Q::deleteQ()
 {
-	cout << "Deleting transaction" << endl;
+	t * tr = new t;
+	tr -> id = "";
+	tr -> units = 0;
+
+	cout << "Deleting transaction! Because: ";
 	if(tail == front)
 	{
+		cout << "Q IS EMPTY, cannot delete anything" << endl;
 		throw "Queue is empty";
 		return;
+	}
+	else
+	{
+		//tr = nullptr;
+		items[front] = *tr;
 	}
 	//items[front] = nullptr; //set the first item to null, move to the next item
 	if(front == length - 1) front = 0;
@@ -55,22 +72,29 @@ bool Q::checkForTrans()
 	if (tail == front) return false;
 	else return true;
 }
-bool Q::checkProb (int prob) //make a QUEUE function
+bool Q::checkProb (int prob, string & stats) //make a QUEUE function
 {
 	//generate a random number
-	//check for validity
-	//srand(time(0));
+	//check for validity via generating a random number to check probability
 	int r = rand() % 100 + 1;
-	cout << r << " \t < " << prob << endl;
-	if(r <= prob) return true;
-	else return false;
+	//cout << r << " \t < " << prob << endl;
+	if(r <= prob)
+	{
+		stats =  to_string(r) +  "  <  " + to_string(prob) + "\n";
+		return true;
+	}
+	else
+	{
+		stats = to_string(r) + " not < " + to_string(prob) + "\n";
+		return false;
+	}
 }
 
 void Q::displayQ()
 {
 	for(int i = 0; i < length; i++)
 	{
-		cout << items[i].id << " ";
+		if(items[i].id != "") cout << items[i].id << " ";
 	}
 	cout << endl;
 	return;
