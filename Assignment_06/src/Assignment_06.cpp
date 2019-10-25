@@ -19,7 +19,7 @@ int main()
 {
 
 	int size, clock, ticks, newTransProb, endTransProb, tg, ts, tp;
-	bool transStarted = false;
+	bool transStarted, b, deleted = false;
 	cout << "Please enter Queue size" << endl;
 	cin >>  size;
 	Q q(size);
@@ -69,17 +69,26 @@ int main()
 			{
 				//what does he mean by start transaction?
 				q.deleteQ();
-				cout << stats;
+				deleted = true;
 				transStarted = true;
 				ts++; //transactions started incerement
 			}
 		}
 
 		// ------ LEAVING ------
+		/* Following code is for more user friendly output */
+		b = q.checkProb(endTransProb, stats);
+		if(deleted)
+		{
+			cout << stats;
+			deleted = false;
+		}
+
 		if(transStarted)
 		{
-			if(q.checkProb(endTransProb, stats))
+			if(b)
 			{
+
 				transStarted = false;
 				tp++;
 			}
@@ -91,12 +100,13 @@ int main()
 		q.displayQ();
 	}
 
-
+	// -------- REPORTING ------
 	cout << endl << "-----  FINAL REPORT -----"<< endl << endl;
 	cout << "Clock Ticks: " << ticks << endl;
+	cout << "Q Size entered was: " << size << endl;
 	cout<< "Transactions Generated: " << tg << endl;
 	cout << "Transactions Processed: " << tp << endl;
 	cout << "Transactions Started: " << ts << endl;
-	cout << "Transactions Left In Queue: " << size - tp << endl;
+	cout << "Transactions Left In Queue: " << size - tg + ts << endl;
 	return 0;
 }

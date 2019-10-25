@@ -66,6 +66,7 @@ void Q::deleteQ()
 	//items[front] = nullptr; //set the first item to null, move to the next item
 	if(front == length - 1) front = 0;
 	else front++;
+	return;
 }
 bool Q::checkForTrans()
 {
