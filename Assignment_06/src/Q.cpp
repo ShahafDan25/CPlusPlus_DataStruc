@@ -10,7 +10,7 @@ using namespace std;
 #include <set>
 #include <iostream>
 #include <iomanip>
-#include <cstdlib>
+//#include <cstdlib>
 
 Q::Q(int size)
 {
@@ -59,10 +59,19 @@ bool Q::checkProb (int prob) //make a QUEUE function
 {
 	//generate a random number
 	//check for validity
-	srand(time(0));
+	//srand(time(0));
 	int r = rand() % 100 + 1;
-	cout << r << " \t " << prob << endl;
+	cout << r << " \t < " << prob << endl;
 	if(r <= prob) return true;
 	else return false;
 }
 
+void Q::displayQ()
+{
+	for(int i = 0; i < length; i++)
+	{
+		cout << items[i].id << " ";
+	}
+	cout << endl;
+	return;
+}

@@ -40,6 +40,7 @@ public:
 	void deleteQ();
 	bool checkForTrans();
 	bool checkProb(int prob);
+	void displayQ();
 
 };
 

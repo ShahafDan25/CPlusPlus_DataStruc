@@ -82,6 +82,7 @@ int main()
 			}
 		}
 		clock++;
+		q.displayQ();
 	}
 
 
