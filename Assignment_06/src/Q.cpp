@@ -30,13 +30,13 @@ void Q::insertQ(string i, int u)
 	//therefore we will throw an exception
 	if(tail == front - 1)
 	{
-		cout << "Q IS FULL, cannot add any more transactions" << endl;
+		cout << "Q IS FULL, cannot add any more transactions. THROWING EXCEPTION:" << endl;
 		throw "Queue is full";
 		return;
 	}
 	else if(front ==0 && tail == length - 1)
 	{
-		cout << "Q IS FULL, cannot add any more transactions" << endl;
+		cout << "Q IS FULL, cannot add any more transactions. THROWING EXCEPTION:" << endl;
 		throw "Queue is full";
 		return;
 	}
@@ -54,7 +54,7 @@ void Q::deleteQ()
 	cout << "Deleting transaction! Because: ";
 	if(tail == front)
 	{
-		cout << "Q IS EMPTY, cannot delete anything" << endl;
+		cout << "Q IS EMPTY, cannot delete anything. THROWING EXCEPTION:" << endl;
 		throw "Queue is empty";
 		return;
 	}
@@ -93,10 +93,13 @@ bool Q::checkProb (int prob, string & stats) //make a QUEUE function
 
 void Q::displayQ()
 {
+	bool displayed = false;
 	for(int i = 0; i < length; i++)
 	{
+		displayed = true;
 		if(items[i].id != "") cout << items[i].id << " ";
 	}
+	if(!displayed) cout << " CURRENTLY EMPTY ";
 	cout << endl;
 	return;
 }
