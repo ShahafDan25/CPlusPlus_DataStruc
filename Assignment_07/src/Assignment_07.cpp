@@ -25,10 +25,28 @@ struct emp
 	list <emp> * empList;
 };
 
+//some data
+const int size = 100;
+int trav = 0;
+emp employees[size]; //this is the hash table
 
-void displayEmp(emp e)
+void displayEmp(emp employees[])
 {
+	for(int i = 0; i < size; i++)
+	{
+		if(employees[i].ssn == 0) cout << "entry " << i << ": has no employees!" << endl;
+		else
+		{
+			cout << "entry " << i << ": " << employees[size].first << " " <<  employees[i].last << " " << employees[size].ssn << ". " << endl;
 
+			for (list <emp>::iterator it = employees[i].empList -> begin(); it != employees[i].empList -> end(); ++it)
+			{
+				cout << "\t" << it -> first << " " << it -> last << " " << it -> ssn << ". " << endl;
+			}
+
+		}
+
+	}
 }
 
 int encrypt(int data) //recursion
@@ -43,8 +61,7 @@ int main()
 	//------ PART 0: SETTING UP --------//
 	cout << "WELCOME TO ASSIGNMENT 7 BY SHAHAF DAN" << endl;
 	//1. create static array of employeeeData
-	const int size = 100;
-	emp employees[size]; //this is the hash table
+
 	for(int i = 0; i < size; i++)// initializing the has table
 	{
 		employees[i].ssn = 0;
@@ -64,33 +81,42 @@ int main()
 	}// else read from file
 	else
 	{
-		//int counter = 0; //set counter for employees read from file
 		string curLine;
 		string f;
 		string l;
 		string ssnData;
 		int ssnEncrypt;
 		//close file after reading from it
-		while(getline(dataFile, curLine)) //while the file is not empty, move to curLine the current line from the file
+		while(getline(dataFile, curLine, '\n')) //while the file is not empty, move to curLine the current line from the file
 		{
 			// 1. read the data from the curLine
 			ssnData = curLine.substr(0,9); //position 0 to 8
-			f = curLine.substr(9,19); //position 9 to 18
-			l = curLine.substr(19,33); //positions 19 to 33
+			f = curLine.substr(9,9); //position 9 to 18
+			l = curLine.substr(18,12); //positions 19 to 33
 
 			// 2. encrypt the information
 			ssnEncrypt = encrypt(stoi(ssnData));
-			cout << ssnEncrypt << endl;
+
+
 			//now encrypt has the sum of the digits
 
 			// 3. based on the encryption, pass to the right entry in the has table
-			//emp * e = new emp; //first create a new emp structure
-			//e->first = f;
-			//e->last = l;
-			//e->ssn = stoi(ssnData);
-			//3.5: check for space in the list
-			//if (employees[ssnEncrypt].empList == nullptr) employees[ssnEncrypt].empList.push_back(e); //if this is the head of the list;
-			//else employees[ssnEncrypt].empList->push_back(e);
+			if(employees[ssnEncrypt].ssn == 0)
+			{
+				employees[ssnEncrypt].first = f;
+				employees[ssnEncrypt].last = l;
+				employees[ssnEncrypt].ssn = stoi(ssnData);
+			}
+			else
+			{
+				emp * e = new emp;
+				e -> first = f;
+				e -> last = l;
+				e -> ssn = stoi(ssnData);
+				e -> empList = nullptr;
+				employees[ssnEncrypt].empList->push_back(*e);
+			}
+
 			// 4. go to the next person
 
 		}
@@ -98,11 +124,8 @@ int main()
 	}
 
 	//------ PART 2: DISPLAYING ALL --------//
-	for(int d = 0; d < size; d++)
-	{
+	displayEmp(employees);
 
-		if(employees[d].first != "") displayEmp(employees[d]);
-	}
 	//------ PART 3: QUERY EMPLOYEES --------//
 	int checkssn = 0;
 	cout << "enter employee ssn: " << endl;
