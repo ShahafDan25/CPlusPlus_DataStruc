@@ -37,12 +37,13 @@ void displayEmp(emp employees[])
 		if(employees[i].ssn == 0) cout << "entry " << i << ": has no employees!" << endl;
 		else
 		{
-			cout << "entry " << i << ": " << employees[size].first << " " <<  employees[i].last << " " << employees[size].ssn << ". " << endl;
+			cout << "entry " << i << ": " << employees[i].first << " " <<  employees[i].last << " " << employees[i].ssn << ". " << endl;
 
-			for (list <emp>::iterator it = employees[i].empList -> begin(); it != employees[i].empList -> end(); ++it)
+			/*for (list <emp>::iterator it = employees[i].empList -> begin(); it != employees[i].empList -> end(); ++it)
 			{
+				cout << "test" << endl;
 				cout << "\t" << it -> first << " " << it -> last << " " << it -> ssn << ". " << endl;
-			}
+			}*/
 
 		}
 
@@ -56,12 +57,17 @@ int encrypt(int data) //recursion
 	else return 0;
 }
 
+void lookUpEmp(int ssn)
+{
+	int keyssn = encrypt(ssn);
+	cout  << "QUERY STEP" << endl;
+
+}
 int main()
 {
 	//------ PART 0: SETTING UP --------//
 	cout << "WELCOME TO ASSIGNMENT 7 BY SHAHAF DAN" << endl;
 	//1. create static array of employeeeData
-
 	for(int i = 0; i < size; i++)// initializing the has table
 	{
 		employees[i].ssn = 0;
@@ -92,7 +98,7 @@ int main()
 			// 1. read the data from the curLine
 			ssnData = curLine.substr(0,9); //position 0 to 8
 			f = curLine.substr(9,9); //position 9 to 18
-			l = curLine.substr(18,12); //positions 19 to 33
+			l = curLine.substr(18,14); //positions 19 to 33
 
 			// 2. encrypt the information
 			ssnEncrypt = encrypt(stoi(ssnData));
@@ -106,26 +112,25 @@ int main()
 				employees[ssnEncrypt].first = f;
 				employees[ssnEncrypt].last = l;
 				employees[ssnEncrypt].ssn = stoi(ssnData);
+				employees[ssnEncrypt].empList -> push_back(*nullptr);
 			}
 			else
 			{
-				emp * e = new emp;
-				e -> first = f;
-				e -> last = l;
-				e -> ssn = stoi(ssnData);
-				e -> empList = nullptr;
-				employees[ssnEncrypt].empList->push_back(*e);
+				emp e;
+				e.first = f;
+				e.last = l;
+				e.ssn = stoi(ssnData);
+				e.empList = nullptr;
+				//employees[ssnEncrypt].empList->push_back(e); //STILL GIVES ME PROVLEMS
 			}
 
 			// 4. go to the next person
-
 		}
-		dataFile.close();
+		dataFile.close(); //make sure to close the file
 	}
 
 	//------ PART 2: DISPLAYING ALL --------//
 	displayEmp(employees);
-
 	//------ PART 3: QUERY EMPLOYEES --------//
 	int checkssn = 0;
 	cout << "enter employee ssn: " << endl;
@@ -133,8 +138,10 @@ int main()
 	while(checkssn != 0)
 	{
 		//print the right employee
-		cout << "enter employee ssn: " << endl;
+		lookUpEmp(checkssn);
+		cout << "enter employee ssn, or 0 to finish the program" << endl;
 		cin >> checkssn;
 	}
+	cout << "THANK YOU, HAVE A GOOD DAY!" << endl;
 	return 0;
 }
