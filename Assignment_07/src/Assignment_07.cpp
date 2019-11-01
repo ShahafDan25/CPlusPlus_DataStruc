@@ -22,7 +22,7 @@ struct emp
 	int ssn;
 	string first;
 	string last;
-	list <emp> * empList;
+	emp * nextEmp;
 };
 
 //some data
@@ -73,7 +73,7 @@ int main()
 		employees[i].ssn = 0;
 		employees[i].first = ""; //setting to NULL
 		employees[i].last = ""; //setting to NULL
-		employees[i].empList = nullptr;
+		employees[i].nextEmp = nullptr;
 	}
 
 	//------ PART 1: READING DATA --------//
@@ -107,23 +107,22 @@ int main()
 			//now encrypt has the sum of the digits
 
 			// 3. based on the encryption, pass to the right entry in the has table
-			if(employees[ssnEncrypt].ssn == 0)
+			if(employees[ssnEncrypt].nextEmp == nullptr) //if the entry is empty
 			{
 				employees[ssnEncrypt].first = f;
 				employees[ssnEncrypt].last = l;
 				employees[ssnEncrypt].ssn = stoi(ssnData);
-				employees[ssnEncrypt].empList -> push_back(*nullptr);
+				employees[ssnEncrypt].nextEmp = nullptr;
 			}
-			else
+			else //else, create a new node and add it to the list
 			{
-				emp e;
-				e.first = f;
-				e.last = l;
-				e.ssn = stoi(ssnData);
-				e.empList = nullptr;
-				//employees[ssnEncrypt].empList->push_back(e); //STILL GIVES ME PROVLEMS
+				emp * e;
+				e->first = f;
+				e->last = l;
+				e->ssn = stoi(ssnData);
+				e->nextEmp = nullptr;
+				employees[ssnEncrypt].nextEmp = e; //STILL GIVES ME PROVLEMS
 			}
-
 			// 4. go to the next person
 		}
 		dataFile.close(); //make sure to close the file
