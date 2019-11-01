@@ -28,25 +28,33 @@ struct emp
 //some data
 const int size = 100;
 int trav = 0;
-emp employees[size]; //this is the hash table
+emp * employees[size]; //this is the hash table
 
-void displayEmp(emp employees[])
+void displayEmp(emp * employees[])
 {
+	cout << endl << "DISPLAYING EMPLOYEES HASH MAP" << endl;
+
+	cout << "--------------------------" << endl;
 	for(int i = 0; i < size; i++)
 	{
-		if(employees[i].ssn == 0) cout << "entry " << i << ": has no employees!" << endl;
-		else
+		cout << "Entry #" << i << ": ";
+		emp * etrav = new emp;
+		etrav = employees[i];
+		while(etrav)
 		{
-			cout << "entry " << i << ": " << employees[i].first << " " <<  employees[i].last << " " << employees[i].ssn << ". " << endl;
-
-			/*for (list <emp>::iterator it = employees[i].empList -> begin(); it != employees[i].empList -> end(); ++it)
+			if(etrav -> ssn == 0)
 			{
-				cout << "test" << endl;
-				cout << "\t" << it -> first << " " << it -> last << " " << it -> ssn << ". " << endl;
-			}*/
-
+				cout << "NO ENTRIES" << endl;
+				break;
+			}
+			else
+			{
+				cout << endl;
+				cout << "\t ~ " << etrav -> first << " " << etrav -> last << " " << etrav ->ssn << ". ";
+				etrav = etrav -> nextEmp;
+			}
+			cout << endl; //just for spacing
 		}
-
 	}
 }
 
@@ -70,10 +78,12 @@ int main()
 	//1. create static array of employeeeData
 	for(int i = 0; i < size; i++)// initializing the has table
 	{
-		employees[i].ssn = 0;
-		employees[i].first = ""; //setting to NULL
-		employees[i].last = ""; //setting to NULL
-		employees[i].nextEmp = nullptr;
+ 		emp * e = new emp;
+		e->first = "";
+		e->last = "";
+		e->ssn = 0;
+		e->nextEmp = nullptr;
+		employees[i] = e;
 	}
 
 	//------ PART 1: READING DATA --------//
@@ -93,6 +103,7 @@ int main()
 		string ssnData;
 		int ssnEncrypt;
 		//close file after reading from it
+
 		while(getline(dataFile, curLine, '\n')) //while the file is not empty, move to curLine the current line from the file
 		{
 			// 1. read the data from the curLine
@@ -102,28 +113,28 @@ int main()
 
 			// 2. encrypt the information
 			ssnEncrypt = encrypt(stoi(ssnData));
-
-
 			//now encrypt has the sum of the digits
 
 			// 3. based on the encryption, pass to the right entry in the has table
-			if(employees[ssnEncrypt].nextEmp == nullptr) //if the entry is empty
-			{
-				employees[ssnEncrypt].first = f;
-				employees[ssnEncrypt].last = l;
-				employees[ssnEncrypt].ssn = stoi(ssnData);
-				employees[ssnEncrypt].nextEmp = nullptr;
-			}
+
+			emp * e = new emp;
+			e->first = f;
+			e->last = l;
+			e->ssn = stoi(ssnData);
+			e->nextEmp = nullptr;
+			if(!employees[ssnEncrypt]) //if the entry is empty
+				employees[ssnEncrypt] = e;
 			else //else, create a new node and add it to the list
 			{
-				emp * e;
-				e->first = f;
-				e->last = l;
-				e->ssn = stoi(ssnData);
-				e->nextEmp = nullptr;
-				employees[ssnEncrypt].nextEmp = e; //STILL GIVES ME PROVLEMS
+				emp * etrav = new emp;
+				etrav = employees[ssnEncrypt];
+				while(etrav -> nextEmp)
+				{
+					etrav = etrav -> nextEmp;
+				}
+				etrav = e;
 			}
-			// 4. go to the next person
+			// 4. go to the next person - NOT NEEDED ANYMORE
 		}
 		dataFile.close(); //make sure to close the file
 	}
