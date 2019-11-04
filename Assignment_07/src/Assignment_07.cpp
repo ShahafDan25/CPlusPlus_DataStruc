@@ -25,7 +25,7 @@ struct emp
 
 //some data
 const int size = 100;
-int trav = 0;
+
 emp * employees[size]; //this is the hash table
 
 void displayEmp(emp * employees[])
@@ -53,6 +53,7 @@ void displayEmp(emp * employees[])
 			cout << endl;
 		} // end else
 	}// end for
+	//delete etrav;
 } //end func
 
 int encrypt(int data) //recursion
@@ -62,14 +63,34 @@ int encrypt(int data) //recursion
 	else return 0;
 }
 
+
 void lookUpEmp(int ssn)
 {
 	int keyssn = encrypt(ssn);
-	cout  << "QUERY STEP" << endl;
-
+	emp * etrav = employees[keyssn];
+	bool found = false;
+	while(etrav)
+	{
+		if(etrav -> ssn == ssn)
+		{
+			cout << "This is " << etrav -> first << " " << etrav -> last << endl;
+			found = true;
+			break;
+		}
+		etrav = etrav -> nextEmp;
+	}
+	if(!found)
+	{
+		cout << "We don't have this person in our records, sorry" << endl;
+	}
 }
+
+
+
+
 int main()
 {
+	int count = 0;
 	//------ PART 0: SETTING UP --------//
 	cout << "WELCOME TO ASSIGNMENT 7 BY SHAHAF DAN" << endl;
 	//1. create static array of employeeeData
@@ -97,7 +118,6 @@ int main()
 		string ssnData;
 		int ssnEncrypt;
 		//close file after reading from it
-		int count = 0;
 		emp * etrav = new emp;
 
 		while(getline(dataFile, curLine, '\n')) //while the file is not empty, move to curLine the current line from the file
@@ -134,6 +154,7 @@ int main()
 				}
 				etrav -> nextEmp = e;
 			}
+			count++;
 			// 4. go to the next person - NOT NEEDED ANYMORE
 		}
 		dataFile.close(); //make sure to close the file
@@ -141,8 +162,11 @@ int main()
 
 	//------ PART 2: DISPLAYING ALL --------//
 	displayEmp(employees);
+	cout << "END OF LIST! \t Total: " << count << " employees " << endl;
 
 	//------ PART 3: QUERY EMPLOYEES --------//
+	cout << endl << endl << "QUERYING HASH MAP " << endl;
+	cout << "--------------------- " << endl;
 	int checkssn = 0;
 	cout << "enter employee ssn: " << endl;
 	cin >> checkssn;
