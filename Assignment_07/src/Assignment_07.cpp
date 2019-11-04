@@ -15,8 +15,6 @@
 #include <list>
 using namespace std;
 
-
-
 struct emp
 {
 	int ssn;
@@ -38,25 +36,24 @@ void displayEmp(emp * employees[])
 	for(int i = 0; i < size; i++)
 	{
 		cout << "Entry #" << i << ": ";
-		emp * etrav = new emp;
-		etrav = employees[i];
-		while(etrav)
+		if(employees[i] == nullptr)
 		{
-			if(etrav -> ssn == 0)
-			{
-				cout << "NO ENTRIES" << endl;
-				break;
-			}
-			else
+			cout << "NO ENTRIES" << endl;
+		}
+		else
+		{
+			emp * etrav = new emp;
+			etrav = employees[i];
+			while(etrav)
 			{
 				cout << endl;
 				cout << "\t ~ " << etrav -> first << " " << etrav -> last << " " << etrav ->ssn << ". ";
 				etrav = etrav -> nextEmp;
-			}
-			cout << endl; //just for spacing
-		}
-	}
-}
+			} //end while
+			cout << endl;
+		} // end else
+	}// end for
+} //end func
 
 int encrypt(int data) //recursion
 {
@@ -79,10 +76,7 @@ int main()
 	for(int i = 0; i < size; i++)// initializing the has table
 	{
  		emp * e = new emp;
-		e->first = "";
-		e->last = "";
-		e->ssn = 0;
-		e->nextEmp = nullptr;
+		e = nullptr;
 		employees[i] = e;
 	}
 
@@ -103,6 +97,8 @@ int main()
 		string ssnData;
 		int ssnEncrypt;
 		//close file after reading from it
+		int count = 0;
+		emp * etrav = new emp;
 
 		while(getline(dataFile, curLine, '\n')) //while the file is not empty, move to curLine the current line from the file
 		{
@@ -117,22 +113,26 @@ int main()
 
 			// 3. based on the encryption, pass to the right entry in the has table
 
+
 			emp * e = new emp;
 			e->first = f;
 			e->last = l;
 			e->ssn = stoi(ssnData);
 			e->nextEmp = nullptr;
-			if(!employees[ssnEncrypt]) //if the entry is empty
-				employees[ssnEncrypt] = e;
-			else //else, create a new node and add it to the list
+
+			emp * etrav = new emp;
+			if(employees[ssnEncrypt] == nullptr)
 			{
-				emp * etrav = new emp;
+				employees[ssnEncrypt] = e;
+			}
+			else
+			{
 				etrav = employees[ssnEncrypt];
 				while(etrav -> nextEmp)
 				{
 					etrav = etrav -> nextEmp;
 				}
-				etrav = e;
+				etrav -> nextEmp = e;
 			}
 			// 4. go to the next person - NOT NEEDED ANYMORE
 		}
@@ -141,6 +141,7 @@ int main()
 
 	//------ PART 2: DISPLAYING ALL --------//
 	displayEmp(employees);
+
 	//------ PART 3: QUERY EMPLOYEES --------//
 	int checkssn = 0;
 	cout << "enter employee ssn: " << endl;
