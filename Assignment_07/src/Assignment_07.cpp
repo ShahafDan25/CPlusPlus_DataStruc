@@ -22,12 +22,8 @@ struct emp
 	string last;
 	emp * nextEmp;
 };
-
-//some data
-const int size = 100;
-
+const int size = 101; //primary number to be safe I guess
 emp * employees[size]; //this is the hash table
-
 void displayEmp(emp * employees[])
 {
 	cout << endl << "DISPLAYING EMPLOYEES HASH MAP" << endl;
@@ -55,18 +51,15 @@ void displayEmp(emp * employees[])
 	}// end for
 	//delete etrav;
 } //end func
-
 int encrypt(int data) //recursion
 {
 	// returns the sum of all the digits
 	if (data > 0) return (data%10) + encrypt(data/10);
 	else return 0;
 }
-
-
 void lookUpEmp(int ssn)
 {
-	int keyssn = encrypt(ssn);
+	int keyssn = ((100 * encrypt(ssn))/81);
 	emp * etrav = employees[keyssn];
 	bool found = false;
 	while(etrav)
@@ -84,10 +77,6 @@ void lookUpEmp(int ssn)
 		cout << "We don't have this person in our records, sorry" << endl;
 	}
 }
-
-
-
-
 int main()
 {
 	int count = 0;
@@ -112,12 +101,8 @@ int main()
 	}// else read from file
 	else
 	{
-		string curLine;
-		string f;
-		string l;
-		string ssnData;
+		string f, l, ssnData, curLine;
 		int ssnEncrypt;
-		//close file after reading from it
 		emp * etrav = new emp;
 
 		while(getline(dataFile, curLine, '\n')) //while the file is not empty, move to curLine the current line from the file
@@ -128,12 +113,11 @@ int main()
 			l = curLine.substr(18,14); //positions 19 to 33
 
 			// 2. encrypt the information
-			ssnEncrypt = encrypt(stoi(ssnData));
+			ssnEncrypt = ((100 * encrypt(stoi(ssnData)))/81);
+
 			//now encrypt has the sum of the digits
 
 			// 3. based on the encryption, pass to the right entry in the has table
-
-
 			emp * e = new emp;
 			e->first = f;
 			e->last = l;
@@ -157,9 +141,10 @@ int main()
 			count++;
 			// 4. go to the next person - NOT NEEDED ANYMORE
 		}
+		delete etrav;
+
 		dataFile.close(); //make sure to close the file
 	}
-
 	//------ PART 2: DISPLAYING ALL --------//
 	displayEmp(employees);
 	cout << "END OF LIST! \t Total: " << count << " employees " << endl;
@@ -172,7 +157,6 @@ int main()
 	cin >> checkssn;
 	while(checkssn != 0)
 	{
-		//print the right employee
 		lookUpEmp(checkssn);
 		cout << "enter employee ssn, or 0 to finish the program" << endl;
 		cin >> checkssn;
