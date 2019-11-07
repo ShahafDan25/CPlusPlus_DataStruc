@@ -12,16 +12,19 @@
 #include <fstream>
 #include <sstream>
 #include <ostream>
+#include <algorithm>
+#include <cmath>
 using namespace std;
 
+const string filePath = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a81data.txt";
 void buildArray(int toPop[], int size, string path)
 {
 	int counter = 0;
-	int index = 0;
+	int ind = 0;
 	string numbers;
 	ifstream dataFile;
-	dataFile.open("/CS20/a81data.txt");
-	int number;
+	dataFile.open(path);
+	int number = 0;
 	if(dataFile.fail())
 	{
 		cout << "COULD NOT OPEN FILE" << endl;
@@ -29,36 +32,33 @@ void buildArray(int toPop[], int size, string path)
 	}
 	else
 	{
-		while(getline(dataFile, numbers))
+
+		while(!dataFile.eof()) // while loop to read the file
 		{
-			cout << "Data File: " << numbers << endl;
+			dataFile >> numbers;
+		}
+
+		while(ind < size) //while loop to populate the array
+		{
+			toPop[ind] = stoi(numbers.substr(counter, 3));
+			if(toPop[ind] == 0 || numbers.length() < 2) break;
+			ind++;
+			counter += 3;
+			numbers = numbers.substr(3, numbers.length() - 3);
 		}
 	}
-
-	for(int i = 0; i < size; i++)
-	{
-
-		number = stoi(numbers.substr(counter, 3));
-		if(number == NULL) break;
-		else
-		{
-			toPop[i] = number;
-		}
-		counter += 3;
-	}
-
-
 	return;
 }
 
-void displayArray(int toPrint[], int low, int high)
+void displayArray(int  toPrint[], int low, int high)
 {
 	// I am not exactly sure on why we pass the low and high parameters, but whatever
-	for(int i = 0; i < sizeof(toPrint) / 10; i++) //I hope sizeof function will work as I hope
+	for(int i = 0; i < (int)(ceil(sizeof(toPrint))); i++) //I hope sizeof function will work as I hope
 	{
 		for(int j = 0; j < 10; j++)
 		{
-			cout << toPrint[((i * 10) + j)] << " ";
+			if(toPrint[((i * 10) + j)] == 0) break;
+			cout << toPrint[((i * 10) + j)] << "\t ";
 		}
 		cout << endl;
 	}
@@ -90,7 +90,7 @@ int main() {
 	int list[100];
 	string p ="c:/CS20/a81data.txt";
 	cout << "main: building first array (from a71data.txt)" << endl;
-	buildArray (list, 100, p);
+	buildArray (list, 100, filePath); //change later back to p DO NOT FORGET THIS!!!!!
 	cout << "main: displaying first array" << endl << endl;
 	displayArray (list, low, high);
 	cout << endl;
@@ -121,3 +121,9 @@ int main() {
 	displayArray (list, low, high);
 	return 0;
 }
+
+
+/******** TO DO  *************************/
+
+//1. change files locations
+//2. ask professor for the original files
