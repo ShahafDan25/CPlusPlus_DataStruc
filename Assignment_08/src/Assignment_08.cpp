@@ -66,8 +66,17 @@ void displayArray(int  toPrint[], int low, int high)
 
 bool checkIfHeap(int toCheck[], int low, int high)
 {
+	//before starting: remember:
+		//Left node index based heap: 2 * index + 1
+		//right node index based heap: 2 * index + 2
 
-	return false;
+	if( ((2 * low) + 2) > high) return true; //if the low bound is a last node in the heap:, the return true
+	//recursive call
+	bool leftNode = (toCheck[low] <= toCheck[(2 * low )+ 1]) && checkIfHeap(toCheck, (2*low) + 1, high);
+
+	bool rightNode = ( (2 * low) + 2 == high) || (toCheck [low] <= toCheck [(2 * low) + 2] && checkIfHeap (toCheck, (2*low) + 2, high));
+
+	return leftNode && rightNode; //return true only if both the rightNode and left Node are all truely a heap
 }
 
 void buildHeap(int toBuild[], int low, int high)
