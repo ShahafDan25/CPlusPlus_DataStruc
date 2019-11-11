@@ -16,12 +16,13 @@
 #include <cmath>
 using namespace std;
 
-const string filePath = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a81data.txt";
+const string filePath = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a81data.txt"; //CHANGE LOCATION LATER BASED ON ASSIGNMENT"S INSTRUCTIONS
 void buildArray(int toPop[], int size, string path)
 {
 	int counter = 0;
 	int ind = 0;
 	string numbers;
+	string moreNumbers;
 	ifstream dataFile;
 	dataFile.open(path);
 	int number = 0;
@@ -32,20 +33,25 @@ void buildArray(int toPop[], int size, string path)
 	}
 	else
 	{
-
+		int count;
 		while(!dataFile.eof()) // while loop to read the file
 		{
-			dataFile >> numbers;
+			dataFile >> moreNumbers;
+			numbers += moreNumbers;
 		}
 
-		while(ind < size) //while loop to populate the array
+		while(numbers.length() > 0) //while loop to populate the array
 		{
 			toPop[ind] = stoi(numbers.substr(counter, 3));
-			if(toPop[ind] == 0 || numbers.length() < 2) break;
+			cout << toPop [ind] << " ,";
+			//if(toPop[ind] == 0 || numbers.length() < 2) break;
 			ind++;
 			counter += 3;
-			numbers = numbers.substr(3, numbers.length() - 3);
+			if(counter + 2  > numbers.length())break;
+			count ++;
+			//else numbers = numbers.substr(3, numbers.length() - 3);
 		}
+		cout << endl << endl << " There is a total of " << count << " numbers in the provided file" << endl << endl;
 	}
 	return;
 }
@@ -71,7 +77,7 @@ bool checkIfHeap(int toCheck[], int low, int high)
 		//right node index based heap: 2 * index + 2
 
 	if( ((2 * low) + 2) > high) return true; //if the low bound is a last node in the heap:, the return true
-	//recursive call
+	//recursive call // check every node recursivley until getting to the 99th item in the array (last element in the heap)
 	bool leftNode = (toCheck[low] <= toCheck[(2 * low )+ 1]) && checkIfHeap(toCheck, (2*low) + 1, high);
 
 	bool rightNode = ( (2 * low) + 2 == high) || (toCheck [low] <= toCheck [(2 * low) + 2] && checkIfHeap (toCheck, (2*low) + 2, high));
