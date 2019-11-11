@@ -14,6 +14,7 @@
 #include <ostream>
 #include <algorithm>
 #include <cmath>
+#include "Heap.hpp"
 using namespace std;
 
 const string filePath = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a81data.txt"; //CHANGE LOCATION LATER BASED ON ASSIGNMENT"S INSTRUCTIONS
@@ -48,8 +49,7 @@ void buildArray(int toPop[], int size, string path)
 			ind++;
 			counter += 3;
 			if(counter + 2  > numbers.length())break;
-			count ++;
-			//else numbers = numbers.substr(3, numbers.length() - 3);
+			count ++; //keep track of amount of numbers that are in the file
 		}
 		cout << endl << endl << " There is a total of " << count << " numbers in the provided file" << endl << endl;
 	}
@@ -87,6 +87,7 @@ bool checkIfHeap(int toCheck[], int low, int high)
 
 void buildHeap(int toBuild[], int low, int high)
 {
+	Heap h; // createa  new heap into which we will step by step transfrom all of our elements from the array
 	return;
 }
 
@@ -142,3 +143,5 @@ int main() {
 
 //1. change files locations
 //2. ask professor for the original files
+//3. buildHeap: do we just change the array or do we build an actualy heap?
+//4. don't forget to pass array by reference when making changes (void funcstions ususally)
