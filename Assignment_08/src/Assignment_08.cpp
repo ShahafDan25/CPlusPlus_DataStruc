@@ -87,7 +87,8 @@ bool checkIfHeap(int toCheck[], int low, int high)
 
 void buildHeap(int toBuild[], int low, int high)
 {
-	Heap h; // createa  new heap into which we will step by step transfrom all of our elements from the array
+	Heap h; // create a new heap into which we will step by step transfrom all of our elements from the array
+	h.populateFromArray(toBuild, high);
 	return;
 }
 

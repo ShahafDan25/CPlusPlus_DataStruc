@@ -28,7 +28,8 @@ private:
 	int levels; //will keep track on how many floors are there in the heap tree structure
 public:
 	Heap(); //constructor for a heap, initialize the head / root node
-	void populateFromArray(int array[]);
+	void populateFromArray(int array[], int size);
+	void populateHelper(int array[], int i, int size, int floor);
 
 
 };
