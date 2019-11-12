@@ -44,14 +44,14 @@ void buildArray(int toPop[], int size, string path)
 		while(numbers.length() > 0) //while loop to populate the array
 		{
 			toPop[ind] = stoi(numbers.substr(counter, 3));
-			cout << toPop [ind] << " ,";
+			//cout << toPop [ind] << " ,";
 			//if(toPop[ind] == 0 || numbers.length() < 2) break;
 			ind++;
 			counter += 3;
 			if(counter + 2  > numbers.length())break;
 			count ++; //keep track of amount of numbers that are in the file
 		}
-		cout << endl << endl << " There is a total of " << count << " numbers in the provided file" << endl << endl;
+		cout << endl << " There is a total of " << count << " numbers in the provided file" << endl << endl;
 	}
 	return;
 }

@@ -9,15 +9,15 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <math.h>
 using namespace std;
 
 //constructor
 Heap::Heap()
 {
 	root = new node; //dynamically initialize
-	root -> up = nullptr;
+	root -> right = nullptr;
 	root -> left = nullptr;
-	root -> up  = nullptr;
 	levels = 1; //set amount of levels in the tree (floors) to zero
 }
 
@@ -26,75 +26,97 @@ void Heap::populateFromArray(int thatArray[], int size )
 	root -> right = nullptr;
 	root -> left = nullptr;
 	root -> data = thatArray [0]; //last three lines of code initialize the root
-	int indexCheck = 1; //will be associated with the current spoken index form the array we need to use ad our data
-	int level = 1;
-	populateHelper(thatArray, indexCheck, size, level);
+	populateHelper(thatArray, 1, size, 1);
 	return;
 }
 
-void Heap::populateHelper(int array[], int i, int size, int level)
+void Heap::populateHelper(int array[], int i, int size, int level) //each level would populate a whole level
 {
 
 	node * trav = new node;
 	trav = root; //initalize for testing and populating purposes
 	node * parent = new node;
-	node * trav2 = new node;
-	trav2 = root;
-	int counter = 1;
+
 	if(i < size) //check if we maxed out from our array already
 	{
-		while(trav) //as long as the node we are looking at is not nullptr:
-		{
-			//trav is at the very beginning the root
-			if(trav -> left == nullptr)
-			{
-				parent = trav;
-				trav = trav -> left;
-				trav -> data = array [i];
-				trav -> up = parent;
-				trav -> right = nullptr;
-				trav -> left = nullptr;
-				break;
-			}
-			else if (trav -> right == nullptr)
-			{
-				parent = trav;
-				trav = trav -> right;
-				trav -> data = array [i];
-				trav -> up = parent;
-				trav -> right = nullptr;
-				trav -> left = nullptr;
-				break; //we break because we just populated another leaf of the heap tree
-			}
-			else //both the left nor the right is populated >>> then move to the next level!
-			{
-				if(!trav -> up) //if trav is root
-				{
-					trav = root;
-					for(int j = 0; j < level; j++)
-					{
-						trav = trav -> left;
-						// go to the left most node, starting a new level
 
-					}
-				}
-				else
+		// stage 1) use a binary number of the level to run the code
+		int dec = pow(2, level); //store in the new integer (dec) the value of 2 to the power the level
+		for(int p = 0; p < dec; p++)
+		{
+
+			trav = root;
+			string bin = ""; //clear string
+			string revBin = ""; //clear string
+			int r; // to be used as the remiainder
+			int ap = p;
+			cout << "Ap:" << ap << endl;
+			while(ap != 0)
+			{
+				r = ap % 2;
+				ap = ap / 2;
+				if(r == 1) bin += "1";
+				else bin += "0";
+			}// end of while
+
+			int length = bin.size(); //get the size of the string
+			char binCarr[length + 1];
+			bin.copy(binCarr, length + 1);
+			binCarr[length] = '/0';
+
+			//now reverse it
+			for(int x = sizeof(binCarr) - 1; x >= 0; x--)
+			{
+				revBin += binCarr [x];
+			} //now revBin has our binary number of level digits long
+			//0 - left turn
+			//1 - right turn
+			//to do so, first convert the string to an array of characters
+
+			length = revBin.size();
+			char revBinCarr[length + 1];
+			revBin.copy(revBinCarr, length + 1);
+			int revBinInt = stoi(revBin);
+			revBinCarr[length] = '/0'; //now we have an array of characters that includes instructions on how to get to every possible place in the heap
+			cout << "level:" << level << endl;
+			trav = root;
+			for(int l = 0; l < level; l++) //within the  level// 2 to the level amount of number
+			{
+				if (ap == 0)
 				{
-					trav = trav -> up -> right;
+					break;
+				}
+				else if(revBinCarr[l] == '1')
+				{
+					parent = trav;
+					trav -> up = parent;
+					trav = trav -> right;
+				}
+
+				else if(revBinCarr[l] == '0')
+				{
+					parent = trav;
+					trav -> up = parent;
+					trav = trav -> left;
 				}
 
 			}
+			cout << endl;
+			//trav -> right = nullptr;
+			//trav -> left = nullptr;
+			//cout << revBin << endl;
+			//trav -> right = nullptr;
+			//cout << i << endl;
+			//cout << trav -> up -> data;
+			//trav -> left = nullptr;
+			trav ->  data = array[i];
+			i++;
+			//cout << i << endl;
+			if (i >= size) break;//break if bounded
+
 		}
-		// stage 2) go to the right most node
-		// if the right most node is already populated in that level, then that menas all the other nodes in that level are populated,
-		// which means we have to recursively call the function again as follows:
-		for(int y = 0; y < level; y++)
-		{
-			trav2  = trav2 -> right;
-		}
-		/// ---- RECURSIVE CONDITIONAL CALLS ----
-		if(!trav2) /* if trav2 (aka the right most node) is populated */ populateHelper(array, i + 1, size, level + 1); // then move to the next level
-		else populateHelper(array, i + 1, size, level); // then don't move to  the next level
+		//========== RECURSIVE CALL ===========
+		populateHelper(array, i, size, level + 1);
 	}
 	else return; // or else, finish the function
 }
