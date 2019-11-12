@@ -36,7 +36,7 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 	node * trav = new node;
 	trav = root; //initalize for testing and populating purposes
 	node * parent = new node;
-
+	bool zeroCorruption = false;
 	if(i < size) //check if we maxed out from our array already
 	{
 
@@ -84,6 +84,7 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 			{
 				if (ap == 0)
 				{
+					zeroCorruption = true;
 					break;
 				}
 				else if(revBinCarr[l] == '1')
@@ -101,14 +102,20 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 				}
 
 			}
+			if(zeroCorruption)
+			{
+				trav = root;
+				while(trav -> left)
+				{
+					trav = trav -> left;
+				}
+				//trav = trav -> left;
+				trav -> data = array[i];
+				zeroCorruption = false;
+			}
 			cout << endl;
-			//trav -> right = nullptr;
-			//trav -> left = nullptr;
-			//cout << revBin << endl;
-			//trav -> right = nullptr;
-			//cout << i << endl;
-			//cout << trav -> up -> data;
-			//trav -> left = nullptr;
+			trav -> right = nullptr;
+			trav -> left = nullptr;
 			trav ->  data = array[i];
 			i++;
 			//cout << i << endl;
