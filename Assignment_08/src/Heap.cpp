@@ -16,8 +16,9 @@ Heap::Heap()
 {
 	root = new node; //dynamically initialize
 	root -> up = nullptr;
-	root -> left =
-	levels = 0; //set amount of levels in the tree (floors) to zero
+	root -> left = nullptr;
+	root -> up  = nullptr;
+	levels = 1; //set amount of levels in the tree (floors) to zero
 }
 
 void Heap::populateFromArray(int thatArray[], int size )
@@ -36,13 +37,53 @@ void Heap::populateHelper(int array[], int i, int size, int level)
 
 	node * trav = new node;
 	trav = root; //initalize for testing and populating purposes
+	node * parent = new node;
 	node * trav2 = new node;
 	trav2 = root;
+	int counter = 1;
 	if(i < size) //check if we maxed out from our array already
 	{
-		for(int x = 0; x < level; x++) //go to the left most node and strat from there
+		while(trav) //as long as the node we are looking at is not nullptr:
 		{
-			trav = trav -> left; // go to the left most node
+			//trav is at the very beginning the root
+			if(trav -> left == nullptr)
+			{
+				parent = trav;
+				trav = trav -> left;
+				trav -> data = array [i];
+				trav -> up = parent;
+				trav -> right = nullptr;
+				trav -> left = nullptr;
+				break;
+			}
+			else if (trav -> right == nullptr)
+			{
+				parent = trav;
+				trav = trav -> right;
+				trav -> data = array [i];
+				trav -> up = parent;
+				trav -> right = nullptr;
+				trav -> left = nullptr;
+				break; //we break because we just populated another leaf of the heap tree
+			}
+			else //both the left nor the right is populated >>> then move to the next level!
+			{
+				if(!trav -> up) //if trav is root
+				{
+					trav = root;
+					for(int j = 0; j < level; j++)
+					{
+						trav = trav -> left;
+						// go to the left most node, starting a new level
+
+					}
+				}
+				else
+				{
+					trav = trav -> up -> right;
+				}
+
+			}
 		}
 		// stage 2) go to the right most node
 		// if the right most node is already populated in that level, then that menas all the other nodes in that level are populated,
