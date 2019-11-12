@@ -72,7 +72,6 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 			//0 - left turn
 			//1 - right turn
 			//to do so, first convert the string to an array of characters
-
 			length = revBin.size();
 			char revBinCarr[length + 1];
 			revBin.copy(revBinCarr, length + 1);
@@ -82,7 +81,7 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 			trav = root;
 			for(int l = 0; l < level; l++) //within the  level// 2 to the level amount of number
 			{
-				if (ap == 0)
+				if (ap == 0) //fix zero corruption situation
 				{
 					zeroCorruption = true;
 					break;
@@ -127,3 +126,122 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 	}
 	else return; // or else, finish the function
 }
+
+void Heap::sortIt(int size)
+{
+	//call the helper to be active recursively
+	sortHelper(1, size, 1);
+}
+
+void Heap::sortHelper(int i, int size, int floor) //every call, an entire floor will be sorted
+{
+	//once again we use the binary accessing methodology
+	node * trav = new node;
+	node * parent = new node;
+	bool zeroCorruption = false;
+	int dec = pow(2, floor); //store in the new integer (dec) the value of 2 to the power the level
+	for(int p = 0; p < dec; p++)
+	{
+		trav = root; //set it to the root for every node we will go through in the current level (floor)
+		string bin = ""; //clear string
+		string revBin = ""; //clear string
+		int r; // to be used as the remiainder
+		int ap = p;
+		cout << "Ap:" << ap << endl;
+		while(ap != 0)
+		{
+			r = ap % 2;
+			ap = ap / 2;
+			if(r == 1) bin += "1";
+			else bin += "0";
+		}// end of while
+		int length = bin.size(); //get the size of the string
+		char binCarr[length + 1];
+		bin.copy(binCarr, length + 1);
+		binCarr[length] = '/0';
+			//now reverse it
+		for(int x = sizeof(binCarr) - 1; x >= 0; x--)
+		{
+			revBin += binCarr [x];
+		} //now revBin has our binary number of level digits long
+	//0 - left turn
+		//1 - right turn
+		//to do so, first convert the string to an array of characters
+		length = revBin.size();
+		char revBinCarr[length + 1];
+		revBin.copy(revBinCarr, length + 1);
+		int revBinInt = stoi(revBin);
+		revBinCarr[length] = '/0';
+
+		for(int l = 0; l < floor; l++) //within the  level// 2 to the level amount of number
+		{
+			if (ap == 0) //fix zero corruption situation
+			{
+				zeroCorruption = true;
+				break;
+			}
+			else if(revBinCarr[l] == '1')
+			{
+				parent = trav;
+				trav -> up = parent;
+				trav = trav -> right;
+			}
+
+			else if(revBinCarr[l] == '0')
+			{
+				parent = trav;
+				trav -> up = parent;
+				trav = trav -> left;
+			}
+
+			}
+			if(zeroCorruption)
+			{
+				trav = root;
+				while(trav -> left)
+				{
+					trav = trav -> left;
+				}
+				//trav = trav -> left;
+				zeroCorruption = false;
+			}
+		//NOW: TRAV HOLDS THE NODE WE WANT TO ACCESS
+
+	} //end of for
+}
+
+void Heap::exchange(node *& p, node *& c)  //p for parent, c for child
+{
+	bool b = false;
+	node * temp = c;
+
+
+	if(p -> left == c) b = true;
+
+	if(b)
+	{
+
+	}
+	else
+	{
+
+	}
+
+	p -> right = c -> right;
+	p -> left = c -> left;
+
+	if(b)
+	{
+
+	}
+	else
+	{
+
+	}
+
+}
+
+
+
+
+/// some lines for convenience

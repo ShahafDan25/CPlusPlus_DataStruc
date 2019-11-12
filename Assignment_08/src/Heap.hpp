@@ -31,6 +31,9 @@ public:
 	Heap(); //constructor for a heap, initialize the head / root node
 	void populateFromArray(int array[], int size);
 	void populateHelper(int array[], int i, int size, int floor);
+	void sortIt(int size);
+	void sortHelper(int counter, int size, int floor);
+	void exchange(node *& p, node *& n);
 
 
 };

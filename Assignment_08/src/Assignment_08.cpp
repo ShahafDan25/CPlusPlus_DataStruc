@@ -17,6 +17,7 @@
 #include "Heap.hpp"
 using namespace std;
 
+Heap h;
 const string filePath = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a81data.txt"; //CHANGE LOCATION LATER BASED ON ASSIGNMENT"S INSTRUCTIONS
 void buildArray(int toPop[], int size, string path)
 {
@@ -80,14 +81,15 @@ bool checkIfHeap(int toCheck[], int low, int high)
 	//recursive call // check every node recursivley until getting to the 99th item in the array (last element in the heap)
 	bool leftNode = (toCheck[low] <= toCheck[(2 * low )+ 1]) && checkIfHeap(toCheck, (2*low) + 1, high);
 
-	bool rightNode = ( (2 * low) + 2 == high) || (toCheck [low] <= toCheck [(2 * low) + 2] && checkIfHeap (toCheck, (2*low) + 2, high));
+	bool rightNode = ((2 * low) + 2 == high) || (toCheck [low] <= toCheck [(2 * low) + 2] && checkIfHeap (toCheck, (2*low) + 2, high));
 
 	return leftNode && rightNode; //return true only if both the rightNode and left Node are all truely a heap
 }
 
 void buildHeap(int toBuild[], int low, int high)
 {
-	Heap h; // create a new heap into which we will step by step transfrom all of our elements from the array
+	//Heap h; // create a new heap into which we will step by step transfrom all of our elements from the array
+	// we create heap h globally so we can us ethe same heap for all functions
 	h.populateFromArray(toBuild, high);
 	return;
 }
@@ -95,6 +97,7 @@ void buildHeap(int toBuild[], int low, int high)
 void heapSort(int toSort[], int low, int high)
 {
 
+	h.sortIt(high); //maybe supposed to be high +1? we will check when we get the debug stage there
 	return;
 }
 
@@ -143,6 +146,6 @@ int main() {
 /******** TO DO  *************************/
 
 //1. change files locations
-//2. ask professor for the original files
-//3. buildHeap: do we just change the array or do we build an actualy heap?
-//4. don't forget to pass array by reference when making changes (void funcstions ususally)
+//5. heapfiy needed?
+//6. zeroCorruption help
+//7. heapSort
