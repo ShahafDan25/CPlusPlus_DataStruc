@@ -22,6 +22,7 @@ private:
 		int data;
 		node * right;
 		node * left;
+		node * up;
 	};
 	node * root; //head, top most node // should be the lowest value
 
