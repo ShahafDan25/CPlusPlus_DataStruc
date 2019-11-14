@@ -78,7 +78,7 @@ bool checkIfHeap(int toCheck[], int low, int high)
 		//right node index based heap: 2 * index + 2
 
 	if( ((2 * low) + 2) > high) return true; //if the low bound is a last node in the heap:, the return true
-	//recursive call // check every node recursivley until getting to the 99th item in the array (last element in the heap)
+	//recursive call // check every node recursively until getting to the 99th item in the array (last element in the heap)
 	bool leftNode = (toCheck[low] <= toCheck[(2 * low )+ 1]) && checkIfHeap(toCheck, (2*low) + 1, high);
 
 	bool rightNode = ((2 * low) + 2 == high) || (toCheck [low] <= toCheck [(2 * low) + 2] && checkIfHeap (toCheck, (2*low) + 2, high));
@@ -97,7 +97,7 @@ void buildHeap(int toBuild[], int low, int high)
 void heapSort(int toSort[], int low, int high)
 {
 
-	h.sortIt(high); //maybe supposed to be high +1? we will check when we get the debug stage there
+	//h.sortIt(high); //maybe supposed to be high +1? we will check when we get the debug stage there
 	return;
 }
 

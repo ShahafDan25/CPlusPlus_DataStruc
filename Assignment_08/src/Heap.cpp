@@ -50,7 +50,6 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 			string revBin = ""; //clear string
 			int r; // to be used as the remiainder
 			int ap = p;
-			cout << "Ap:" << ap << endl;
 			while(ap != 0)
 			{
 				r = ap % 2;
@@ -77,7 +76,6 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 			revBin.copy(revBinCarr, length + 1);
 			int revBinInt = stoi(revBin);
 			revBinCarr[length] = '/0'; //now we have an array of characters that includes instructions on how to get to every possible place in the heap
-			cout << "level:" << level << endl;
 			trav = root;
 			for(int l = 0; l < level; l++) //within the  level// 2 to the level amount of number
 			{
@@ -112,7 +110,6 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 				trav -> data = array[i];
 				zeroCorruption = false;
 			}
-			cout << endl;
 			trav -> right = nullptr;
 			trav -> left = nullptr;
 			trav ->  data = array[i];
@@ -127,16 +124,24 @@ void Heap::populateHelper(int array[], int i, int size, int level) //each level 
 	else return; // or else, finish the function
 }
 
-void Heap::sortIt(int size)
+void Heap::sortIt(int array[], int size)
 {
 	//call the helper to be active recursively
-	sortHelper(1, size, 1);
+	//sortHelper(1, size, 1);
+	int temp = 0;
+	for(int k = size; k > 0; k--)
+	{
+		temp = array[k];
+		array[k] = array [0];
+		array[0] = temp;
+		heapify(array, 0, k - 1);
+	}// end sorting for loop
 }
 
 void Heap::sortHelper(int i, int size, int floor) //every call, an entire floor will be sorted
 {
 	//once again we use the binary accessing methodology
-	node * trav = new node;
+	/*node * trav = new node;
 	node * parent = new node;
 	bool zeroCorruption = false;
 	int dec = pow(2, floor); //store in the new integer (dec) the value of 2 to the power the level
@@ -207,13 +212,34 @@ void Heap::sortHelper(int i, int size, int floor) //every call, an entire floor 
 			}
 		//NOW: TRAV HOLDS THE NODE WE WANT TO ACCESS
 
-	} //end of for
+	} //end of for*/
 }
 
-void Heap::heapify(int arr[], int low, int high)
+void Heap::heapify(int arr[], int low, int high) //trasnfrom the subtree bounded by low and high to a heap
 {
 	int ind; // to use as our large index
-	node * trav
+//	node * temp = new node;
+//	temp -> right = nullptr;
+//	temp -> up = nullptr;
+//	temp -> left = nullptr;
+//	temp -> data = arr[low];
+	int temp = arr [low]; // use as a temporary value for the ineteger in the array
+	ind = (2 * low) + 1; //code inspired by the man, the myth, the legend: Malik
+	while(ind < high + 1)
+	{
+		if(ind < high)
+		{
+			if(arr[ind] < arr [ind + 1]) ind += 1;
+		}
+		if(temp > arr [ind]) break; // that means that the subtree is already in the heap
+		else
+		{
+			arr[low] = arr[ind];
+			low = ind; // go to the substree to restore the heap (once against, code and comments are mostly from the text)
+			ind = (2 * low) + 1;
+		}
+	} // end of while
+	arr[low] = temp; //Restoring by insertion
 	return;
 
 }
