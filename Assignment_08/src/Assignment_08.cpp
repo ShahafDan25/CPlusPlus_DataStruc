@@ -17,8 +17,10 @@
 #include "Heap.hpp"
 using namespace std;
 
-Heap h;
+//Heap h;
 const string filePath = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a81data.txt"; //CHANGE LOCATION LATER BASED ON ASSIGNMENT"S INSTRUCTIONS
+const string filePath2 = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a82data.txt"; //CHANGE LOCATION LATER BASED ON ASSIGNMENT"S INSTRUCTIONS
+
 void buildArray(int toPop[], int size, string path)
 {
 	int counter = 0;
@@ -35,7 +37,7 @@ void buildArray(int toPop[], int size, string path)
 	}
 	else
 	{
-		int count;
+		int count = 0;
 		while(!dataFile.eof()) // while loop to read the file
 		{
 			dataFile >> moreNumbers;
@@ -45,8 +47,6 @@ void buildArray(int toPop[], int size, string path)
 		while(numbers.length() > 0) //while loop to populate the array
 		{
 			toPop[ind] = stoi(numbers.substr(counter, 3));
-			//cout << toPop [ind] << " ,";
-			//if(toPop[ind] == 0 || numbers.length() < 2) break;
 			ind++;
 			counter += 3;
 			if(counter + 2  > numbers.length())break;
@@ -60,7 +60,7 @@ void buildArray(int toPop[], int size, string path)
 void displayArray(int  toPrint[], int low, int high)
 {
 	// I am not exactly sure on why we pass the low and high parameters, but whatever
-	for(int i = 0; i < (int)(ceil(sizeof(toPrint))); i++) //I hope sizeof function will work as I hope
+	for(int i = 0; i < (high + 1) / 10; i++) //I hope sizeof function will work as I hope
 	{
 		for(int j = 0; j < 10; j++)
 		{
@@ -71,13 +71,29 @@ void displayArray(int  toPrint[], int low, int high)
 	}
 }
 
+void heapify(int toHeap[], int low, int high)
+{
+	// we use this function to build s ub heap (subtree) of the heap and then connect it to the actual bigger picture
+	int leftNode = (2 * high) + 1; /// index accessibility
+	int rightNode = (2 * high) + 2; //index accessibility
+	int highCopy = high;
+	if(low > leftNode && toHeap[leftNode] > toHeap[highCopy]) highCopy = leftNode;
+	if(rightNode < low && toHeap[rightNode] > toHeap[highCopy]) highCopy = rightNode;
+	if(highCopy != high )
+	{
+		swap(toHeap [high], toHeap[highCopy]); //swap the two high values we are checking the subtree for
+		//recursively call the heapify function to build another subtree to connect
+		heapify(toHeap, low, highCopy);
+	}
+
+}
+
 bool checkIfHeap(int toCheck[], int low, int high)
 {
 	//before starting: remember:
 		//Left node index based heap: 2 * index + 1
 		//right node index based heap: 2 * index + 2
-
-	if( ((2 * low) + 2) > high) return true; //if the low bound is a last node in the heap:, the return true
+	if( ((2 * low) + 2) < high) return true; //if the low bound is a last node in the heap:, the return true
 	//recursive call // check every node recursively until getting to the 99th item in the array (last element in the heap)
 	bool leftNode = (toCheck[low] <= toCheck[(2 * low )+ 1]) && checkIfHeap(toCheck, (2*low) + 1, high);
 
@@ -90,14 +106,28 @@ void buildHeap(int toBuild[], int low, int high)
 {
 	//Heap h; // create a new heap into which we will step by step transfrom all of our elements from the array
 	// we create heap h globally so we can us ethe same heap for all functions
-	h.populateFromArray(toBuild, high);
+	//h.populateFromArray(toBuild, high);
+	int init = (int)(ceil(high / 2)); //set initial
+	for(int i = init; i >= 0; i--) //reverse lop to build our heap
+	{
+		heapify(toBuild, high, i);// reversely build a reverse heap by calling a recursive heapify function
+	}
 	return;
 }
 
 void heapSort(int toSort[], int low, int high)
 {
-
-	//h.sortIt(high); //maybe supposed to be high +1? we will check when we get the debug stage there
+	//Heap h;
+	for(int i = high / 2 ; i > 0; i -- )//reverse loop
+	{
+		heapify(toSort, high,  i);
+	}
+	for(int j = high + 1; j > 0; j--)//again, reverse the loop after heapifying the subtrees
+	{
+		//we are going to use the built in swap function
+		swap(toSort[0], toSort[j]); //swap the 0th and the ith elements in the array (heap sort)
+		heapify (toSort, j , 0); //heapify the toSort subtree array bonded reversely from 0 to the jth iterator in the loop
+	}
 	return;
 }
 
@@ -133,7 +163,7 @@ int main() {
 	}
 	p ="c:/CS20/a82data.txt";
 	cout << "main: building second array (from a72data.txt)" << endl;
-	buildArray (list, 100, p);
+	buildArray (list, 100, filePath2);
 	cout << "main: displaying second array" << endl << endl;
 	displayArray (list, low, high);
 	heapSort (list, low, high);
@@ -144,8 +174,4 @@ int main() {
 
 
 /******** TO DO  *************************/
-
-//1. change files locations
-//5. heapfiy needed?
-//6. zeroCorruption help
-//7. heapSort
+//8. submit
