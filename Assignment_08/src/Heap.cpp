@@ -210,34 +210,11 @@ void Heap::sortHelper(int i, int size, int floor) //every call, an entire floor 
 	} //end of for
 }
 
-void Heap::exchange(node *& p, node *& c)  //p for parent, c for child
+void Heap::heapify(int arr[], int low, int high)
 {
-	bool b = false;
-	node * temp = c;
-
-
-	if(p -> left == c) b = true;
-
-	if(b)
-	{
-
-	}
-	else
-	{
-
-	}
-
-	p -> right = c -> right;
-	p -> left = c -> left;
-
-	if(b)
-	{
-
-	}
-	else
-	{
-
-	}
+	int ind; // to use as our large index
+	node * trav
+	return;
 
 }
 

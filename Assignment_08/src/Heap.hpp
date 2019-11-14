@@ -34,6 +34,7 @@ public:
 	void sortIt(int size);
 	void sortHelper(int counter, int size, int floor);
 	void exchange(node *& p, node *& n);
+	void heapify(int array[], int low, int high);
 
 
 };
