@@ -17,6 +17,16 @@
 #include "Heap.hpp"
 using namespace std;
 
+
+//=========== PLEASE READ :) ================
+
+
+/// DECIDED NOT TO USE A WHOLE HEAO STRUCTURE CLASS, I MISINTERPRETED THE ASSIGNMENT
+/// MY BINARY MAPPING CODE (i call it Shahaf's Binary Heap Map) IS IN THE HEAP CLASS FILES
+
+
+//============== THANKS FOR READING ==============
+
 //Heap h;
 const string filePath = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a81data.txt"; //CHANGE LOCATION LATER BASED ON ASSIGNMENT"S INSTRUCTIONS
 const string filePath2 = "/Users/shahafdan/eclipse-workspace/Assignment_08/src/a82data.txt"; //CHANGE LOCATION LATER BASED ON ASSIGNMENT"S INSTRUCTIONS
@@ -140,7 +150,7 @@ int main() {
 	int list[100];
 	string p ="c:/CS20/a81data.txt";
 	cout << "main: building first array (from a71data.txt)" << endl;
-	buildArray (list, 100, filePath); //change later back to p DO NOT FORGET THIS!!!!!
+	buildArray (list, 100, p); //for convenience sake, change later to filePath
 	cout << "main: displaying first array" << endl << endl;
 	displayArray (list, low, high);
 	cout << endl;
@@ -163,7 +173,7 @@ int main() {
 	}
 	p ="c:/CS20/a82data.txt";
 	cout << "main: building second array (from a72data.txt)" << endl;
-	buildArray (list, 100, filePath2);
+	buildArray (list, 100, p);//for convenience sake, change later to filePath2
 	cout << "main: displaying second array" << endl << endl;
 	displayArray (list, low, high);
 	heapSort (list, low, high);
