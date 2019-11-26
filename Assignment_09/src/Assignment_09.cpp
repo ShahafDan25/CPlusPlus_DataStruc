@@ -9,30 +9,30 @@
 #include <iostream>
 using namespace std;
 
-struct Treenode
+struct node
 {
 	int nodeValue;
 	int bf;
-	Treenode * Lchild;
-	Treenode * Rchild;
+	node * left;
+	node * right;
 };
 
 class BST
 {
 private:
-	Treenode * root;
+	node * root;
 
-	void traverseInOrderInternal(Treenode *);		// internal functions - all by subtree
-	void traversePreOrderInternal(Treenode *);
-	void traversePostOrderInternal(Treenode *);
-	bool traverseLevelOrderInternal(Treenode *, int);
-	void print2DInternal(Treenode *, int);
+	void traverseInOrderInternal(node *);		// internal functions - all by subtree
+	void traversePreOrderInternal(node *);
+	void traversePostOrderInternal(node *);
+	bool traverseLevelOrderInternal(node *, int);
+	void print2DInternal(node *, int);
 
-	void deleteInternal (Treenode * &);				// internal delete function
+	void deleteInternal (node * &);				// internal delete function
 
-	int heightInternal(Treenode *);					// internal BF functions
-	void setallBFInternal(Treenode *);
-	int getLargestBFInternal(Treenode *);
+	int heightInternal(node *);					// internal BF functions
+	void setallBFInternal(node *);
+	int getLargestBFInternal(node *);
 
 public:
 	BST();
@@ -60,7 +60,7 @@ BST::BST()
 //********************************************************
 bool BST::search(int & value)
 {
-	Treenode *current;
+	node *current;
 	bool found = false;
 	if (root == nullptr)
 	{
@@ -78,11 +78,11 @@ bool BST::search(int & value)
 			}
 			else if (current->nodeValue > value)
 			{
-				current = current->Lchild;
+				current = current->left;
 			}
 			else
 			{
-				current = current->Rchild;
+				current = current->right;
 			}
 		}
 	}
@@ -92,13 +92,37 @@ bool BST::search(int & value)
 // user insert - insert, given a value
 //********************************************************
 //  ----- insert goes here -----
+void BST::insert (int & toInsert)
+{
+	node * newNode = new node;
+	newNode -> right = nullptr;
+	newNode -> left = nullptr;
+	newNode -> nodeValue = toInsert;
+	node * tail = new node;
+
+	if(!root) root = newNode;
+	else
+	{
+		node * trav = root;
+		while(trav) // while the currently traversed node is not null, do the following
+		{
+			tail = trav;
+			if(trav -> nodeValue < toInsert) trav = trav -> right;
+			else if (trav -> nodeValue > toInsert) trav = trav -> left;
+			else throw "Duplicated Value, Not Cool"; //check for equality, meaning duplicate value
+		}
+		if(tail -> nodeValue > toInsert) tail -> left = newNode;
+		else tail -> right = newNode;
+	}
+	return;
+}
 //********************************************************
 // user delete - delete, given a value
 //********************************************************
 void BST::udelete(int & value)
 {
-	Treenode * current; 		// pointer to node we're looking at
-	Treenode * trailing; 		// trailing pointer to parent
+	node * current; 		// pointer to node we're looking at
+	node * trailing; 		// trailing pointer to parent
 
 	bool found = false;
 	if (root == NULL)
@@ -121,11 +145,11 @@ void BST::udelete(int & value)
 				trailing = current;
 				if (current->nodeValue > value)
 				{
-					current = current->Lchild;
+					current = current->left;
 				}
 				else
 				{
-					current = current->Rchild;
+					current = current->right;
 				}
 			}
 		}
@@ -141,65 +165,65 @@ void BST::udelete(int & value)
 			}
 			else if (trailing->nodeValue > value)
 			{
-				deleteInternal(trailing->Lchild);
+				deleteInternal(trailing->left);
 			}
 			else
 			{
-				deleteInternal(trailing->Rchild);
+				deleteInternal(trailing->right);
 			}
 		}
 	}
 }
 //********************************************************
 // internal delete - delete, given the pointer to node to delete that is physically
-// located in the node's parent as Lchild or Rchild
+// located in the node's parent as left or right
 //********************************************************
-void BST::deleteInternal (Treenode * &p)
+void BST::deleteInternal (node * &p)
 {
-	Treenode * current;			// pointer to node we're looking at
-	Treenode * trailing;		// trailing pointer to parent
-	Treenode * temp;			// temp pointer for delete
+	node * current;			// pointer to node we're looking at
+	node * trailing;		// trailing pointer to parent
+	node * temp;			// temp pointer for delete
 
 	if (p == nullptr)
 	{
 		cout << "delete: null node" << endl;
 		exit(1);
 	}
-	else if(p->Lchild == nullptr && p->Rchild == nullptr)
+	else if(p->left == nullptr && p->right == nullptr)
 	{
 		temp = p;
 		p = nullptr;
 		delete temp;
 	}
-	else if(p->Lchild == nullptr)
+	else if(p->left == nullptr)
 	{
 		temp = p;
-		p = temp->Rchild;
+		p = temp->right;
 		delete temp;
 	}
-	else if(p->Rchild == nullptr)
+	else if(p->right == nullptr)
 	{
 		temp = p;
-		p = temp->Lchild;
+		p = temp->left;
 		delete temp;
 	}
 	else
 	{
-		current = p->Lchild;
+		current = p->left;
 		trailing = nullptr;
-		while (current->Rchild != nullptr)
+		while (current->right != nullptr)
 		{
 			trailing = current;
-			current = current->Rchild;
+			current = current->right;
 		}
 		p->nodeValue = current->nodeValue;
 		if (trailing == NULL)
 		{
-			p->Lchild = current->Lchild;
+			p->left = current->left;
 		}
 		else
 		{
-			trailing->Rchild = current->Lchild;
+			trailing->right = current->left;
 		}
 		delete current;
 
@@ -236,7 +260,7 @@ void BST::traverseLevelOrder()
 //********************************************************
 // internal traversal functions
 //********************************************************
-void BST::traverseInOrderInternal(Treenode * p)
+void BST::traverseInOrderInternal(node * p)
 {
 	if (p == nullptr)
 	{
@@ -248,33 +272,33 @@ void BST::traverseInOrderInternal(Treenode * p)
 	}
 	if (p != nullptr)
 	{
-		traverseInOrderInternal(p->Lchild);
+		traverseInOrderInternal(p->left);
 		cout << p->nodeValue << endl;
-		traverseInOrderInternal(p->Rchild);
+		traverseInOrderInternal(p->right);
 	}
 }
 
-void BST::traversePreOrderInternal(Treenode * p)
+void BST::traversePreOrderInternal(node * p)
 {
 	if (p != nullptr)
 	{
 		cout << p->nodeValue << endl;
-		traversePreOrderInternal(p->Lchild);
-		traversePreOrderInternal(p->Rchild);
+		traversePreOrderInternal(p->left);
+		traversePreOrderInternal(p->right);
 	}
 }
 
-void BST::traversePostOrderInternal(Treenode * p)
+void BST::traversePostOrderInternal(node * p)
 {
 	if (p != nullptr)
 	{
-		traversePostOrderInternal(p->Lchild);
-		traversePostOrderInternal(p->Rchild);
+		traversePostOrderInternal(p->left);
+		traversePostOrderInternal(p->right);
 		cout << p->nodeValue << endl;
 	}
 }
 
-bool BST::traverseLevelOrderInternal(Treenode * p, int level)
+bool BST::traverseLevelOrderInternal(node * p, int level)
 {
     if (p == nullptr)
         return false;
@@ -283,24 +307,24 @@ bool BST::traverseLevelOrderInternal(Treenode * p, int level)
     	cout << p->nodeValue << "   ";
     	return true;
     }
-    bool l = traverseLevelOrderInternal(p->Lchild, level-1);
-    bool r = traverseLevelOrderInternal(p->Rchild, level-1);
+    bool l = traverseLevelOrderInternal(p->left, level-1);
+    bool r = traverseLevelOrderInternal(p->right, level-1);
     return l || r;
 }
 // internal recursive function, called by print2D
 // does a reverse inorder traversal to display top to bottom
-void BST::print2DInternal(Treenode *root, int space)
+void BST::print2DInternal(node *root, int space)
 {
 	int count=8;
     if (root == NULL)
         return;
     space += count;
-    print2DInternal(root->Rchild, space);	// process right (top of page)
+    print2DInternal(root->right, space);	// process right (top of page)
     cout<<endl;								// display node after spacing
     for (int i = count; i < space; i++)
         cout<<" ";
-    cout<<root->nodeValue<<"("<<root->bf<<")"<<"\n";
-    print2DInternal(root->Lchild, space);	// process left (bottom of page)
+    cout<<root->nodeValue/*<<"("<<root->bf<<")"*/<<"\n"; //get rid of mid comment
+    print2DInternal(root->left, space);	// process left (bottom of page)
 }
 //********************************************************
 // user BF functions
@@ -322,13 +346,13 @@ int BST::height()
 // heightInternal - recursive function,
 // returns height of a subtree given its root
 
-int BST::heightInternal(Treenode* p)
+int BST::heightInternal(node* p)
 {
 	if (p != nullptr)
 	{
 		int lh, rh;
-		lh = heightInternal(p->Lchild);
-		rh = heightInternal(p->Rchild);
+		lh = heightInternal(p->left);
+		rh = heightInternal(p->right);
 		if (lh > rh)
 		{
 			lh++;
@@ -363,9 +387,11 @@ int main() {
 
 // start with this small tree and test code
 // will be easier to debug
+
 	i=5;
 	mytree.insert(i);
 	i=8;
+
 	mytree.insert(i);
 	i=3;
 	mytree.insert(i);
@@ -373,6 +399,7 @@ int main() {
 	mytree.insert(i);
 	i=9;
 	mytree.insert(i);
+
 	mytree.print2D();
 	cout << "-------------------------------------------" << endl;
 	mytree.print2D();
@@ -385,10 +412,12 @@ int main() {
 	return 0;
 
 
+}
 
 
-
-/************** TO BE USED IN PART II ******************
+/* =========================================================
+ ****************** TO BE USED IN PART II ******************
+ ========================================================
 
 int main() {
 	BST mytree;
