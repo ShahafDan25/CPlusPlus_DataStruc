@@ -55,6 +55,11 @@ BST::BST()
 {
 	root = nullptr;
 }
+
+
+
+
+
 //********************************************************
 // user search - search, given a value
 //********************************************************
@@ -88,6 +93,10 @@ bool BST::search(int & value)
 	}
 	return found;
 }
+
+
+
+
 //********************************************************
 // user insert - insert, given a value
 //********************************************************
@@ -116,6 +125,10 @@ void BST::insert (int & toInsert)
 	}
 	return;
 }
+
+
+
+
 //********************************************************
 // user delete - delete, given a value
 //********************************************************
@@ -174,6 +187,10 @@ void BST::udelete(int & value)
 		}
 	}
 }
+
+
+
+
 //********************************************************
 // internal delete - delete, given the pointer to node to delete that is physically
 // located in the node's parent as left or right
@@ -229,6 +246,10 @@ void BST::deleteInternal (node * &p)
 
 	}
 }
+
+
+
+
 //********************************************************
 // user traversal functions
 //********************************************************
@@ -257,6 +278,9 @@ void BST::traverseLevelOrder()
         level++;
     }
 }
+
+
+
 //********************************************************
 // internal traversal functions
 //********************************************************
@@ -326,6 +350,11 @@ void BST::print2DInternal(node *root, int space)
     cout<<root->nodeValue/*<<"("<<root->bf<<")"*/<<"\n"; //get rid of mid comment
     print2DInternal(root->left, space);	// process left (bottom of page)
 }
+
+
+
+
+
 //********************************************************
 // user BF functions
 //********************************************************
@@ -335,16 +364,57 @@ int BST::height()
 {
 	return heightInternal(root);
 }
-// user setallBF - sets the BF for all nodes in the tree
-//  ----- setallBF goes here -----
 
+
+
+
+//*****************************************************
+// user setallBF - sets the BF for all nodes in the tree
+//*****************************************************
+//  ----- setallBF goes here -----
+void BST::setallBF()
+{
+	return;
+}
+
+
+//*****************************************************
+// user setallBFInernal - sets the BF for all nodes in the tree
+//*****************************************************
+//  ----- setallBF goes here -----
+void BST::setallBFInternal(node * givenNode)
+{
+	return;
+}
+
+
+
+//*************************************************************
 // user BF - returns the largest balance factor in the tree
+//*************************************************************
 //  ----- getLargestBF goes here -----
+
+int BST::getLargestBF()
+{
+	return 0;
+}
+
+
+
 //********************************************************
 // internal BF functions
 //********************************************************
 // heightInternal - recursive function,
 // returns height of a subtree given its root
+int BST::getLargestBFInternal(node * givenNode)
+{
+
+	return 0;
+}
+
+
+
+
 
 int BST::heightInternal(node* p)
 {
@@ -379,7 +449,10 @@ int BST::heightInternal(node* p)
 
 
 
-/************** TO BE USED IN PART I *******************/
+/* =========================================================
+ ****************** TO BE USED IN PART I ******************
+ ======================================================== */
+/*
 int main() {
 	BST mytree;
 	int i;
@@ -412,18 +485,19 @@ int main() {
 	return 0;
 
 
-}
+}*/
+
+
 
 
 /* =========================================================
  ****************** TO BE USED IN PART II ******************
- ========================================================
-
+ ======================================================== */
 int main() {
 	BST mytree;
 	int i;
 	bool b;
-	/* start with this small tree and test code
+	// start with this small tree and test code
 // will be easier to debug
 	i=5;
 	mytree.insert(i);
@@ -455,7 +529,7 @@ int main() {
 		mytree.insert(array[i]);
 	}
 
-	/*
+
 	cout << "traverse inorder" << endl;
 	mytree.traverseInOrder();
 	cout << "traverse preorder" << endl;
@@ -488,4 +562,4 @@ int main() {
 	else
 		cout << "search for 53 not successful" << endl;
 	return 0;
-}*/
+}
