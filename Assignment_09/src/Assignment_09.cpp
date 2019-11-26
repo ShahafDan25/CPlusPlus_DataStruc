@@ -347,7 +347,7 @@ void BST::print2DInternal(node *root, int space)
     cout<<endl;								// display node after spacing
     for (int i = count; i < space; i++)
         cout<<" ";
-    cout<<root->nodeValue/*<<"("<<root->bf<<")"*/<<"\n"; //get rid of mid comment
+    cout<<root->nodeValue<<"("<<root->bf<<")"<<"\n"; //get rid of mid comment
     print2DInternal(root->left, space);	// process left (bottom of page)
 }
 
