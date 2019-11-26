@@ -374,6 +374,7 @@ int BST::height()
 //  ----- setallBF goes here -----
 void BST::setallBF()
 {
+	setallBFInternal(root);
 	return;
 }
 
@@ -384,6 +385,15 @@ void BST::setallBF()
 //  ----- setallBF goes here -----
 void BST::setallBFInternal(node * givenNode)
 {
+	int lh, rh = 0; //left height and right height
+	if(!givenNode) //if the passed node is not nullptr, then
+	{
+		lh = heightInternal (givenNode -> left);
+		rh = heightInternal (givenNode -> right);
+		givenNode -> bf =rh - lh;
+		setallBFInternal (givenNode -> left);
+		setallBFInternal (givenNode -> right);
+	}
 	return;
 }
 
