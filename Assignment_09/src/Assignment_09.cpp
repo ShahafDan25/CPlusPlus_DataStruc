@@ -386,7 +386,7 @@ void BST::setallBF()
 void BST::setallBFInternal(node * givenNode)
 {
 	int lh, rh = 0; //left height and right height
-	if(!givenNode) //if the passed node is not nullptr, then
+	if(givenNode) //if the passed node is not nullptr, then
 	{
 		lh = heightInternal (givenNode -> left);
 		rh = heightInternal (givenNode -> right);
@@ -406,6 +406,7 @@ void BST::setallBFInternal(node * givenNode)
 
 int BST::getLargestBF()
 {
+	getLargestBFInternal (root);
 	return 0;
 }
 
@@ -418,6 +419,19 @@ int BST::getLargestBF()
 // returns height of a subtree given its root
 int BST::getLargestBFInternal(node * givenNode)
 {
+	int ll, lr = 0; //largestLeft and LargestRight
+	if(givenNode)
+	{
+		ll = getLargestBFInternal(givenNode -> left);
+		lr = getLargestBFInternal(givenNode -> right);
+		if(abs(givenNode -> bf) > abs(ll)) ll = givenNode -> bf;
+		else if (abs(givenNode -> bf) > abs(lr)) lr = givenNode -> bf;
+		// end if
+
+		//--------- RETURN STAGE ----------//
+		if(abs(ll) > abs (lr)) return ll;
+		else return lr; //return finals answer of bf
+	}
 
 	return 0;
 }
@@ -507,30 +521,7 @@ int main() {
 	BST mytree;
 	int i;
 	bool b;
-	// start with this small tree and test code
-// will be easier to debug
-	i=5;
-	mytree.insert(i);
-	i=8;
-	mytree.insert(i);
-	i=3;
-	mytree.insert(i);
-	i=12;
-	mytree.insert(i);
-	i=9;
-	mytree.insert(i);
-	mytree.print2D();
-	mytree.setallBF();
-	cout << "-------------------------------------------" << endl;
-	mytree.print2D();
-	cout <<" largest BF " << mytree.getLargestBF() << endl;
-	i = 9;
-	b = mytree.search(i);
-	if (b)
-		cout << "search for 9 successful" << endl;
-	else
-		cout << "search for 9 not successful" << endl;
-	return 0;
+
 
 	// use this code and tree when the small tree is working
 	int array[14] = {60,50,70,30,53,80,35,57,75,32,40,77,48,45};
