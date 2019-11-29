@@ -21,15 +21,15 @@ private:
 	struct node
 	{
 		char let;
-		//node * nextLetter [26];
+		node * nextLetter [26];
 	};
 	int wordCounter;
 	node * head;
 
 public:
 	Dic();
-
-
+	bool InsertWord(string word);
+	int letterIndexFinder(char letter);
 };
 
 

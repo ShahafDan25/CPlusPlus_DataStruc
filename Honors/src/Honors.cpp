@@ -13,6 +13,10 @@ using namespace std;
 
 int main()
 {
-	cout << "!!!Hello Honors Project!!!" << endl; // prints !!!Hello World!!!
+	cout << "Welcome to my honors program" << endl;
+
+
+
+
 	return 0;
 }
