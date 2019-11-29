@@ -8,6 +8,8 @@
 
 #include <iostream>
 using namespace std;
+#include "Dic.hpp"
+
 
 int main()
 {

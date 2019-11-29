@@ -13,26 +13,21 @@
 #include <iostream>
 #include <iomanip>
 #include <set>
-#include "Dic.hpp"
+
 using namespace std;
 class Dic //templatize in stage two
 {
 private:
 	struct node
 	{
-		char letter;
-		node * nexts = new node [26];
+		char let;
+		//node * nextLetter [26];
 	};
 	int wordCounter;
 	node * head;
-	string letters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+
 public:
 	Dic();
-	void insertHelper(string word, node * curNode);
-	void insert(string word); //wordCounter++;
-	int getWordCounter();
-	void incWordCounter();
-	void remove(string word);
 
 
 };

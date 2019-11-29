@@ -11,39 +11,16 @@
 using namespace std;
 #include "Dic.hpp"
 
+/// GLOABL ARRAY AS A REFERENCE
+char letters [26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+
 Dic::Dic()
 {
 	head = new node;
 	wordCounter = 0;
-	head -> nexts = nullptr;
-	head -> letter = '_';
+	head -> let = '_';
 
 
 }
-void Dic::insertHelper(string word, node * CurNode)
-{
-	wordCounter++;
 
-}
-void Dic::insert(string word)
-{
-	int count = 0;
-	cout << "inserting " << word << "into the dictionary tree" << endl;
-	string toinsert = "_" + word;
-}
-
-void Dic::remove(string word)
-{
-
-}
-
-int Dic::getWordCounter()
-{
-	return wordCounter;
-}
-
-void Dic::incWordCounter()
-{
-	wordCounter++;
-}
 
