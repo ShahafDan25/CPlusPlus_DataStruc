@@ -50,7 +50,7 @@ void Dic::insertWord(string word)
 		cout << "ERROR: please enter a word with at least two letters!" << endl;
 		return;
 	}
-	if(!check(word))
+	if(check(word))
 	{
 		cout << "ERROR: Word already exists" << endl;
 		return;
@@ -74,7 +74,7 @@ void Dic::insertWord(string word)
 				trav = trav -> nextLetter[p];
 			}
 			if( i == word.length() - 1) cout << "word inserted!" << endl;
-			delete newNode; //delete dynamically allocated node;
+			//delete newNode; //delete dynamically allocated node;
 		}
 		else //word had a character that is not in the english alphabet
 		{
@@ -82,7 +82,7 @@ void Dic::insertWord(string word)
 			break;
 		}
 	} //end for
-	delete trav; //delete dynamically allocated node;
+	//delete trav; //delete dynamically allocated node;
 	return;
 }
 
@@ -91,7 +91,7 @@ bool Dic::check(string word) //recursively
 	node * trav = new node;
 	trav = head;
 	return checkHelper(word.length(), word, 0, trav); //call helper recursively
-	delete trav; // delete dynamically allocated node
+	//delete trav; // delete dynamically allocated node
 }
 
 bool Dic::checkHelper(int size, string word, int i, node * trav)
@@ -122,9 +122,17 @@ void Dic::remove(string word) //non recursive
 		cout << "ERROR: word does not appear to be in the dictionary" << endl;
 		return;
 	}
+	node * trav = new node;
 	for(int i = word.length() - 1; i > 0; i--) //reverse because we are going to delete letter by letter;
 	{
-
+		trav = head; // set to the dictionary's root (head), then go to the last one according to the word
+		for(int j = 0; j < i; j++)
+		{
+			trav = trav -> nextLetter[letterIndexFinder(word[j])]; //get to the right node;
+		}
+		if(makeSureClean(trav)) delete trav;
+		else return;
 	}
+	cout << "'" << word << "'" << " has been removed from our dictionary!" << endl;
 	return;
 }
