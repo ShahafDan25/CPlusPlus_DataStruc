@@ -35,6 +35,7 @@ int main()
 			cout << "remove word: ";
 			cin >>  word;
 			//call function to remove a word
+			d.remove(word);
 		}
 		else if(answer == 3)
 		{

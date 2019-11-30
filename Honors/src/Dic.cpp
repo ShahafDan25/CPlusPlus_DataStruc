@@ -50,8 +50,11 @@ void Dic::insertWord(string word)
 		cout << "ERROR: please enter a word with at least two letters!" << endl;
 		return;
 	}
-
-	// TODO: how to return false when the word already exists
+	if(!check(word))
+	{
+		cout << "ERROR: Word already exists" << endl;
+		return;
+	}
 	node * trav = new node;
 	trav = head;
 	for(int i = 0; i < word.length(); i++)// letter by letter, insert into the dictionary
@@ -64,37 +67,31 @@ void Dic::insertWord(string word)
 		{
 			node * newNode = new node;
 			newNode -> let = word[i];
-			if(trav -> nextLetter[p] != nullptr)
-			{
-				trav = trav -> nextLetter[p];
-			}
+			if(trav -> nextLetter[p] != nullptr) trav = trav -> nextLetter[p];
 			else
 			{
 				trav -> nextLetter[p] = newNode;
 				trav = trav -> nextLetter[p];
 			}
-			if( i == word.length() - 1)
-			{
-				cout << "word inserted!" << endl;
-			}
+			if( i == word.length() - 1) cout << "word inserted!" << endl;
+			delete newNode; //delete dynamically allocated node;
 		}
 		else //word had a character that is not in the english alphabet
 		{
 			cout << "WORD IS INVALID: ENGLISH LETTERS ONLY" << endl;
-			//return false;
 			break;
 		}
-	}
-
+	} //end for
+	delete trav; //delete dynamically allocated node;
 	return;
 }
 
-bool Dic::check(string word)
+bool Dic::check(string word) //recursively
 {
 	node * trav = new node;
 	trav = head;
 	return checkHelper(word.length(), word, 0, trav); //call helper recursively
-	//return false;
+	delete trav; // delete dynamically allocated node
 }
 
 bool Dic::checkHelper(int size, string word, int i, node * trav)
@@ -106,6 +103,28 @@ bool Dic::checkHelper(int size, string word, int i, node * trav)
 		trav = trav -> nextLetter[p];
 		if(trav != nullptr) return checkHelper(size, word, i + 1, trav);
 		else return false;
+	}
+}
+
+
+bool Dic::makeSureClean(node * check)
+{
+	for(int i = 0; i < 26; i++)
+	{
+		if(check -> nextLetter[i] != nullptr) return false;
+	}
+	return true;
+}
+void Dic::remove(string word) //non recursive
+{
+	if(!check(word))
+	{
+		cout << "ERROR: word does not appear to be in the dictionary" << endl;
+		return;
+	}
+	for(int i = word.length() - 1; i > 0; i--) //reverse because we are going to delete letter by letter;
+	{
 
 	}
+	return;
 }
