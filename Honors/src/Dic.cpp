@@ -27,28 +27,30 @@ int Dic::letterIndexFinder(char letter)
 	//using binary search in the array, this function will return the specific index number of the letter from the global array
 	// we already know the length is 26 (hard coded) because there are only 26 letters in the alphabetical english
 
-	///LATER: improve to be binar serach
+	///LATER: improve to be binary serach to imporve upon speed
 	//for now: linear search
 	for(int i = 0; i < 26; i++)
 	{
 		if(lettersIndex[i] == letter)
 		{
-			return i;
+			return i ;
 			break;
 		}
 	}
-	return -1; //will return -1 if the letter is not found
+	return -2; //will return -2 if the letter is not found
 }
 
 
-bool Dic::InsertWord(string word)
+void Dic::insertWord(string word)
 {
 	//The function will return true if the word already exists
+
 	if(word.length() < 2) //base case
 	{
 		cout << "ERROR: please enter a word with at least two letters!" << endl;
-		return false;
+		return;
 	}
+
 	// TODO: how to return false when the word already exists
 	node * trav = new node;
 	trav = head;
@@ -62,7 +64,6 @@ bool Dic::InsertWord(string word)
 		{
 			node * newNode = new node;
 			newNode -> let = word[i];
-			trav = trav -> nextLetter[p];
 			if(trav -> nextLetter[p] != nullptr)
 			{
 				trav = trav -> nextLetter[p];
@@ -72,14 +73,39 @@ bool Dic::InsertWord(string word)
 				trav -> nextLetter[p] = newNode;
 				trav = trav -> nextLetter[p];
 			}
+			if( i == word.length() - 1)
+			{
+				cout << "word inserted!" << endl;
+			}
 		}
 		else //word had a character that is not in the english alphabet
 		{
 			cout << "WORD IS INVALID: ENGLISH LETTERS ONLY" << endl;
-			return false;
+			//return false;
+			break;
 		}
 	}
 
-	return false;
+	return;
 }
 
+bool Dic::check(string word)
+{
+	node * trav = new node;
+	trav = head;
+	return checkHelper(word.length(), word, 0, trav); //call helper recursively
+	//return false;
+}
+
+bool Dic::checkHelper(int size, string word, int i, node * trav)
+{
+	if(i == size) return true; // got to the end of the board //base case
+	else
+	{
+		int p = letterIndexFinder(word[i]);
+		trav = trav -> nextLetter[p];
+		if(trav != nullptr) return checkHelper(size, word, i + 1, trav);
+		else return false;
+
+	}
+}

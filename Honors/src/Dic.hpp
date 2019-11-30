@@ -28,8 +28,10 @@ private:
 
 public:
 	Dic();
-	bool InsertWord(string word);
+	void insertWord(string word);
 	int letterIndexFinder(char letter);
+	bool check(string word);
+	bool checkHelper(int size, string word, int i, node * node);
 };
 
 
