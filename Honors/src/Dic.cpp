@@ -63,7 +63,7 @@ void Dic::insertWord(string word)
 		// TODO: Find solution to inserting through, and then throughout (for example)
 		// Another example: play, player
 		int p = letterIndexFinder(word[i]);
-		if(p > 0)
+		if(p >= 0)
 		{
 			node * newNode = new node;
 			newNode -> let = word[i];
@@ -79,6 +79,7 @@ void Dic::insertWord(string word)
 		else //word had a character that is not in the english alphabet
 		{
 			cout << "WORD IS INVALID: ENGLISH LETTERS ONLY" << endl;
+			cout << p << endl;
 			break;
 		}
 	} //end for
@@ -111,6 +112,7 @@ bool Dic::makeSureClean(node * check)
 {
 	for(int i = 0; i < 26; i++)
 	{
+		cout << i << ", " ;
 		if(check -> nextLetter[i] != nullptr) return false;
 	}
 	return true;
@@ -119,19 +121,30 @@ void Dic::remove(string word) //non recursive
 {
 	if(!check(word))
 	{
-		cout << "ERROR: word does not appear to be in the dictionary" << endl;
+		cout << "ERROR: word does not appear to be in the dictionary" << endl; //Should I ask the user if they would like to insert that word that does not appear? Because they are removing it anyways
 		return;
 	}
+	int j;
 	node * trav = new node;
-	for(int i = word.length() - 1; i > 0; i--) //reverse because we are going to delete letter by letter;
+	for(int i = word.length() - 1; i >= 0; i--) //reverse because we are going to delete letter by letter;
 	{
 		trav = head; // set to the dictionary's root (head), then go to the last one according to the word
-		for(int j = 0; j < i; j++)
+		for(j = 0; j <= i; j++)
 		{
 			trav = trav -> nextLetter[letterIndexFinder(word[j])]; //get to the right node;
 		}
-		if(makeSureClean(trav)) delete trav;
-		else return;
+		cout << trav -> let << endl;
+		trav -> nextLetter[letterIndexFinder(word[j])] = nullptr; //clear it because it has been made sure to be free
+		if(makeSureClean(trav))
+		{
+			delete trav;
+			cout << "success" << endl;
+		}
+		else
+		{
+			cout << "failure" << endl;
+			break;
+		}
 	}
 	cout << "'" << word << "'" << " has been removed from our dictionary!" << endl;
 	return;

@@ -44,7 +44,7 @@ int main()
 			if(d.check(word)) cout << "Word Found!" << endl;
 			else
 			{
-				cout << "Not found in dictionary, would you like to insert it to the dictionary? (y/n)";
+				cout << "Not found in dictionary, would you like to insert it to the dictionary? (y/n)  ";
 				cin >> decision;
 				if(decision == "y") d.insertWord(word);
 				else if(decision == "n")  cout << "Okay, going back to menu" << endl;
