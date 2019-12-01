@@ -133,19 +133,12 @@ void Dic::remove(string word) //non recursive
 		{
 			trav = trav -> nextLetter[letterIndexFinder(word[j])]; //get to the right node;
 		}
-		cout << trav -> let << endl;
 		trav -> nextLetter[letterIndexFinder(word[j])] = nullptr; //clear it because it has been made sure to be free
-		if(makeSureClean(trav))
-		{
-			delete trav;
-			cout << "success" << endl;
-		}
-		else
-		{
-			cout << "failure" << endl;
-			break;
-		}
+		if(makeSureClean(trav)) delete trav;
+		else break;
 	}
 	cout << "'" << word << "'" << " has been removed from our dictionary!" << endl;
 	return;
 }
+
+

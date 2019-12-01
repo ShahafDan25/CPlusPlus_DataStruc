@@ -34,6 +34,7 @@ public:
 	bool checkHelper(int size, string word, int i, node * node);
 	void remove(string word);
 	bool makeSureClean(node * check);
+
 };
 
 

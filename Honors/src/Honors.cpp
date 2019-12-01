@@ -34,7 +34,6 @@ int main()
 		{
 			cout << "remove word: ";
 			cin >>  word;
-			//call function to remove a word
 			d.remove(word);
 		}
 		else if(answer == 3)
@@ -51,10 +50,7 @@ int main()
 				else cout << "Invalid, going back to menu" << endl;
 			}
 		}
-		else
-		{
-			cout << "Invalid Action Index. ";
-		}
+		else cout << "Invalid Action Index. ";
 		cout << " >> Choose Action Again: ";
 		cin >> answer;
 	}
