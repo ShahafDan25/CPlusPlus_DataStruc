@@ -112,7 +112,6 @@ bool Dic::makeSureClean(node * check)
 {
 	for(int i = 0; i < 26; i++)
 	{
-		cout << i << ", " ;
 		if(check -> nextLetter[i] != nullptr) return false;
 	}
 	return true;
