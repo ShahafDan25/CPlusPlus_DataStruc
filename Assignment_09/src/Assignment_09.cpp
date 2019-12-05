@@ -406,8 +406,7 @@ void BST::setallBFInternal(node * givenNode)
 
 int BST::getLargestBF()
 {
-	getLargestBFInternal (root);
-	return 0;
+	return getLargestBFInternal (root);
 }
 
 
@@ -419,21 +418,23 @@ int BST::getLargestBF()
 // returns height of a subtree given its root
 int BST::getLargestBFInternal(node * givenNode)
 {
+
+
 	int ll, lr = 0; //largestLeft and LargestRight
-	if(givenNode)
+	if(givenNode != nullptr)
 	{
 		ll = getLargestBFInternal(givenNode -> left);
 		lr = getLargestBFInternal(givenNode -> right);
+
 		if(abs(givenNode -> bf) > abs(ll)) ll = givenNode -> bf;
 		else if (abs(givenNode -> bf) > abs(lr)) lr = givenNode -> bf;
 		// end if
 
-		//--------- RETURN STAGE ----------//
+		//-------- RETURN STAGE ----------//
 		if(abs(ll) > abs (lr)) return ll;
-		else return lr; //return finals answer of bf
+		else return lr ; //return finals answer of bf
 	}
-
-	return 0;
+	else return 0;
 }
 
 
