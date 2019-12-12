@@ -114,10 +114,7 @@ bool Dic::checkHelper(int size, string word, int i, node * trav)
 {
 	if(i == size)
 	{
-		if((trav -> definition).length() == 0)
-		{
-			return false;
-		}
+		if((trav -> definition).length() == 0)return false;
 		cout << "Definition: " << trav -> definition << endl;
 		return true; // got to the end of the board //base case
 	}
@@ -146,16 +143,22 @@ void Dic::remove(string word) //non recursive
 	}
 	int j;
 	node * trav = new node;
-	for(int i = word.length() - 1; i >= 0; i--) //reverse because we are going to delete letter by letter;
+	for(int i = word.length() - 1; i >= 0; i--) //reverse because we are going to delete letter by letter; (noder by noder)
 	{
 		trav = head; // set to the dictionary's root (head), then go to the last one according to the word
 		for(j = 0; j <= i; j++)
 		{
 			trav = trav -> nextLetter[letterIndexFinder(word[j])]; //get to the right node;
 		}
-		trav -> nextLetter[letterIndexFinder(word[j])] = nullptr; //clear it because it has been made sure to be free
-		if(makeSureClean(trav)) delete trav;
-		else break;
+		if(makeSureClean(trav))
+		{
+			trav = nullptr;
+			delete trav;
+		}
+		else
+		{
+			trav -> definition = "";
+		}
 	}
 	cout << "'" << word << "'" << " has been removed from our dictionary!" << endl;
 	return;
