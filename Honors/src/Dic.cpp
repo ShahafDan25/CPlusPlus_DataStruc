@@ -44,9 +44,12 @@ int Dic::letterIndexFinder(char letter)
 void Dic::insertWord(string word)
 {
 	//The function will return true if the word already exists
+	string def;
+
 
 	if(word.length() < 2) //base case
 	{
+		cout << word << endl;
 		cout << "ERROR: please enter a word with at least two letters!" << endl;
 		return;
 	}
@@ -62,23 +65,35 @@ void Dic::insertWord(string word)
 
 		// TODO: Find solution to inserting through, and then throughout (for example)
 		// Another example: play, player
-		int p = letterIndexFinder(word[i]);
+		int p = letterIndexFinder(word[i]); // the index of the word (be positive if the letter exists)
+
 		if(p >= 0)
 		{
+			if(i == word.length() - 1)
+			{
+				cout << "Enter the definition of the word (be laconic)" << endl;
+				cin.ignore();
+				getline(cin, def);
+			}
 			node * newNode = new node;
 			newNode -> let = word[i];
-			if(trav -> nextLetter[p] != nullptr) trav = trav -> nextLetter[p];
-			else
+			if(trav -> nextLetter[p] != nullptr)
 			{
+				trav = trav -> nextLetter[p];
+				if(i == word.length() - 1) trav -> definition = def; //the last letter will contain the definiton}
+			}
+			else // insert the word to a different direction
+			{
+				if(i == word.length() - 1) newNode -> definition = def; //the last letter will contain the definiton}
 				trav -> nextLetter[p] = newNode;
 				trav = trav -> nextLetter[p];
 			}
-			if( i == word.length() - 1) cout << "word inserted!" << endl;
+			if( i == word.length() - 1)cout << "word inserted!" << endl;
 			//delete newNode; //delete dynamically allocated node;
 		}
 		else //word had a character that is not in the english alphabet
 		{
-			cout << "WORD IS INVALID: ENGLISH LETTERS ONLY" << endl;
+			cout << "WORD IS INVALID: ENGLISH LOWERCASE LETTERS ONLY" << endl;
 			cout << p << endl;
 			break;
 		}
@@ -97,12 +112,18 @@ bool Dic::check(string word) //recursively
 
 bool Dic::checkHelper(int size, string word, int i, node * trav)
 {
-	if(i == size) return true; // got to the end of the board //base case
+	if(i == size)
+	{
+		if((trav -> definition).length() == 0)
+		{
+			return false;
+		}
+		cout << "Definition: " << trav -> definition << endl;
+		return true; // got to the end of the board //base case
+	}
 	else
 	{
-		int p = letterIndexFinder(word[i]);
-		trav = trav -> nextLetter[p];
-		if(trav != nullptr) return checkHelper(size, word, i + 1, trav);
+		if(trav != nullptr) return checkHelper(size, word, i + 1, trav -> nextLetter[letterIndexFinder(word[i])]);
 		else return false;
 	}
 }

@@ -21,6 +21,7 @@ private:
 	struct node
 	{
 		char let;
+		string definition;
 		node * nextLetter [26];
 	};
 	int wordCounter;
