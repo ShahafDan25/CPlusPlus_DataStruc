@@ -105,7 +105,7 @@ void Dic::insertWord(string word)
 bool Dic::check(string word) //recursively
 {
 	node * trav = new node;
-	trav = head;
+	trav = head; //-> nextLetter [letterIndexFinder(word[0])];
 	return checkHelper(word.length(), word, 0, trav); //call helper recursively
 	//delete trav; // delete dynamically allocated node
 }
@@ -120,7 +120,9 @@ bool Dic::checkHelper(int size, string word, int i, node * trav)
 	}
 	else
 	{
-		if(trav != nullptr) return checkHelper(size, word, i + 1, trav -> nextLetter[letterIndexFinder(word[i])]);
+		int p = letterIndexFinder(word[i]);
+		trav = trav -> nextLetter[p];
+		if(trav != nullptr) return checkHelper(size, word, i + 1, trav);
 		else return false;
 	}
 }
@@ -136,6 +138,11 @@ bool Dic::makeSureClean(node * check)
 }
 void Dic::remove(string word) //non recursive
 {
+	if(word.length() < 2)
+	{
+		cout << "WORD TOO SHORT" << endl;
+		return;
+	}
 	if(!check(word))
 	{
 		cout << "ERROR: word does not appear to be in the dictionary" << endl; //Should I ask the user if they would like to insert that word that does not appear? Because they are removing it anyways
