@@ -25,16 +25,14 @@ struct Vertex
 
 
 //*******************    FUNCTION DECLARATION      *****************************//
-void bft (vector <Vertex*> graph);
-void dft (vector <Vertex*> graph);
-void dftInternal(vector <Vertex *> graph, Vertex *& v);
-void buildGraph(vector <Vertex*> graph);
+void bft (vector <Vertex*>  &graph);
+void dft (vector <Vertex*> & graph);
+void dftInternal(vector <Vertex *> & graph, Vertex *& v);
+void buildGraph(vector <Vertex*> & graph);
 
 
 
-
-
-void buildGraph(vector <Vertex*> graph)
+void buildGraph(vector <Vertex*> & graph)
 {
 
 	/// STAGE I : OPEN AND READ FILE
@@ -93,47 +91,49 @@ void buildGraph(vector <Vertex*> graph)
 	return;
 }
 
-
+int counter;
 //*******************     DEPTH - FIRST TRAVERSAL      *****************************//
-void dft (vector <Vertex*> graph)
+void dft (vector <Vertex*> & graph)
 {
-	for(int i = 0; i < graph.size(); i++)
+	counter = 0;
+	for(int i = 0; i < graph.size(); i++) //begin by setting all of the visited nodes to 0
 	{
 		graph[i] -> visited = false;
 	}
 	Vertex * v = new Vertex;
-
-	int counter = 0;
-	v = graph[counter];	///set v to the first vertex
+	v = graph [counter];
 	while(counter < graph.size())
 	{
-		if(!v -> visited) dftInternal (graph, v);
+		if(v -> visited == false) dftInternal (graph, v); // quitting here for some reason, check internal function
 		counter++;
 		v = graph[counter];
 	}	// end while
 	delete v;	//delete the trav vertex we dynamically allocated
 	return;
 }
+int numerator;
 
-void dftInternal(vector <Vertex *> graph, Vertex *& v) //pass by reference the vertex so we can change its "visited" value
+void dftInternal(vector <Vertex *> & graph, Vertex *& v) //pass by reference the vertex so we can change its "visited" value
 {
 	/// QUESTIONS: what does visiting a vertex mean? is it supposed to do something?
-	v -> visited = true;
-	Vertex * vNeighTemp = new Vertex;
-	int counter = 0;
-	vNeighTemp = v -> neighbors[counter];
-	while(v -> neighbors[counter])
+	for(int i = 0; i < graph.size(); i++)
 	{
-		if(vNeighTemp -> visited == false) dftInternal(graph, vNeighTemp);
+		if(v -> value == graph[i] -> value) v = graph[i];
 	}
-	vNeighTemp = v -> neighbors[++counter];
-
+	cout << v -> value << " ";
+	v -> visited = true;
+	cout << "test " << endl;
+	numerator = 0;
+	while(v -> neighbors[numerator])
+	{
+ 		if(v -> neighbors[numerator] -> visited == false) dftInternal(graph, v -> neighbors[numerator++]);
+	}
 	return;
 }
 
 
 //*******************     BREADTH - FIRST TRAVERSAL      *****************************//
-void bft (vector <Vertex*> graph)
+void bft (vector <Vertex*> & graph)
 {
 
 	return;
@@ -147,6 +147,7 @@ int main() {
 	cout << " ----------- HELLO WORLD! WELCOME TO THE LAST ASSIGNMENT IN CS20! ------------" << endl << endl;
 	vector <Vertex * >  graph; //NOT VERTEXES!!
 	buildGraph(graph);
+	dft(graph);
 	cout << endl <<  "Have a great day! TAF" << endl;
 	return 0;
 }
