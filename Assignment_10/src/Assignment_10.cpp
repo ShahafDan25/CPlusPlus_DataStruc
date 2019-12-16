@@ -52,9 +52,6 @@ void buildGraph(vector <Vertex*> & graph)
 		dataFile >> curNum;
 		v -> value = curNum;
 		v -> visited = false;
-		bool found;
-		//graph.push_back(v); //add to the graph the first vertex (0)
-		Vertex * vN = new Vertex;
 	////// STAGE II : BUILD THE GRAPH
 		while(!dataFile.eof())
 				{
@@ -75,7 +72,6 @@ void buildGraph(vector <Vertex*> & graph)
 						vNeigh -> value = curNum;
 						v -> neighbors.push_back(vNeigh);
 					}
-
 				}
 		delete v;					//get rid of what we dynamically allocated
 	} // end else
@@ -84,15 +80,12 @@ void buildGraph(vector <Vertex*> & graph)
 	Vertex * vT = new Vertex;
 	for(int i = 0; i < graph.size() - 1; i++)
 	{
-		vT = new Vertex;
 		for(int k = 0; k < graph[i] -> neighbors.size(); k++)
 		{
 			for(int l = i; l < graph.size(); l++)
 			{
-				if(graph[i] -> neighbors[k] -> value == graph [l] -> value)
-				{
-					graph[i] -> neighbors[k] = graph[l];
-				}
+				if(graph[i] -> neighbors[k] -> value == graph [l] -> value) graph[i] -> neighbors[k] = graph[l];
+
 			}
 		}
 	}
@@ -100,7 +93,7 @@ void buildGraph(vector <Vertex*> & graph)
 	/// STAGE III: PRINT GRAPH
 	for (int i = 0 ; i < graph.size(); i++)
 	{
-		cout << "vertex number " << i << ", value: " << graph[i] -> value << ", neighbors -> ";
+		cout << "vertex number " << i << "    \t\t value: " << graph[i] -> value << "\t\t neighbors -> ";
 		for(int j = 0; j < graph[i] -> neighbors.size(); j++ ) //traverse through neighbors in the vertex's vectors of graph
 		{
 			cout << graph[i] -> neighbors[j] -> value << "  ";
@@ -122,42 +115,35 @@ void dft (vector <Vertex*> & graph)
 	{
 		graph[i] -> visited = false;
 	}
-	Vertex * v = new Vertex;
-	v = graph [counter];
-	while(counter < graph.size())
+
+
+
+	for(int i = 0; i <graph.size(); i++)
 	{
-		if(v -> visited == false) dftInternal (graph, v); // quitting here for some reason, check internal function
-		v = graph[++counter];
-	}	// end while
-	delete v;	//delete the trav vertex we dynamically allocated
+		if(!graph[i] -> visited) dftInternal(graph, graph[i]);
+	}
 	return;
 }
-int numerator;
 
 void dftInternal(vector <Vertex *> & graph, Vertex *& v) //pass by reference the vertex so we can change its "visited" value
 {
-	if(v -> visited == false)
+	if(!v -> visited)
 	{
 		cout << v -> value << "\t";
+		v -> visited = true;
 	}
-	v -> visited = true;
-	numerator = 0;
-	while(numerator < v -> neighbors.size())
+
+	Vertex * curv = new Vertex; ///curv to current vertex
+	for(int k = 0; k < v -> neighbors.size(); k++)
 	{
- 		if(v -> neighbors[numerator] -> visited == false)
- 		{
- 			if(v -> neighbors[numerator] -> neighbors.size() > 0)
- 			{
- 				dftInternal(graph, v -> neighbors[numerator]);
- 				numerator++;
- 			}
- 			else
- 			{
- 				v -> neighbors[numerator] -> visited = true;
- 				cout << v -> neighbors[numerator] -> value << ", ";
- 				return;
- 			}
- 		}
+		curv = v -> neighbors[k];
+		for(int p = 0; p < graph.size(); p++)
+		{
+			if (curv -> value == graph[p] -> value)
+			{
+				if(!graph[p] -> visited) dftInternal(graph, graph[p]); //recursive call
+			}
+		}
 	}
 	return;
 }
@@ -177,7 +163,7 @@ void bft (vector <Vertex*> & graph)
 
 	for(int i = 0; i < graph.size(); i++)
 	{
-		if(graph[i] -> visited == false)
+		if(!graph[i] -> visited)
 		{
 			graph[i] -> visited = true;
 			vs.push(graph[i]);
@@ -186,7 +172,7 @@ void bft (vector <Vertex*> & graph)
 		{
 			curV = vs.front();
 			vs.pop();
-			cout << curV -> value << ", ";
+			cout << curV -> value << "\t";
 			for(int j = 0; j < curV -> neighbors.size(); j++)
 			{
 				curvTemp = curV -> neighbors[j];
@@ -194,7 +180,7 @@ void bft (vector <Vertex*> & graph)
 				{
 					if(curvTemp -> value == graph[k] -> value)
 					{
-						if(graph[k] -> visited == false)
+						if(!graph[k] -> visited)
 						{
 							graph[k] -> visited = true;
 							vs.push(graph[k]);
@@ -205,8 +191,8 @@ void bft (vector <Vertex*> & graph)
 		}
 	}
 
-
-
+	cout << endl;
+	cout << endl;
 	return;
 }// end functions
 
@@ -220,8 +206,10 @@ int main() {
 	buildGraph(graph);
 	cout << endl << "Displaying Breadth - First Traversal:" << endl;
 	bft(graph);
+	cout << endl;
 	cout << endl << "Displaying Depth - First Traversal:" << endl;
 	dft(graph);
+	cout << endl << endl;
 	cout << endl <<  "Have a great day! TAF" << endl;
 	return 0;
 }
