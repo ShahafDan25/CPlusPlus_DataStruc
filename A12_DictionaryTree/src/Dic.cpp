@@ -161,10 +161,12 @@ void Dic::remove(string word) //non recursive
 		{
 			trav = nullptr;
 			delete trav;
+			break;
 		}
 		else
 		{
 			trav -> definition = "";
+			break;
 		}
 	}
 	cout << "'" << word << "'" << " has been removed from our dictionary!" << endl;
