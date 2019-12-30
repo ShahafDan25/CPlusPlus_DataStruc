@@ -19,6 +19,7 @@ Dic::Dic()
 	head = new node;
 	wordCounter = 0;
 	head -> let = '_';
+	wordCounter = 0;
 }
 
 
@@ -99,6 +100,7 @@ void Dic::insertWord(string word)
 		}
 	} //end for
 	//delete trav; //delete dynamically allocated node;
+	wordCounter++;
 	return;
 }
 
@@ -170,7 +172,12 @@ void Dic::remove(string word) //non recursive
 		}
 	}
 	cout << "'" << word << "'" << " has been removed from our dictionary!" << endl;
+	wordCounter--;
 	return;
 }
 
-
+int Dic::getAmountWords()
+{
+	if(makeSureClean(head)) return 0;
+	else return wordCounter;
+}
