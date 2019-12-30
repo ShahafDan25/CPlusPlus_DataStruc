@@ -96,7 +96,7 @@ void Dic::insertWord(string word)
 		{
 			cout << "WORD IS INVALID: ENGLISH LOWERCASE LETTERS ONLY" << endl;
 			cout << p << endl;
-			break;
+			return; //if the word is invalid, just return, do not add one
 		}
 	} //end for
 	//delete trav; //delete dynamically allocated node;
