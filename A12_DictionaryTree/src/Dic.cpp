@@ -181,3 +181,47 @@ int Dic::getAmountWords()
 	if(makeSureClean(head)) return 0;
 	else return wordCounter;
 }
+
+void Dic::displayAll()
+{
+	if(wordCounter == 0)
+	{
+		cout << "NOTHING TO DISPLAY" << endl;
+		return;
+	}
+	node * trav = new node;
+	trav = head;
+	node * prev = new node;
+	prev = trav;
+	displayHelper(trav, prev, "");
+	return;
+}
+
+void Dic::displayHelper(node * trav, node * prev, string curRead)
+{
+	string curReadHeld = curRead;
+	prev = trav;
+	for(int i = 0; i < 26; i++)
+	{
+		cout << i << ", ";
+		trav = trav -> nextLetter[i];
+		if(letterIndexFinder(trav -> let) > 0) //if there is a letter storedin that spot
+		{
+			cout << trav -> let << ". ";
+			curRead += trav -> let;
+			if (trav -> definition.length() > 0) //if it is the end of a word
+			{
+				cout << curRead << endl;
+			}
+			displayHelper(trav, prev, curRead);
+		}
+	}
+	displayHelper(prev, prev,curReadHeld);
+	return;
+}
+
+
+
+
+
+

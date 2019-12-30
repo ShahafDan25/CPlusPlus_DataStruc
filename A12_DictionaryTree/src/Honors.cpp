@@ -18,7 +18,7 @@ int main()
 	cout << "Welcome to my honors program" << endl;
 	Dic d; //create dictionary
 	string answer; // create operation slecetion index
-	cout<<  "-------------------------- \n Select: \n 1 to insert word \n 2 to remove a word \n 3 to check if a word is in the dictionary\n 4 to see the amount of words \n 9 to quit the program \n-------------------------- " << endl;
+	cout<<  "-------------------------- \n Select: \n 1 to insert word \n 2 to remove a word \n 3 to check if a word is in the dictionary\n 4 to see the amount of words \n 5 to Display all words \n 9 to quit the program \n-------------------------- " << endl;
 	cin >> answer;
 	string word;
 	string decision;
@@ -54,6 +54,10 @@ int main()
 		{
 			cout << "The Dictionary has: " << d.getAmountWords() << " words." << endl;
 		}
+//		else if (answer == "5")
+//		{
+//			d.displayAll();
+//		}
 		else cout << "Invalid Action Index. ";
 		cout << " >> Choose Action Again: ";
 		cin >> answer;

@@ -36,6 +36,8 @@ public:
 	void remove(string word);
 	bool makeSureClean(node * check);
 	int getAmountWords();
+	void displayAll();
+	void displayHelper(node * trav, node * prev, string curRead);
 };
 
 
